@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Shared;
 using ComponentTest.Model.Component;
+using OrComponent;
 
 namespace ComponentTest
 {
@@ -23,6 +24,12 @@ namespace ComponentTest
             }
 
             andComponent.Execute();
+
+            var orComponent = new OrComponent.OrComponent();
+
+            orComponent.Inputs.ElementAt(0).Value.Value = true;
+
+            orComponent.Execute();
         }
     }
 }

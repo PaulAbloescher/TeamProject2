@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Model\Component\AndComponent.cs" />
     <Compile Include="Model\Component\Component.cs" />
+    <Compile Include="Model\Component\OrComponent.cs" />
     <Compile Include="Model\Component\Pin.cs" />
     <Compile Include="Model\Connection\Connection.cs" />
     <Compile Include="Model\Connection\ConnectionManager.cs" />
