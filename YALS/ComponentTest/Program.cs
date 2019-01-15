@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Shared;
 using ComponentTest.Model.Component;
-using OrComponent;
 
 namespace ComponentTest
 {
