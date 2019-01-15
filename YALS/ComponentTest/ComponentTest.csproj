@@ -4,16 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F90C9CBB-2FAA-4B3C-BB12-9D481EE86F19}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Shared</RootNamespace>
-    <AssemblyName>Shared</AssemblyName>
+    <ProjectGuid>{26DDF85E-EBD3-4345-AB15-93C8004A4A77}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ComponentTest</RootNamespace>
+    <AssemblyName>ComponentTest</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,15 +44,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDisplayable.cs" />
-    <Compile Include="IDisplayableNode.cs" />
-    <Compile Include="INode.cs" />
-    <Compile Include="IPin.cs" />
-    <Compile Include="IPinGeneric.cs" />
-    <Compile Include="IValue.cs" />
-    <Compile Include="IValueGeneric.cs" />
-    <Compile Include="NodeType.cs" />
+    <Compile Include="Model\Component\AndComponent.cs" />
+    <Compile Include="Model\Component\Component.cs" />
+    <Compile Include="Model\Component\Pin.cs" />
+    <Compile Include="Model\Connection\Connection.cs" />
+    <Compile Include="Model\Connection\ConnectionManager.cs" />
+    <Compile Include="Model\Connection\IConnection.cs" />
+    <Compile Include="Model\Connection\IConnectionManager.cs" />
+    <Compile Include="Model\Value\ValueGeneric.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.csproj">
+      <Project>{F90C9CBB-2FAA-4B3C-BB12-9D481EE86F19}</Project>
+      <Name>Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
