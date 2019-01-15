@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrComponent
+namespace ComponentTest.Model.Component
 {
     public class OrComponent : Component
     {
