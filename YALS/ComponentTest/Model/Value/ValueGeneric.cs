@@ -14,7 +14,7 @@ namespace ComponentTest.Model.Value
             get;
             set;
         }
-        object IValue.Value
+        object IValue.Current
         {
             get
             {

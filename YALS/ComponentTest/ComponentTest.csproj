@@ -58,6 +58,7 @@
     <Compile Include="Model\Connection\ConnectionManager.cs" />
     <Compile Include="Model\Connection\IConnection.cs" />
     <Compile Include="Model\Connection\IConnectionManager.cs" />
+      <Compile Include="Model\Component\XORComponent.cs" />
     <Compile Include="Model\Value\ValueGeneric.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

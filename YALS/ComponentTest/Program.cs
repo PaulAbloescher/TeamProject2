@@ -19,10 +19,20 @@ namespace ComponentTest
 
             foreach (var input in andComponent.Inputs)
             {
-                input.Value.Value = true;
+                input.Value.Current = true;
             }
 
+            var xorComp = new XORComponent();
+
+            foreach (var input in xorComp.Inputs)
+            {
+                input.Value.Current = true;
+            }
+
+            xorComp.Inputs.ElementAt(0).Value = null;
+
             andComponent.Execute();
+            xorComp.Execute();
         }
     }
 }
