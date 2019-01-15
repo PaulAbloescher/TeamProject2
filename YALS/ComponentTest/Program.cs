@@ -22,7 +22,17 @@ namespace ComponentTest
                 input.Value.Value = true;
             }
 
+            var xorComp = new XORComponent();
+
+            foreach (var input in xorComp.Inputs)
+            {
+                input.Value.Value = true;
+            }
+
+            xorComp.Inputs.ElementAt(0).Value = null;
+
             andComponent.Execute();
+            xorComp.Execute();
         }
     }
 }
