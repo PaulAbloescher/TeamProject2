@@ -56,5 +56,9 @@ namespace ComponentTest.Model.Component
         public event EventHandler PictureChanged;
 
         public abstract void Execute();
+        public void Activate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

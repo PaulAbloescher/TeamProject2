@@ -19,16 +19,16 @@ namespace ComponentTest.Model.Component
             var inputPin1 = this.Inputs.ElementAt(0);
             var inputPin2 = this.Inputs.ElementAt(1);
             var output = this.Outputs.First();
-            output.Value.Value = false;
+            output.Value.Current = false;
 
             if (inputPin1.Value != null && inputPin2.Value != null)
             {
-                var firstValue = (bool)inputPin1.Value.Value;
-                var secondValue = (bool)inputPin2.Value.Value;
+                var firstValue = (bool)inputPin1.Value.Current;
+                var secondValue = (bool)inputPin2.Value.Current;
 
                 if (firstValue || secondValue)
                 {
-                    output.Value.Value = true;
+                    output.Value.Current = true;
                 }
             }
         }
