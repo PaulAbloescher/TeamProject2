@@ -42,6 +42,12 @@ namespace Components.Components
             this.Inputs.Add(inputPin1);
             this.Inputs.Add(inputPin2);
             this.Outputs.Add(outputPin1);
+            this.LoadImage();
+        }
+
+        private void LoadImage()
+        {
+            this.Picture = Properties.Resources.AndGate;
         }
     }
 }
