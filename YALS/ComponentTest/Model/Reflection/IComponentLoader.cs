@@ -9,7 +9,7 @@ namespace ComponentTest.Model.Reflection
 {
     public interface IComponentLoader
     {
-        IDictionary<NodeType, ICollection<INode>> Load(IEnumerable<string> paths);
-        IDictionary<NodeType, ICollection<INode>> Load(string path);
+        IDictionary<NodeType, ICollection<IDisplayableNode>> Load(IEnumerable<string> paths);
+        IDictionary<NodeType, ICollection<IDisplayableNode>> Load(string path);
     }
 }

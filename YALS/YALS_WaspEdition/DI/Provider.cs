@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using YALS_WaspEdition.Model.Component.Connection;
 using YALS_WaspEdition.Model.Component.Reflection;
+using YALS_WaspEdition.Model.Reflection;
 
 namespace YALS_WaspEdition.DI
 {
     public class Provider
     {
-        public Provider()
+        static Provider()
         {
             Configure();
         }
@@ -29,6 +30,7 @@ namespace YALS_WaspEdition.DI
             services.AddTransient<IConnectionManager, ConnectionManager>();
             services.AddTransient<IConnectionManager, ConnectionManager>();
             services.AddTransient<IComponentLoader, ComponentLoader>();
+            services.AddTransient<IComponentLoaderController, ComponentLoaderController>();
             Container = services.BuildServiceProvider();
         }
     }

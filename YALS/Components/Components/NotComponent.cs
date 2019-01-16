@@ -30,6 +30,7 @@ namespace Components.Components
 
         protected override void Setup()
         {
+            this.Label = "Not";
             this.Type = NodeType.Logic;
             var inputPin1 = new Pin<bool>("Input1");
             var outputPin1 = new Pin<bool>("Output1");

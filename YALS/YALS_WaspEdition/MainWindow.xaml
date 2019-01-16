@@ -5,11 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YALS_WaspEdition"
         xmlns:vms="clr-namespace:YALS_WaspEdition.ViewModels"
+        xmlns:converters="clr-namespace:YALS_WaspEdition.Converters"
+        xmlns:shared="clr-namespace:Shared;assembly=Shared"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
         <vms:MainVM></vms:MainVM>
     </Window.DataContext>
+    <Window.Resources>
+        <converters:BitmapConverter x:Key="BitmapConverter"></converters:BitmapConverter>
+    </Window.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -31,26 +36,31 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Grid.Row="0">Components</Label>
 
-            <TreeView Grid.Column="0" Grid.Row="1">
-                <TreeViewItem Header="Logic">
-                    <TreeViewItem Header="And"></TreeViewItem>
-                    <TreeViewItem Header="Or"></TreeViewItem>
-                    <TreeViewItem Header="Xor"></TreeViewItem>
-                    <TreeViewItem Header="Not"></TreeViewItem>
-                </TreeViewItem>
-                <TreeViewItem Header="Source">
-                    <TreeViewItem Header="Constant"></TreeViewItem>
-                </TreeViewItem>
-                <TreeViewItem Header="Display">
-                    <TreeViewItem Header="7-Segment-Display"></TreeViewItem>
-                </TreeViewItem>
+            <TreeView Grid.Column="0" Grid.Row="1" ItemsSource="{Binding AvailableComponents}">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Value}">
+                        <TextBlock Text="{Binding Path=Key}"></TextBlock>
+                        <HierarchicalDataTemplate.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="{Binding Label}"></Label>
+                                    <Image Source="{Binding Picture, Converter={StaticResource BitmapConverter}}"></Image>
+                                </StackPanel>
+                            </DataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
             </TreeView>
+            
+            <Canvas Grid.Column="1" Grid.Row="1" Background="LightGray">
+                
+            </Canvas>
         </Grid>
     </DockPanel>
 </Window>

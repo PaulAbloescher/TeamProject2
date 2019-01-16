@@ -34,8 +34,9 @@ namespace Components.Components
 
         protected override void Setup()
         {
-            this.Type = NodeType.Logic;
+            this.Label = "Or";
 
+            this.Type = NodeType.Logic;
             var inputPin1 = new Pin<bool>("OrInput1");
             var inputPin2 = new Pin<bool>("OrInput2");
             var outputPin1 = new Pin<bool>("OrOutput1");
@@ -43,6 +44,13 @@ namespace Components.Components
             this.Inputs.Add(inputPin1);
             this.Inputs.Add(inputPin2);
             this.Outputs.Add(outputPin1);
+
+            this.LoadImage();
+        }
+
+        private void LoadImage()
+        {
+            this.Picture = Properties.Resources.NotGate;
         }
     }
 }

@@ -36,6 +36,7 @@ namespace Components.Components
 
         protected override void Setup()
         {
+            this.Label = "And";
             this.Type = NodeType.Logic;
             var inputPin1 = new Pin<bool>("Input1");
             var inputPin2 = new Pin<bool>("Input2");

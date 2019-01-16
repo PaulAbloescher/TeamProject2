@@ -34,11 +34,18 @@ namespace Components.Components
 
         protected override void Setup()
         {
+            this.Label = "Xor";
             this.Type = NodeType.Logic;
 
             this.Inputs.Add(new Pin<bool>("Input1"));
             this.Inputs.Add(new Pin<bool>("Input2"));
             this.Outputs.Add(new Pin<bool>("Output1"));
+            this.LoadImage();
+        }
+
+        private void LoadImage()
+        {
+            this.Picture = Properties.Resources.NotGate;
         }
     }
 }

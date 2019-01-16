@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace YALS_WaspEdition.Model.Reflection
 {
-    public interface IComponentLoader
+    public interface IComponentLoaderController
     {
-        IDictionary<NodeType, ICollection<IDisplayableNode>> Load(IEnumerable<string> paths);
         IDictionary<NodeType, ICollection<IDisplayableNode>> Load(string path);
     }
 }

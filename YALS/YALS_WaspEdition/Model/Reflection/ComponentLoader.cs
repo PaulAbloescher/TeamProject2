@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 using Shared;
 using System.IO;
 using System.Reflection;
+using YALS_WaspEdition.Model.Reflection;
 
 namespace YALS_WaspEdition.Model.Component.Reflection
 {
     public class ComponentLoader : IComponentLoader
     {
-        public IDictionary<NodeType, ICollection<INode>> Load(IEnumerable<string> paths)
+        public IDictionary<NodeType, ICollection<IDisplayableNode>> Load(IEnumerable<string> paths)
         {
-            IDictionary<NodeType, ICollection<INode>> components = new Dictionary<NodeType, ICollection<INode>>();
+            IDictionary<NodeType, ICollection<IDisplayableNode>> components = new Dictionary<NodeType, ICollection<IDisplayableNode>>();
 
             foreach (string path in paths)
             {
@@ -24,9 +25,9 @@ namespace YALS_WaspEdition.Model.Component.Reflection
             return components;
         }
 
-        public IDictionary<NodeType, ICollection<INode>> Load(string path)
+        public IDictionary<NodeType, ICollection<IDisplayableNode>> Load(string path)
         {
-            IDictionary<NodeType, ICollection<INode>> components = new Dictionary<NodeType, ICollection<INode>>();
+            IDictionary<NodeType, ICollection<IDisplayableNode>> components = new Dictionary<NodeType, ICollection<IDisplayableNode>>();
 
             foreach (string file in Directory.GetFiles($"{path}", "*.dll"))
             {
@@ -42,7 +43,7 @@ namespace YALS_WaspEdition.Model.Component.Reflection
                         {
                             if (!components.ContainsKey(component.Type))
                             {
-                                components.Add(component.Type, new List<INode>());
+                                components.Add(component.Type, new List<IDisplayableNode>());
                             }
 
                             components[component.Type].Add(component);
@@ -54,13 +55,13 @@ namespace YALS_WaspEdition.Model.Component.Reflection
             return components;
         }
 
-        private void MergeDictionaries(IDictionary<NodeType, ICollection<INode>> source, IDictionary<NodeType, ICollection<INode>> target)
+        private void MergeDictionaries(IDictionary<NodeType, ICollection<IDisplayableNode>> source, IDictionary<NodeType, ICollection<IDisplayableNode>> target)
         {
-            foreach (KeyValuePair<NodeType, ICollection<INode>> pair in source)
+            foreach (KeyValuePair<NodeType, ICollection<IDisplayableNode>> pair in source)
             {
                 if (target.ContainsKey(pair.Key))
                 {
-                    List<INode> newTargetItems = new List<INode>(target[pair.Key]);
+                    List<IDisplayableNode> newTargetItems = new List<IDisplayableNode>(target[pair.Key]);
                     newTargetItems.AddRange(pair.Value);
 
                     target[pair.Key] = newTargetItems;
