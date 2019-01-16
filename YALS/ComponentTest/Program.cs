@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Shared;
 using ComponentTest.Model.Component;
-using OrComponent;
+using ComponentTest.Model.Component.Manager;
 
 namespace ComponentTest
 {
@@ -14,32 +14,30 @@ namespace ComponentTest
     {
         public static void Main(string[] args)
         {
-
-            var connectionManager = new ConnectionManager();
+            var componentManager = new ComponentManager();
             var andComponent = new AndComponent();
+            var p1 = andComponent.Inputs.ElementAt(0);
+            var p2 = andComponent.Inputs.ElementAt(1);
+            var p3 = andComponent.Outputs.First();
 
-            foreach (var input in andComponent.Inputs)
-            {
-                input.Value.Value = true;
-            }
+            
+            var orComponent = new OrComponent();
+            var p4 = orComponent.Inputs.ElementAt(0);
+            var p5 = orComponent.Inputs.ElementAt(1);
+            var p6 = orComponent.Outputs.First();
 
-            var xorComp = new XORComponent();
+            componentManager.Connect(andComponent, orComponent, p3, p4);
 
-            foreach (var input in xorComp.Inputs)
-            {
-                input.Value.Value = true;
-            }
+            p1.Value.Value = true;
+            p2.Value.Value = true;
+            p5.Value.Value = false;
 
-            xorComp.Inputs.ElementAt(0).Value = null;
-
-            andComponent.Execute();
-            xorComp.Execute();
-
-            var orComponent = new OrComponent.OrComponent();
-
-            orComponent.Inputs.ElementAt(0).Value.Value = true;
-
-            orComponent.Execute();
+            componentManager.Components.Add(orComponent);
+            componentManager.Components.Add(andComponent);
+            componentManager.Step();
+            componentManager.Step();
+            componentManager.Step();
+            
         }
     }
 }

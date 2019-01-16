@@ -46,6 +46,9 @@
   <ItemGroup>
     <Compile Include="Model\Component\AndComponent.cs" />
     <Compile Include="Model\Component\Component.cs" />
+    <Compile Include="Model\Component\Manager\ComponentManager.cs" />
+    <Compile Include="Model\Component\Manager\IComponentManager.cs" />
+    <Compile Include="Model\Component\OrComponent.cs" />
     <Compile Include="Model\Component\Pin.cs" />
     <Compile Include="Model\Component\XORComponent.cs" />
     <Compile Include="Model\Connection\Connection.cs" />
@@ -66,4 +69,4 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  </Project>
+</Project>
