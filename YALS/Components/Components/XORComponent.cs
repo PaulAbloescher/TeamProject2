@@ -11,7 +11,6 @@ namespace Components.Components
     {
         public XORComponent()
         {
-            this.Setup();
         }
 
         public override void Execute()
@@ -33,7 +32,7 @@ namespace Components.Components
 
         }
 
-        private void Setup()
+        protected override void Setup()
         {
             this.Type = NodeType.Logic;
 

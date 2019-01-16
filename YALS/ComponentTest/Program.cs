@@ -39,10 +39,11 @@ namespace ComponentTest
             //componentManager.Step();
             //componentManager.Step();
 
-            IEnumerable<string> paths = new List<string>() { @"C:\Users\Christian\Desktop\FHWN\Teamprojekt\TeamProject2\YALS\Components\bin\Debug" };
+            IEnumerable<string> paths = new List<string>() { @"C: \Users\Paul\Documents\FHWN\Semester 3\TeamProject2\YALS\Components\bin\Debug" };
             ComponentLoader loader = new ComponentLoader();
-
+        
             var dict = loader.Load(paths);
+            var test = "";
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Components.Components
 
         public Component()
         {
+            this.Setup();
             this.Inputs = new List<IPin>();
             this.Outputs = new List<IPin>();
         }
@@ -60,5 +61,7 @@ namespace Components.Components
         {
             throw new NotImplementedException();
         }
+
+        protected abstract void Setup();
     }
 }

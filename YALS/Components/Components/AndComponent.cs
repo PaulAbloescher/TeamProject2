@@ -11,7 +11,6 @@ namespace Components.Components
     {
         public AndComponent()
         {
-            this.Setup();
         }
 
         public override void Execute()
@@ -35,7 +34,7 @@ namespace Components.Components
             }
         }
 
-        private void Setup()
+        protected override void Setup()
         {
             this.Type = NodeType.Logic;
             var inputPin1 = new Pin<bool>("Input1");
