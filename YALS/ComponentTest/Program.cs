@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using ComponentTest.Model.Connection;
 using System;
 using System.Collections.Generic;
