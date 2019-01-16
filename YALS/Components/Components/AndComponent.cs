@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,7 @@ namespace Components.Components
 
         private void Setup()
         {
+            this.Type = NodeType.Logic;
             var inputPin1 = new Pin<bool>("Input1");
             var inputPin2 = new Pin<bool>("Input2");
             var outputPin1 = new Pin<bool>("Output1");

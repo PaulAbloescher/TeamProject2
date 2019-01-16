@@ -44,7 +44,7 @@ namespace Components.Components
         public NodeType Type
         {
             get;
-            private set;
+            protected set;
         }
 
         public Bitmap Picture
