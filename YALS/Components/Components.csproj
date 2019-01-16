@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Components\AndComponent.cs" />
     <Compile Include="Components\Component.cs" />
+    <Compile Include="Components\NotComponent.cs" />
     <Compile Include="Components\OrComponent.cs" />
     <Compile Include="Components\Pin.cs" />
     <Compile Include="Components\ValueGeneric.cs" />
@@ -69,6 +70,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Resources\gate_not.png" />
     <Content Include="Resources\gate_and.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
