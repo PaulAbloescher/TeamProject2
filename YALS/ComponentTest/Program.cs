@@ -1,4 +1,4 @@
-﻿using ComponentTest.Model.Connection;
+using ComponentTest.Model.Connection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +35,7 @@ namespace ComponentTest
 
             xorComp.Execute();
 
-            var orComponent = new OrComponent.OrComponent();
+            var orComponent = new OrComponent();
 
             orComponent.Inputs.ElementAt(0).Value.Current = true;
 
