@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Shared;
 
-namespace ComponentTest.Model.Value
+namespace Components.Components
 {
     public class ValueGeneric<T> : IValueGeneric<T>
     {

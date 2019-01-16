@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿using ComponentTest.Model.Connection;
+using ComponentTest.Model.Connection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +28,9 @@ namespace ComponentTest
 
             componentManager.Connect(andComponent, orComponent, p3, p4);
 
-            p1.Value.Value = true;
-            p2.Value.Value = true;
-            p5.Value.Value = false;
+            p1.Value.Current = true;
+            p2.Value.Current = true;
+            p5.Value.Current = false;
 
             componentManager.Components.Add(orComponent);
             componentManager.Components.Add(andComponent);
