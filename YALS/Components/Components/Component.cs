@@ -13,9 +13,9 @@ namespace Components.Components
 
         public Component()
         {
-            this.Setup();
             this.Inputs = new List<IPin>();
             this.Outputs = new List<IPin>();
+            this.Setup();
         }
 
         public ICollection<IPin> Inputs
