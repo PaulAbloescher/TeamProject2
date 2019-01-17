@@ -29,14 +29,6 @@ namespace YALS_WaspEdition.Converters
                 result.EndInit();
                 result.Freeze();
                 return result;
-                //bitmap.Save(ms, ImageFormat.Png);
-                //BitmapImage bitmapImage = new BitmapImage();
-                //bitmapImage.BeginInit();
-                //ms.Seek(0, SeekOrigin.Begin);
-                //bitmapImage.StreamSource = ms;
-                //bitmapImage.EndInit();
-
-                //return bitmapImage;
             }
 
 

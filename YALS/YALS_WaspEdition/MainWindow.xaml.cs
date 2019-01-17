@@ -58,36 +58,41 @@ namespace YALS_WaspEdition
 
             if (component != null)
             {
+                Thumb thumb = new Thumb();
+                thumb.DragDelta += Thumb_DragDelta;
+                thumb.DataContext = component;
+                var template = new ControlTemplate();
+                var fec = new FrameworkElementFactory(typeof(ComponentUC));
+                template.VisualTree = fec;
+                thumb.Template = template;
                 Canvas canvas = e.Source as Canvas;
-                Point p = e.GetPosition(canvas);            
-
-                ContentControl c = new ContentControl();
-                ComponentUC compUc = new ComponentUC();
-                compUc.DataContext = component;
-                c.Content = compUc;
-                Canvas.SetLeft(c, p.X);
-                Canvas.SetTop(c, p.Y);
-                canvas.Children.Add(c);
+                Point p = e.GetPosition(canvas);
+                Canvas.SetLeft(thumb, p.X);
+                Canvas.SetTop(thumb, p.Y);
+                canvas.Children.Add(thumb);
             }
         }
 
-        private void TmbDragThumb_DragDelta(object sender, DragDeltaEventArgs e)
+        private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            throw new NotImplementedException();
+            UIElement thumb = e.Source as UIElement;
+
+            Canvas.SetLeft(thumb, Canvas.GetLeft(thumb) + e.HorizontalChange);
+            Canvas.SetTop(thumb, Canvas.GetTop(thumb) + e.VerticalChange);
         }
 
         private void TreeView_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (ComponentTV.SelectedItem != null)
-            {
-                var selectedItemType = ComponentTV.SelectedItem.GetType();
+            if (ComponentTV.SelectedItem == null)
+                return;
 
-                if (selectedItemType != null && selectedItemType.GetInterfaces().Contains(typeof(IDisplayableNode)))
-                {
-                    var component = Activator.CreateInstance(selectedItemType) as IDisplayableNode;
-                    DataObject data = new DataObject(typeof(IDisplayableNode), component);
-                    DragDrop.DoDragDrop(ComponentTV, data, DragDropEffects.Copy);
-                }
+            var selectedItemType = ComponentTV.SelectedItem.GetType();
+
+            if (selectedItemType != null && selectedItemType.GetInterfaces().Contains(typeof(IDisplayableNode)))
+            {
+                var component = Activator.CreateInstance(selectedItemType) as IDisplayableNode;
+                DataObject data = new DataObject(typeof(IDisplayableNode), component);
+                DragDrop.DoDragDrop(ComponentTV, data, DragDropEffects.Copy);
             }
         }
     }
