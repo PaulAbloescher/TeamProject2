@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <converters:BitmapConverter x:Key="BitmapConverter"></converters:BitmapConverter>
     </UserControl.Resources>
-    <Grid ToolTip="{Binding Description}">
+    <Grid ToolTip="{Binding Description}" Margin="20px">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -29,7 +29,7 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <Border BorderBrush="Black" BorderThickness="1">
+            <Border BorderBrush="Black" BorderThickness="1" Background="White">
                 <Image Width="64" Height="64" RenderOptions.BitmapScalingMode="Fant" Source="{Binding Picture, Converter={StaticResource BitmapConverter}}"></Image>
             </Border>
             <ItemsControl ItemsSource="{Binding Path=Outputs}">
