@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using YALS_WaspEdition.ViewModels;
 using YALS_WaspEdition.Views.UserControls;
 
 namespace YALS_WaspEdition
@@ -40,7 +41,7 @@ namespace YALS_WaspEdition
 
         private void Canvas_DragOver(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(typeof(IDisplayableNode)))
+            if (e.Data.GetDataPresent(typeof(NodeVM)))
             {
                 e.Effects = DragDropEffects.Copy;
             }
@@ -54,7 +55,7 @@ namespace YALS_WaspEdition
 
         private void Canvas_Drop(object sender, DragEventArgs e)
         {
-            var component = (IDisplayableNode)e.Data.GetData(typeof(IDisplayableNode));
+            var component = (NodeVM)e.Data.GetData(typeof(NodeVM));
 
             if (component != null)
             {
@@ -88,10 +89,12 @@ namespace YALS_WaspEdition
 
             var selectedItemType = ComponentTV.SelectedItem.GetType();
 
-            if (selectedItemType != null && selectedItemType.GetInterfaces().Contains(typeof(IDisplayableNode)))
+            if (selectedItemType != null && selectedItemType == typeof(NodeVM))
             {
-                var component = Activator.CreateInstance(selectedItemType) as IDisplayableNode;
-                DataObject data = new DataObject(typeof(IDisplayableNode), component);
+                var nodeVM = ComponentTV.SelectedItem as NodeVM;
+                var component = Activator.CreateInstance(nodeVM.Node.GetType()) as IDisplayableNode;
+                var nodeVmNew = new NodeVM(component);
+                DataObject data = new DataObject(typeof(NodeVM), nodeVmNew);
                 DragDrop.DoDragDrop(ComponentTV, data, DragDropEffects.Copy);
             }
         }

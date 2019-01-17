@@ -21,7 +21,7 @@ namespace YALS_WaspEdition.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public IDictionary<NodeType, ICollection<IDisplayableNode>> AvailableComponents
+        public IDictionary<NodeType, ICollection<NodeVM>> AvailableComponents
         {
             get;
             set;
@@ -41,8 +41,20 @@ namespace YALS_WaspEdition.ViewModels
         {
             var loader = Provider.Container.GetService<IComponentLoaderController>();
             var result = loader.Load("Plugins");
-            this.AvailableComponents = result;
+            this.AvailableComponents = this.CreateNodeVmDictionary(result);
             this.FirePropertyChanged(nameof(this.AvailableComponents));
+        }
+
+        private IDictionary<NodeType, ICollection<NodeVM>> CreateNodeVmDictionary(IDictionary<NodeType, ICollection<IDisplayableNode>> source)
+        {
+            var dictionary = new Dictionary<NodeType, ICollection<NodeVM>>();
+
+            foreach (var kvp in source)
+            {
+                dictionary.Add(kvp.Key, kvp.Value.Select(c => new NodeVM(c)).ToList());
+            }
+
+            return dictionary;
         }
     }
 }

@@ -107,6 +107,8 @@
     <Compile Include="Model\Reflection\ComponentLoaderController.cs" />
     <Compile Include="Model\Reflection\IComponentLoaderController.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
+    <Compile Include="ViewModels\NodeVM.cs" />
+    <Compile Include="ViewModels\PinVM.cs" />
     <Compile Include="Views\UserControls\ComponentUC.xaml.cs">
       <DependentUpon>ComponentUC.xaml</DependentUpon>
     </Compile>
