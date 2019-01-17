@@ -72,6 +72,8 @@
   <ItemGroup>
     <Content Include="Resources\gate_not.png" />
     <Content Include="Resources\gate_and.png" />
+    <Content Include="Resources\gate_or.png" />
+    <Content Include="Resources\gate_xor.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

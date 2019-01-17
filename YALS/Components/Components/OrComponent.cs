@@ -50,7 +50,7 @@ namespace Components.Components
 
         private void LoadImage()
         {
-            this.Picture = Properties.Resources.NotGate;
+            this.Picture = Properties.Resources.OrGate;
         }
     }
 }
