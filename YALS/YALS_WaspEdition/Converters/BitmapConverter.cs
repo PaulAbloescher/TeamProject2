@@ -16,16 +16,30 @@ namespace YALS_WaspEdition.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            MemoryStream ms = new MemoryStream();
-            Bitmap bitmap = (Bitmap)value;
-            bitmap.Save(ms, ImageFormat.Bmp);
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            ms.Seek(0, SeekOrigin.Begin);
-            bitmapImage.StreamSource = ms;
-            bitmapImage.EndInit();
+            using (MemoryStream ms = new MemoryStream())
+            {
 
-            return bitmapImage;
+                Bitmap bitmap = (Bitmap)value;
+                bitmap.Save(ms, ImageFormat.Png);
+                ms.Position = 0;
+                BitmapImage result = new BitmapImage();
+                result.BeginInit();
+                result.CacheOption = BitmapCacheOption.OnLoad;
+                result.StreamSource = ms;
+                result.EndInit();
+                result.Freeze();
+                return result;
+                //bitmap.Save(ms, ImageFormat.Png);
+                //BitmapImage bitmapImage = new BitmapImage();
+                //bitmapImage.BeginInit();
+                //ms.Seek(0, SeekOrigin.Begin);
+                //bitmapImage.StreamSource = ms;
+                //bitmapImage.EndInit();
+
+                //return bitmapImage;
+            }
+
+
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
