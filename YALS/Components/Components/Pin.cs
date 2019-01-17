@@ -7,6 +7,7 @@ using Shared;
 
 namespace Components.Components
 {
+    [Serializable()]
     public class Pin<T> : IPinGeneric<T>
     {
         public Pin(string label)

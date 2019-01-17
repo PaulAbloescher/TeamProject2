@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Components.Components
 {
+    [Serializable()]
     public abstract class Component : IDisplayableNode
     {
 
@@ -57,10 +58,7 @@ namespace Components.Components
         public event EventHandler PictureChanged;
 
         public abstract void Execute();
-        public void Activate()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void Activate();
 
         protected abstract void Setup();
     }

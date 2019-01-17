@@ -7,6 +7,7 @@ using Shared;
 
 namespace Components.Components
 {
+    [Serializable()]
     public class ValueGeneric<T> : IValueGeneric<T>
     {
         public T Current

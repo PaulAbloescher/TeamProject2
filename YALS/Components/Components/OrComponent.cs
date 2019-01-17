@@ -7,10 +7,16 @@ using System.Threading.Tasks;
 
 namespace Components.Components
 {
+    [Serializable()]
     public class OrComponent : Component
     {
         public OrComponent()
         {
+        }
+
+        public override void Activate()
+        {
+           
         }
 
         public override void Execute()
@@ -35,7 +41,7 @@ namespace Components.Components
         protected override void Setup()
         {
             this.Label = "Or";
-
+            this.Description = "Output is true if one of the input pins is true.";
             this.Type = NodeType.Logic;
             var inputPin1 = new Pin<bool>("OrInput1");
             var inputPin2 = new Pin<bool>("OrInput2");

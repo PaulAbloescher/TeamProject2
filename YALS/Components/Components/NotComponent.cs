@@ -7,10 +7,16 @@ using System.Threading.Tasks;
 
 namespace Components.Components
 {
+    [Serializable()]
     public class NotComponent : Component
     {
         public NotComponent()
         {
+        }
+
+        public override void Activate()
+        {
+          
         }
 
         public override void Execute()
@@ -31,6 +37,7 @@ namespace Components.Components
         protected override void Setup()
         {
             this.Label = "Not";
+            this.Description = "Output is the the negated value of the input pin.";
             this.Type = NodeType.Logic;
             var inputPin1 = new Pin<bool>("Input1");
             var outputPin1 = new Pin<bool>("Output1");

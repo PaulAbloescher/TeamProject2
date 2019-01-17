@@ -1,0 +1,19 @@
+﻿<Window x:Class="YALS_WaspEdition.GlobalConfig.ValueInputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YALS_WaspEdition.GlobalConfig"
+        mc:Ignorable="d"
+        Title="ValueInputWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <TextBlock>New Value:</TextBlock>
+            <TextBox x:Name="NewValueTextBox"></TextBox>
+            <Border BorderThickness="1" BorderBrush="Black">
+                <TextBlock MouseLeftButtonDown="ColorTextBoxMouseEnter" x:Name="ColorTextBox">Click here to add color</TextBlock>
+            </Border>
+            <Button Click="AddValueClick">Add Value</Button>
+        </StackPanel>
+    </Grid>
+</Window>

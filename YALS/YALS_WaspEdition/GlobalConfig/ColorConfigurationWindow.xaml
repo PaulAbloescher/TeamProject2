@@ -1,0 +1,36 @@
+﻿<Window x:Class="YALS_WaspEdition.GlobalConfig.ColorConfigurationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YALS_WaspEdition.GlobalConfig"
+        mc:Ignorable="d"
+        Title="ColorConfigurationWindow" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Bool Settings">
+                <local:ColorSettingsListBox x:Name="BoolSettingsView"/>
+            </TabItem>
+            <TabItem Header="Int Settings">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <local:ColorSettingsListBox x:Name="IntSettingsView"/>
+                    <Button Grid.Row="1" Click="AddIntValue">Add Value</Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="String Settings">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <local:ColorSettingsListBox x:Name="StringSettingsView"/>
+                    <Button Grid.Row="1" Click="AddStringValue">Add Value</Button>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
