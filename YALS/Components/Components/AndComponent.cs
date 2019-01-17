@@ -7,10 +7,16 @@ using System.Threading.Tasks;
 
 namespace Components.Components
 {
+    [Serializable()]
     public class AndComponent : Component
     {
         public AndComponent()
         {
+        }
+
+        public override void Activate()
+        {
+           
         }
 
         public override void Execute()
@@ -29,7 +35,6 @@ namespace Components.Components
                 if (firstValue && secondValue)
                 {
                     output.Value.Current = true;
-
                 }
             }
         }

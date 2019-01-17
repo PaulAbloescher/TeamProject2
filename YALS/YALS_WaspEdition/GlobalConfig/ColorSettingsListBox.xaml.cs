@@ -1,10 +1,6 @@
-﻿using Shared;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters.Soap;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,17 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using YALS_WaspEdition.GlobalConfig;
-using YALS_WaspEdition.Model.Component.Reflection;
 
-namespace YALS_WaspEdition
+namespace YALS_WaspEdition.GlobalConfig
 {
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// Interaction logic for ColorSettingsListBox.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ColorSettingsListBox : UserControl
     {
-        public MainWindow()
+        public ColorSettingsListBox()
         {
             InitializeComponent();
         }

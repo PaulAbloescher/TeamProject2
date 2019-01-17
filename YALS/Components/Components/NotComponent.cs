@@ -7,10 +7,16 @@ using System.Threading.Tasks;
 
 namespace Components.Components
 {
+    [Serializable()]
     public class NotComponent : Component
     {
         public NotComponent()
         {
+        }
+
+        public override void Activate()
+        {
+          
         }
 
         public override void Execute()

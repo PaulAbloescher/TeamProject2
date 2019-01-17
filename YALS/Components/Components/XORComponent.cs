@@ -7,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace Components.Components
 {
+    [Serializable()]
     public class XORComponent : Component
     {
         public XORComponent()
+        {
+        }
+
+        public override void Activate()
         {
         }
 

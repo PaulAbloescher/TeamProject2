@@ -7,10 +7,16 @@ using System.Threading.Tasks;
 
 namespace Components.Components
 {
+    [Serializable()]
     public class OrComponent : Component
     {
         public OrComponent()
         {
+        }
+
+        public override void Activate()
+        {
+           
         }
 
         public override void Execute()
