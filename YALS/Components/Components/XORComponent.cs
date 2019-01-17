@@ -40,6 +40,7 @@ namespace Components.Components
         protected override void Setup()
         {
             this.Label = "Xor";
+            this.Description = "Output is true if the number of true values on the input pins is uneven.";
             this.Type = NodeType.Logic;
 
             this.Inputs.Add(new Pin<bool>("Input1"));
@@ -50,7 +51,7 @@ namespace Components.Components
 
         private void LoadImage()
         {
-            this.Picture = Properties.Resources.NotGate;
+            this.Picture = Properties.Resources.XorGate;
         }
     }
 }

@@ -37,6 +37,7 @@ namespace Components.Components
         protected override void Setup()
         {
             this.Label = "Not";
+            this.Description = "Output is the the negated value of the input pin.";
             this.Type = NodeType.Logic;
             var inputPin1 = new Pin<bool>("Input1");
             var outputPin1 = new Pin<bool>("Output1");
