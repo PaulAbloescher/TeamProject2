@@ -35,7 +35,38 @@ namespace YALS_WaspEdition
         public MainWindow()
         {
             InitializeComponent();
+        }
+    }
+}
+=======
+﻿using Shared;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using YALS_WaspEdition.Views.UserControls;
 
+namespace YALS_WaspEdition
+{
+    /// <summary>
+    /// Interaktionslogik für MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
         }
 
         private void Canvas_DragEnter(object sender, DragEventArgs e)
@@ -107,3 +138,4 @@ namespace YALS_WaspEdition
         }
     }
 }
+>>>>>>> e3a12c7502dbbd6efd1a56e2f4f645e2c96518fc

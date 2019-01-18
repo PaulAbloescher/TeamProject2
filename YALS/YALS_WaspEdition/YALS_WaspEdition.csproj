@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -85,8 +85,6 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -106,36 +104,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BitmapConverter.cs" />
-    <Compile Include="GlobalConfig\ColorConfigurationWindow.xaml.cs">
-      <DependentUpon>ColorConfigurationWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GlobalConfig\ColorSettingsListBox.xaml.cs">
-      <DependentUpon>ColorSettingsListBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GlobalConfig\GlobalConfigSettings.cs" />
-    <Compile Include="GlobalConfig\ValueInputWindow.xaml.cs">
-      <DependentUpon>ValueInputWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Model\Reflection\ComponentLoaderController.cs" />
     <Compile Include="Model\Reflection\IComponentLoaderController.cs" />
-    <Compile Include="Model\Serialization\CurrentState.cs" />
+	    <Compile Include="Model\Serialization\CurrentState.cs" />
     <Compile Include="Model\Serialization\MyBinder.cs" />
+    <Compile Include="Serialization\CurrentState.cs" />
+    <Compile Include="Serialization\INodeSurrogate.cs" />
+    <Compile Include="Serialization\SerializationDisplayableNode.cs" />
+    <Compile Include="Serialization\Serializer.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
+    <Compile Include="ViewModels\NodeVM.cs" />
+    <Compile Include="ViewModels\PinVM.cs" />
     <Compile Include="Views\UserControls\ComponentUC.xaml.cs">
       <DependentUpon>ComponentUC.xaml</DependentUpon>
     </Compile>
-    <Page Include="GlobalConfig\ColorConfigurationWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GlobalConfig\ColorSettingsListBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GlobalConfig\ValueInputWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
