@@ -52,10 +52,7 @@ namespace YALS_WaspEdition.ViewModels
 
             foreach (var kvp in source)
             {
-                dictionary.Add(kvp.Key, kvp.Value.Select(c => new NodeVM(c, new Command(obj => {
-                    int a = 0;
-              
-                }), new Command(obj => { }))).ToList());
+                dictionary.Add(kvp.Key, kvp.Value.Select(c => new NodeVM(c, new Command(obj => { }), new Command(obj => { }))).ToList());
             }
 
             return dictionary;

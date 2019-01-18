@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -103,10 +103,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\Command.cs" />
     <Compile Include="Converters\BitmapConverter.cs" />
+    <Compile Include="EventArgs\PinSelectedEventArgs.cs" />
+    <Compile Include="GlobalConfig\ColorConfigurationWindow.xaml.cs">
+      <DependentUpon>ColorConfigurationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalConfig\ColorSettingsListBox.xaml.cs">
+      <DependentUpon>ColorSettingsListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalConfig\GlobalConfigSettings.cs" />
+    <Compile Include="GlobalConfig\ValueInputWindow.xaml.cs">
+      <DependentUpon>ValueInputWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Reflection\ComponentLoaderController.cs" />
     <Compile Include="Model\Reflection\IComponentLoaderController.cs" />
-	    <Compile Include="Model\Serialization\CurrentState.cs" />
+    <Compile Include="Model\Serialization\CurrentState.cs" />
     <Compile Include="Model\Serialization\MyBinder.cs" />
     <Compile Include="Serialization\CurrentState.cs" />
     <Compile Include="Serialization\INodeSurrogate.cs" />
@@ -118,6 +130,18 @@
     <Compile Include="Views\UserControls\ComponentUC.xaml.cs">
       <DependentUpon>ComponentUC.xaml</DependentUpon>
     </Compile>
+    <Page Include="GlobalConfig\ColorConfigurationWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalConfig\ColorSettingsListBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GlobalConfig\ValueInputWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -180,5 +204,4 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
->>>>>>> 2aff2cd05e0a0fd76778a1bae1948dbcbe2b24d7
 </Project>
