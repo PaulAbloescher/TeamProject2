@@ -118,10 +118,8 @@
     </Compile>
     <Compile Include="Model\Reflection\ComponentLoaderController.cs" />
     <Compile Include="Model\Reflection\IComponentLoaderController.cs" />
-    <Compile Include="Serialization\CurrentState.cs" />
-    <Compile Include="Serialization\INodeSurrogate.cs" />
-    <Compile Include="Serialization\SerializationDisplayableNode.cs" />
-    <Compile Include="Serialization\Serializer.cs" />
+    <Compile Include="Model\Serialization\CurrentState.cs" />
+    <Compile Include="Model\Serialization\MyBinder.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
     <Compile Include="Views\UserControls\ComponentUC.xaml.cs">
       <DependentUpon>ComponentUC.xaml</DependentUpon>
@@ -193,10 +191,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Components\Components.csproj">
-      <Project>{4965b49e-5ffd-447a-83b4-89b01ac48658}</Project>
-      <Name>Components</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.csproj">
       <Project>{f90c9cbb-2faa-4b3c-bb12-9d481ee86f19}</Project>
       <Name>Shared</Name>

@@ -1,43 +1,10 @@
-<<<<<<< HEAD
 ﻿using Shared;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters.Soap;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using YALS_WaspEdition.GlobalConfig;
-using YALS_WaspEdition.Model.Component.Reflection;
-
-namespace YALS_WaspEdition
-{
-    /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-    }
-}
-=======
-﻿using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -50,6 +17,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using YALS_WaspEdition.GlobalConfig;
+using YALS_WaspEdition.Model.Component.Connection;
+using YALS_WaspEdition.Model.Component.Manager;
+using YALS_WaspEdition.Model.Component.Reflection;
+using YALS_WaspEdition.Model.Component.Value;
+using YALS_WaspEdition.Model.Serialization;
 using YALS_WaspEdition.Views.UserControls;
 
 namespace YALS_WaspEdition
@@ -62,6 +35,7 @@ namespace YALS_WaspEdition
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         private void Canvas_DragEnter(object sender, DragEventArgs e)
@@ -133,4 +107,3 @@ namespace YALS_WaspEdition
         }
     }
 }
->>>>>>> e3a12c7502dbbd6efd1a56e2f4f645e2c96518fc
