@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -103,19 +103,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\Command.cs" />
     <Compile Include="Converters\BitmapConverter.cs" />
-    <Compile Include="EventArgs\PinSelectedEventArgs.cs" />
     <Compile Include="Model\Reflection\ComponentLoaderController.cs" />
     <Compile Include="Model\Reflection\IComponentLoaderController.cs" />
+	    <Compile Include="Model\Serialization\CurrentState.cs" />
+    <Compile Include="Model\Serialization\MyBinder.cs" />
+    <Compile Include="Serialization\CurrentState.cs" />
+    <Compile Include="Serialization\INodeSurrogate.cs" />
+    <Compile Include="Serialization\SerializationDisplayableNode.cs" />
+    <Compile Include="Serialization\Serializer.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
     <Compile Include="ViewModels\NodeVM.cs" />
     <Compile Include="ViewModels\PinVM.cs" />
     <Compile Include="Views\UserControls\ComponentUC.xaml.cs">
       <DependentUpon>ComponentUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\UserControls\DesignerComponentUC.xaml.cs">
-      <DependentUpon>DesignerComponentUC.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -131,10 +132,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\UserControls\ComponentUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\UserControls\DesignerComponentUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,4 +180,5 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+>>>>>>> 2aff2cd05e0a0fd76778a1bae1948dbcbe2b24d7
 </Project>
