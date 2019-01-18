@@ -59,7 +59,7 @@
             </TreeView>
 
             <ScrollViewer HorizontalScrollBarVisibility="Visible" Grid.Column="1" Grid.Row="1">
-                <Canvas Width="5000" Height="5000" Background="LightGray" DragEnter="Canvas_DragEnter" DragLeave="Canvas_DragLeave" DragOver="Canvas_DragOver" Drop="Canvas_Drop" AllowDrop="True">
+                <Canvas Width="5000" Height="5000" Background="LightGray" DragOver="Canvas_DragOver" Drop="Canvas_Drop" AllowDrop="True">
                 </Canvas>
             </ScrollViewer>
         </Grid>

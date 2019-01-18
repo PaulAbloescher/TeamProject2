@@ -4,14 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using YALS_WaspEdition.Commands;
 
 namespace YALS_WaspEdition.ViewModels
 {
     public class PinVM
     {
-        public PinVM(IPin pin)
+        public PinVM(IPin pin, ICommand selectedCommand)
         {
             this.Pin = pin ?? throw new ArgumentNullException(nameof(pin));
+            this.SelectedCommand = selectedCommand;
         }
 
         public IPin Pin
@@ -20,13 +23,18 @@ namespace YALS_WaspEdition.ViewModels
             private set;
         }
 
-        public int Left
+        public ICommand SelectedCommand
+        {
+            get;
+        }
+
+        public double Left
         {
             get;
             set;
         }
 
-        public int Top
+        public double Top
         {
             get;
             set;

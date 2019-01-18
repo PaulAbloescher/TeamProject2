@@ -1,16 +1,34 @@
-﻿<UserControl x:Class="YALS_WaspEdition.Views.UserControls.ComponentUC"
+﻿<UserControl x:Class="YALS_WaspEdition.Views.UserControls.DesignerComponentUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:YALS_WaspEdition.Views.UserControls"
              xmlns:converters="clr-namespace:YALS_WaspEdition.Converters"
-             mc:Ignorable="d"
-             d:DesignHeight="100" d:DesignWidth="100">
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <converters:BitmapConverter x:Key="BitmapConverter"></converters:BitmapConverter>
     </UserControl.Resources>
-    <Grid ToolTip="{Binding Description}" Margin="20px">
+    <Grid ToolTip="{Binding Description}">
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem ItemsSource="{Binding Inputs}" Header="Inputs">
+                    <MenuItem.ItemTemplate>
+                        <DataTemplate>
+                            <MenuItem Header="{Binding Pin.Label}" Command="{Binding SelectedCommand}" CommandParameter="{Binding}"></MenuItem>
+                        </DataTemplate>
+                    </MenuItem.ItemTemplate>
+                </MenuItem>
+                <MenuItem ItemsSource="{Binding Outputs}" Header="Outputs">
+                    <MenuItem.ItemTemplate>
+                        <DataTemplate>
+                            <MenuItem Header="{Binding Pin.Label}" Command="{Binding SelectedCommand}" CommandParameter="{Binding}"></MenuItem>
+                        </DataTemplate>
+                    </MenuItem.ItemTemplate>
+                </MenuItem>
+            </ContextMenu>
+        </Grid.ContextMenu>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>

@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using YALS_WaspEdition.Commands;
 using YALS_WaspEdition.ViewModels;
 using YALS_WaspEdition.Views.UserControls;
 
@@ -25,19 +26,14 @@ namespace YALS_WaspEdition
     /// </summary>
     public partial class MainWindow : Window
     {
+        private PinVM currentSelectedInput;
+
+        private PinVM currentSelectedOutput;
+
+
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Canvas_DragEnter(object sender, DragEventArgs e)
-        {
-
-        }
-
-        private void Canvas_DragLeave(object sender, DragEventArgs e)
-        {
-
         }
 
         private void Canvas_DragOver(object sender, DragEventArgs e)
@@ -65,23 +61,33 @@ namespace YALS_WaspEdition
                 thumb.DragDelta += Thumb_DragDelta;
                 thumb.DataContext = component;
                 var template = new ControlTemplate();
-                var fec = new FrameworkElementFactory(typeof(ComponentUC));
+                var fec = new FrameworkElementFactory(typeof(DesignerComponentUC));
                 template.VisualTree = fec;
                 thumb.Template = template;
+
                 Canvas canvas = e.Source as Canvas;
                 Point p = e.GetPosition(canvas);
                 Canvas.SetLeft(thumb, p.X);
                 Canvas.SetTop(thumb, p.Y);
+                component.Left = p.X;
+                component.Top = p.Y;
                 canvas.Children.Add(thumb);
+                thumb.Loaded += Thumb_Loaded;
             }
+        }
+
+        private void Thumb_Loaded(object sender, RoutedEventArgs e)
+        {
+            Thumb thumb = (Thumb)sender;
+            this.SetInputOutputPinPositions(thumb);
         }
 
         private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
-            UIElement thumb = e.Source as UIElement;
-
+            Thumb thumb = e.Source as Thumb;
             Canvas.SetLeft(thumb, Canvas.GetLeft(thumb) + e.HorizontalChange);
             Canvas.SetTop(thumb, Canvas.GetTop(thumb) + e.VerticalChange);
+            this.SetInputOutputPinPositions(thumb);
         }
 
         private void TreeView_MouseDown(object sender, MouseButtonEventArgs e)
@@ -95,9 +101,53 @@ namespace YALS_WaspEdition
             {
                 var nodeVM = ComponentTV.SelectedItem as NodeVM;
                 var component = Activator.CreateInstance(nodeVM.Node.GetType()) as IDisplayableNode;
-                var nodeVmNew = new NodeVM(component);
+                var nodeVmNew = new NodeVM(component, new Command(obj => {
+                    PinVM pin = obj as PinVM;
+                    if (pin == null)
+                        return;
+                    this.currentSelectedOutput = pin;
+                }), new Command(obj => {
+                    PinVM pin = obj as PinVM;
+                    if (pin == null)
+                        return;
+                    this.currentSelectedInput = pin;
+                }));
                 DataObject data = new DataObject(typeof(NodeVM), nodeVmNew);
                 DragDrop.DoDragDrop(ComponentTV, data, DragDropEffects.Copy);
+            }
+        }
+
+        private void SetInputOutputPinPositions(Thumb thumb)
+        {
+            DesignerComponentUC compUc = VisualTreeHelper.GetChild(thumb, 0) as DesignerComponentUC;
+            var icInputs = compUc.Inputs;
+            var icOutputs = compUc.Outputs;
+            var nodeVM = (NodeVM)thumb.DataContext;
+
+            for (int i = 0; i < icInputs.Items.Count; i++)
+            {
+                UIElement uie = (UIElement) icInputs.ItemContainerGenerator.ContainerFromIndex(i);
+                UIElement container = VisualTreeHelper.GetParent(uie) as UIElement;
+                Point relativeLocation = uie.TranslatePoint(new Point(0, 0), container);
+                
+                var top = relativeLocation.Y + uie.RenderSize.Height / 2;
+                var left = relativeLocation.X + uie.RenderSize.Width / 2;
+                var currentPin = icInputs.Items[i] as PinVM;
+                currentPin.Left = left + nodeVM.Left;
+                currentPin.Top = top + nodeVM.Top;
+            }
+
+            for (int i = 0; i < icOutputs.Items.Count; i++)
+            {
+                UIElement uie = (UIElement)icOutputs.ItemContainerGenerator.ContainerFromIndex(i);
+                UIElement container = VisualTreeHelper.GetParent(uie) as UIElement;
+                Point relativeLocation = uie.TranslatePoint(new Point(0, 0), container);
+
+                var top = relativeLocation.Y + uie.RenderSize.Height / 2;
+                var left = relativeLocation.X + uie.RenderSize.Width / 2;
+                var currentPin = icOutputs.Items[i] as PinVM;
+                currentPin.Left = compUc.ActualWidth - left + nodeVM.Left;
+                currentPin.Top = compUc.ActualHeight - top + nodeVM.Top;
             }
         }
     }

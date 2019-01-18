@@ -9,6 +9,7 @@ using YALS_WaspEdition.DI;
 using YALS_WaspEdition.Model.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
+using YALS_WaspEdition.Commands;
 
 namespace YALS_WaspEdition.ViewModels
 {
@@ -51,7 +52,10 @@ namespace YALS_WaspEdition.ViewModels
 
             foreach (var kvp in source)
             {
-                dictionary.Add(kvp.Key, kvp.Value.Select(c => new NodeVM(c)).ToList());
+                dictionary.Add(kvp.Key, kvp.Value.Select(c => new NodeVM(c, new Command(obj => {
+                    int a = 0;
+              
+                }), new Command(obj => { }))).ToList());
             }
 
             return dictionary;

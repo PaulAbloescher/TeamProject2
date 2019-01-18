@@ -12,17 +12,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using YALS_WaspEdition.MyEventArgs;
 
 namespace YALS_WaspEdition.Views.UserControls
 {
     /// <summary>
-    /// Interaktionslogik für ComponentUC.xaml
+    /// Interaktionslogik für DesignerComponentUC.xaml
     /// </summary>
-    public partial class ComponentUC : UserControl
+    public partial class DesignerComponentUC : UserControl
     {
-        public ComponentUC()
+        public DesignerComponentUC()
         {
             InitializeComponent();
+        }
+
+        public event EventHandler<PinSelectedEventArgs> PinSelected;
+
+        protected virtual void FirePinSelected(PinSelectedEventArgs args)
+        {
+            this.PinSelected?.Invoke(this, args);
         }
     }
 }

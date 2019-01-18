@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace YALS_WaspEdition.ViewModels
 {
@@ -12,9 +13,15 @@ namespace YALS_WaspEdition.ViewModels
     {
         private readonly IDisplayableNode node;
 
-        public NodeVM(IDisplayableNode node)
+        private ICommand inputSelectedCommand;
+
+        private ICommand outputSelectedCommand;
+
+        public NodeVM(IDisplayableNode node, ICommand outputSelectedCommand, ICommand inputSelectedCommand)
         {
             this.node = node ?? throw new ArgumentNullException(nameof(node));
+            this.inputSelectedCommand = inputSelectedCommand ?? throw new ArgumentNullException(nameof(inputSelectedCommand));
+            this.outputSelectedCommand = outputSelectedCommand ?? throw new ArgumentNullException(nameof(outputSelectedCommand));
             this.Setup();
         }
 
@@ -54,13 +61,13 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
-        public int Left
+        public double Left
         {
             get;
             set;
         }
 
-        public int Top
+        public double Top
         {
             get;
             set;
@@ -68,8 +75,8 @@ namespace YALS_WaspEdition.ViewModels
 
         private void Setup()
         {
-            var inputPinVms = this.node.Inputs.Select(p => new PinVM(p)).ToList();
-            var outputPinVms = this.node.Outputs.Select(p => new PinVM(p)).ToList();
+            var inputPinVms = this.node.Inputs.Select(p => new PinVM(p, this.inputSelectedCommand)).ToList();
+            var outputPinVms = this.node.Outputs.Select(p => new PinVM(p, this.outputSelectedCommand)).ToList();
 
             this.Inputs = inputPinVms;
             this.Outputs = outputPinVms;
