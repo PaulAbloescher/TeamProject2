@@ -85,6 +85,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.1\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -120,15 +121,16 @@
     <Compile Include="Model\Reflection\IComponentLoaderController.cs" />
     <Compile Include="Model\Serialization\CurrentState.cs" />
     <Compile Include="Model\Serialization\MyBinder.cs" />
-    <Compile Include="Serialization\CurrentState.cs" />
-    <Compile Include="Serialization\INodeSurrogate.cs" />
-    <Compile Include="Serialization\SerializationDisplayableNode.cs" />
-    <Compile Include="Serialization\Serializer.cs" />
+    <Compile Include="ViewModels\ComponentManagerVM.cs" />
+    <Compile Include="ViewModels\ConnectionVM.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
     <Compile Include="ViewModels\NodeVM.cs" />
     <Compile Include="ViewModels\PinVM.cs" />
     <Compile Include="Views\UserControls\ComponentUC.xaml.cs">
       <DependentUpon>ComponentUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\DesignerComponentUC.xaml.cs">
+      <DependentUpon>DesignerComponentUC.xaml</DependentUpon>
     </Compile>
     <Page Include="GlobalConfig\ColorConfigurationWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -158,6 +160,10 @@
     <Page Include="Views\UserControls\ComponentUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\DesignerComponentUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

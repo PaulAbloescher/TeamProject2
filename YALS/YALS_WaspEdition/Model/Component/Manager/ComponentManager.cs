@@ -26,24 +26,22 @@ namespace YALS_WaspEdition.Model.Component.Manager
             private set;
         }
 
-        public void Connect(INode outputNode, INode inputNode, IPin outputPin, IPin inputPin)
+        public ICollection<IConnection> Connections
         {
-            if (!this.CheckIfPinIsInput(inputNode, inputPin))
+            get
             {
-                throw new InvalidOperationException("The given input pin is not an input pin.");
+                return this.connectionManager.Connections;
             }
+        }
 
-            if (!this.CheckIfPinIsOutput(outputNode, outputPin))
-            {
-                throw new InvalidOperationException("The given output pin is not an output pin.");
-            }
-
+        public void Connect(IPin outputPin, IPin inputPin)
+        {
             this.connectionManager.Connect(outputPin, inputPin);
         }
 
-        public void Disconnect(IPin inputPin)
+        public void Disconnect(IPin outputPin, IPin inputPin)
         {
-            this.connectionManager.Disconnect(inputPin);
+            this.connectionManager.Disconnect(outputPin, inputPin);
         }
 
         public void Play()

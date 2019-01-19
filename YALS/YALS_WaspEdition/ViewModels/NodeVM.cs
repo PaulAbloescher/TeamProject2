@@ -73,6 +73,12 @@ namespace YALS_WaspEdition.ViewModels
             set;
         }
 
+        public ICommand RemoveCommand
+        {
+            get;
+            set;
+        }
+
         private void Setup()
         {
             var inputPinVms = this.node.Inputs.Select(p => new PinVM(p, this.inputSelectedCommand)).ToList();

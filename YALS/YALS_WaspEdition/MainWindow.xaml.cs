@@ -26,11 +26,6 @@ namespace YALS_WaspEdition
     /// </summary>
     public partial class MainWindow : Window
     {
-        private PinVM currentSelectedInput;
-
-        private PinVM currentSelectedOutput;
-
-
         public MainWindow()
         {
             InitializeComponent();
@@ -54,9 +49,11 @@ namespace YALS_WaspEdition
         {
             // TODO Fix components overlapping drag.
             var component = (NodeVM)e.Data.GetData(typeof(NodeVM));
+            MainVM mainVM = (MainVM)this.DataContext;
 
             if (component != null)
             {
+                mainVM.Manager.Manager.Components.Add(component.Node);
                 Thumb thumb = new Thumb();
                 thumb.DragDelta += Thumb_DragDelta;
                 thumb.DataContext = component;
@@ -72,6 +69,13 @@ namespace YALS_WaspEdition
                 component.Left = p.X;
                 component.Top = p.Y;
                 canvas.Children.Add(thumb);
+
+                // Learn a NodeVM how to remove itself.
+                component.RemoveCommand = new Command((obj) => {
+                    canvas.Children.Remove(thumb);
+                    mainVM.Manager.Manager.Components.Remove(component.Node);
+                });
+
                 thumb.Loaded += Thumb_Loaded;
             }
         }
@@ -85,13 +89,18 @@ namespace YALS_WaspEdition
         private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Thumb thumb = e.Source as Thumb;
+            var nodeVM = (NodeVM)thumb.DataContext;
             Canvas.SetLeft(thumb, Canvas.GetLeft(thumb) + e.HorizontalChange);
             Canvas.SetTop(thumb, Canvas.GetTop(thumb) + e.VerticalChange);
+            nodeVM.Left = Canvas.GetLeft(thumb);
+            nodeVM.Top = Canvas.GetTop(thumb);
             this.SetInputOutputPinPositions(thumb);
         }
 
         private void TreeView_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            MainVM mainVM = (MainVM)this.DataContext;
+
             if (ComponentTV.SelectedItem == null)
                 return;
 
@@ -105,12 +114,12 @@ namespace YALS_WaspEdition
                     PinVM pin = obj as PinVM;
                     if (pin == null)
                         return;
-                    this.currentSelectedOutput = pin;
+                    mainVM.CurrentSelectedOutput = pin;
                 }), new Command(obj => {
                     PinVM pin = obj as PinVM;
                     if (pin == null)
                         return;
-                    this.currentSelectedInput = pin;
+                    mainVM.CurrentSelectedInput = pin;
                 }));
                 DataObject data = new DataObject(typeof(NodeVM), nodeVmNew);
                 DragDrop.DoDragDrop(ComponentTV, data, DragDropEffects.Copy);

@@ -43,13 +43,13 @@ namespace YALS_WaspEdition.Model.Component.Connection
             }
         }
 
-        public void Disconnect(IPin pin)
+        public void Disconnect(IPin output, IPin input)
         {
-            var existingConnection = this.Connections.FirstOrDefault(c => c.InputPins.Contains(pin));
+            var existingConnection = this.Connections.FirstOrDefault(c => c.Output.Equals(output));
 
             if (existingConnection != null)
             {
-                existingConnection.RemoveInputPin(pin);
+                existingConnection.RemoveInputPin(input);
 
                 if (existingConnection.InputPins.Count == 0)
                 {

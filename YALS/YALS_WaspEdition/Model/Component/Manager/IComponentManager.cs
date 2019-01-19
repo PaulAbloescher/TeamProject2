@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YALS_WaspEdition.Model.Component.Connection;
 
 namespace YALS_WaspEdition.Model.Component.Manager
 {
     public interface IComponentManager
     {
         ICollection<INode> Components { get; }
+        ICollection<IConnection> Connections { get; }
 
-        void Connect(INode outputNode, INode inputNode, IPin outputPin, IPin inputPin);
-        void Disconnect(IPin inputPin);
+        void Connect(IPin outputPin, IPin inputPin);
+        void Disconnect(IPin output, IPin inputPin);
         void Play();
         void Step();
         void Stop();

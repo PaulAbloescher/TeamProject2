@@ -60,6 +60,24 @@
 
             <ScrollViewer HorizontalScrollBarVisibility="Visible" Grid.Column="1" Grid.Row="1">
                 <Canvas Width="5000" Height="5000" Background="LightGray" DragOver="Canvas_DragOver" Drop="Canvas_Drop" AllowDrop="True">
+                    <ItemsControl ItemsSource="{Binding Manager.Connections}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas></Canvas>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Line StrokeThickness="1" Stroke="Black" X1="{Binding InputPin.Left}" Y1="{Binding InputPin.Top}" X2="{Binding OutputPin.Left}" Y2="{Binding OutputPin.Top}">
+                                    <Line.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Remove" Command="{Binding DisconnectCommand}"></MenuItem>
+                                        </ContextMenu>
+                                    </Line.ContextMenu>
+                                </Line>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Canvas>
             </ScrollViewer>
         </Grid>

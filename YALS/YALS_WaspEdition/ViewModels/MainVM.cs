@@ -15,12 +15,59 @@ namespace YALS_WaspEdition.ViewModels
 {
     public class MainVM : INotifyPropertyChanged
     {
+        private PinVM currentSelectedInput;
+
+        private PinVM currentSelectedOutput;
+
+
         public MainVM()
         {
             this.Setup();
+            this.Manager = new ComponentManagerVM();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public PinVM CurrentSelectedInput
+        {
+            get
+            {
+                return this.currentSelectedInput;
+            }
+
+            set
+            {
+                this.currentSelectedInput = value;
+
+                if (this.CheckIfNewConnectionIsAvailable())
+                {
+                    this.AddConnection(this.CurrentSelectedOutput, this.CurrentSelectedInput);
+                }
+            }
+        }
+
+        public PinVM CurrentSelectedOutput
+        {
+            get
+            {
+                return this.currentSelectedOutput;
+            }
+
+            set
+            {
+                this.currentSelectedOutput = value;
+
+                if (this.CheckIfNewConnectionIsAvailable())
+                {
+                    this.AddConnection(this.CurrentSelectedOutput, this.CurrentSelectedInput);
+                }
+            }
+        }
+
+        public ComponentManagerVM Manager
+        {
+            get;
+        }
 
         public IDictionary<NodeType, ICollection<NodeVM>> AvailableComponents
         {
@@ -56,6 +103,18 @@ namespace YALS_WaspEdition.ViewModels
             }
 
             return dictionary;
+        }
+
+        private bool CheckIfNewConnectionIsAvailable()
+        {
+            return this.CurrentSelectedInput != null && this.CurrentSelectedOutput != null;
+        }
+
+        private void AddConnection(PinVM outputPin, PinVM inputPin)
+        {
+            this.Manager.Connect(outputPin, inputPin);
+            this.CurrentSelectedInput = null;
+            this.CurrentSelectedOutput = null;
         }
     }
 }
