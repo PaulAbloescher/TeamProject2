@@ -156,7 +156,7 @@ namespace YALS_WaspEdition
                 var left = relativeLocation.X + uie.RenderSize.Width / 2;
                 var currentPin = icOutputs.Items[i] as PinVM;
                 currentPin.Left = compUc.ActualWidth - left + nodeVM.Left;
-                currentPin.Top = compUc.ActualHeight - top + nodeVM.Top;
+                currentPin.Top = top + nodeVM.Top;
             }
         }
     }
