@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="YALS_WaspEdition.Views.UserControls.PlayerUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:YALS_WaspEdition.Views.UserControls"
+             xmlns:converters="clr-namespace:YALS_WaspEdition.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:Inverter x:Key="Inverter"></converters:Inverter>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ToggleButton Width="30" Height="30" Name="PlayBtn">
+            
+            <Image  Source="..\..\Resources\PlayBtn.png"></Image>
+        </ToggleButton>
+        <Button Width="30" Height="30" Grid.Column="1">
+            <Image Source="..\..\Resources\PauseBtn.png"></Image>
+        </Button>
+        <Button Width="30" Height="30" Grid.Column="2" IsEnabled="{Binding ElementName=PlayBtn, Path=IsChecked, Converter={StaticResource Inverter}}">
+            <Image Source="..\..\Resources\StepBtn.png"></Image>
+        </Button>
+    </Grid>
+</UserControl>

@@ -9,7 +9,7 @@ using YALS_WaspEdition.Commands;
 
 namespace YALS_WaspEdition.ViewModels
 {
-    public class ConnectionVM : INotifyPropertyChanged
+    public class ConnectionVM
     {
         public ConnectionVM(PinVM outputPin, PinVM inputPin, ICommand disconnectCommand)
         {
@@ -17,8 +17,6 @@ namespace YALS_WaspEdition.ViewModels
             this.InputPin = inputPin ?? throw new ArgumentNullException(nameof(inputPin));
             this.DisconnectCommand = disconnectCommand ?? throw new ArgumentNullException(nameof(disconnectCommand));
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         public PinVM OutputPin
         {

@@ -106,6 +106,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Converters\BitmapConverter.cs" />
+    <Compile Include="Converters\Inverter.cs" />
     <Compile Include="EventArgs\PinSelectedEventArgs.cs" />
     <Compile Include="GlobalConfig\ColorConfigurationWindow.xaml.cs">
       <DependentUpon>ColorConfigurationWindow.xaml</DependentUpon>
@@ -131,6 +132,9 @@
     </Compile>
     <Compile Include="Views\UserControls\DesignerComponentUC.xaml.cs">
       <DependentUpon>DesignerComponentUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\PlayerUC.xaml.cs">
+      <DependentUpon>PlayerUC.xaml</DependentUpon>
     </Compile>
     <Page Include="GlobalConfig\ColorConfigurationWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -164,6 +168,10 @@
     <Page Include="Views\UserControls\DesignerComponentUC.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\UserControls\PlayerUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -208,6 +216,16 @@
       <Name>Shared</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\PauseBtn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\PlayBtn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\StepBtn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
