@@ -15,6 +15,8 @@ namespace YALS_WaspEdition.Model.Component.Manager
 
         void Connect(IPin outputPin, IPin inputPin);
         void Disconnect(IPin output, IPin inputPin);
+        void AddNode(INode node);
+        void RemoveNode(INode node);
         void Play();
         void Step();
         void Stop();

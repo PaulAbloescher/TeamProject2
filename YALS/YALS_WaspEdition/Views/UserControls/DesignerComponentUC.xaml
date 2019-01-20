@@ -11,6 +11,9 @@
         <converters:BitmapConverter x:Key="BitmapConverter"></converters:BitmapConverter>
     </UserControl.Resources>
     <Grid ToolTip="{Binding Description}">
+        <Grid.InputBindings>
+            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding ActivateCommand}"></MouseBinding>
+        </Grid.InputBindings>
         <Grid.ContextMenu>
             <ContextMenu>
                 <MenuItem ItemsSource="{Binding Inputs}" Header="Inputs">
@@ -27,7 +30,8 @@
                         </DataTemplate>
                     </MenuItem.ItemTemplate>
                 </MenuItem>
-                <MenuItem Header="Remove" Command="{Binding RemoveCommand}"></MenuItem>
+                <MenuItem Header="Activate" Command="{Binding ActivateCommand}"></MenuItem>
+                <MenuItem Foreground="Red" Header="Remove" Command="{Binding RemoveCommand}"></MenuItem>
             </ContextMenu>
         </Grid.ContextMenu>
         <Grid.RowDefinitions>

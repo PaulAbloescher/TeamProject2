@@ -61,5 +61,10 @@ namespace Components.Components
         public abstract void Activate();
 
         protected abstract void Setup();
+
+        protected virtual void FirePictureChanged()
+        {
+            this.PictureChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

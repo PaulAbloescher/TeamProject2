@@ -58,6 +58,11 @@ namespace YALS_WaspEdition.Model.Component.Connection
             }
         }
 
+        public void RemoveNodeFromAllConnections(INode node)
+        {
+            // TODO Implement remove node from all connections.
+        }
+
         private IConnection CheckIfPinIsInConnection(IPin pin)
         {
             var connection = this.Connections.FirstOrDefault(c => c.InputPins.Contains(pin));

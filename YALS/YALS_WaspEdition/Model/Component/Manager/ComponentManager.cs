@@ -34,6 +34,11 @@ namespace YALS_WaspEdition.Model.Component.Manager
             }
         }
 
+        public void AddNode(INode node)
+        {
+            this.Components.Add(node);
+        }
+
         public void Connect(IPin outputPin, IPin inputPin)
         {
             this.connectionManager.Connect(outputPin, inputPin);
@@ -52,6 +57,11 @@ namespace YALS_WaspEdition.Model.Component.Manager
             {
                 this.Step();
             }
+        }
+
+        public void RemoveNode(INode node)
+        {
+            this.Components.Remove(node);
         }
 
         public void Step()

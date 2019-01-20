@@ -14,5 +14,7 @@ namespace YALS_WaspEdition.Model.Component.Connection
         void Connect(IPin output, IPin input);
 
         void Disconnect(IPin output, IPin input);
+
+        void RemoveNodeFromAllConnections(INode node);
     }
 }
