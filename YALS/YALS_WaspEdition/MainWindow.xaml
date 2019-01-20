@@ -68,7 +68,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Line StrokeThickness="3" Stroke="Black" X1="{Binding InputPin.Left}" Y1="{Binding InputPin.Top}" X2="{Binding OutputPin.Left}" Y2="{Binding OutputPin.Top}">
+                                <Line ToolTip="{Binding ConnectionAsString}" StrokeThickness="3" Stroke="Black" X1="{Binding InputPin.Left}" Y1="{Binding InputPin.Top}" X2="{Binding OutputPin.Left}" Y2="{Binding OutputPin.Top}">
                                     <Line.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem Header="Remove" Command="{Binding DisconnectCommand}"></MenuItem>

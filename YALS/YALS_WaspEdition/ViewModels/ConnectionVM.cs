@@ -30,6 +30,14 @@ namespace YALS_WaspEdition.ViewModels
             get;
         }
 
+        public string ConnectionAsString
+        {
+            get
+            {
+                return $"Output: {this.OutputPin.Pin.Label} -> Input: {this.InputPin.Pin.Label}";
+            }
+        }
+
         public ICommand DisconnectCommand
         {
             get;

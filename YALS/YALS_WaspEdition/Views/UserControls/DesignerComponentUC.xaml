@@ -17,18 +17,22 @@
         <Grid.ContextMenu>
             <ContextMenu>
                 <MenuItem ItemsSource="{Binding Inputs}" Header="Inputs">
-                    <MenuItem.ItemTemplate>
-                        <DataTemplate>
-                            <MenuItem Header="{Binding Pin.Label}" Command="{Binding SelectedCommand}" CommandParameter="{Binding}"></MenuItem>
-                        </DataTemplate>
-                    </MenuItem.ItemTemplate>
+                    <MenuItem.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="MenuItem.Header" Value="{Binding Pin.Label}"></Setter>
+                            <Setter Property="MenuItem.Command" Value="{Binding SelectedCommand}"></Setter>
+                            <Setter Property="MenuItem.CommandParameter" Value="{Binding}"></Setter>
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
                 </MenuItem>
                 <MenuItem ItemsSource="{Binding Outputs}" Header="Outputs">
-                    <MenuItem.ItemTemplate>
-                        <DataTemplate>
-                            <MenuItem Header="{Binding Pin.Label}" Command="{Binding SelectedCommand}" CommandParameter="{Binding}"></MenuItem>
-                        </DataTemplate>
-                    </MenuItem.ItemTemplate>
+                    <MenuItem.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="MenuItem.Header" Value="{Binding Pin.Label}"></Setter>
+                            <Setter Property="MenuItem.Command" Value="{Binding SelectedCommand}"></Setter>
+                            <Setter Property="MenuItem.CommandParameter" Value="{Binding}"></Setter>
+                        </Style>
+                    </MenuItem.ItemContainerStyle>
                 </MenuItem>
                 <MenuItem Header="Activate" Command="{Binding ActivateCommand}"></MenuItem>
                 <MenuItem Foreground="Red" Header="Remove" Command="{Binding RemoveCommand}"></MenuItem>
