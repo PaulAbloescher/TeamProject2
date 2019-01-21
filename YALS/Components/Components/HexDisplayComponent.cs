@@ -47,15 +47,31 @@ namespace Components.Components
             this.Inputs.Add(x3);
             this.Inputs.Add(x4);
             this.LoadImages();
+            this.Picture = this.zeroImg;
         }
 
         private void LoadImages()
         {
-            throw new NotImplementedException();
+            this.zeroImg = Properties.Resources._0;
+            this.oneImg = Properties.Resources._1;
+            this.twoImg = Properties.Resources._2;
+            this.threeImg = Properties.Resources._3;
+            this.fourImg = Properties.Resources._4;
+            this.fiveImg = Properties.Resources._5;
+            this.sixImg = Properties.Resources._6;
+            this.sevenImg = Properties.Resources._7;
+            this.eightImg = Properties.Resources._8;
+            this.nineImg = Properties.Resources._9;
+            this.aImg = Properties.Resources._10;
+            this.bImg = Properties.Resources._11;
+            this.cImg = Properties.Resources._12;
+            this.dImg = Properties.Resources._13;
+            this.eImg = Properties.Resources._14;
+            this.fImg = Properties.Resources._15;
         }
 
         private Bitmap GetRepresentingStateImage()
-        {
+        {   
             throw new NotImplementedException();
         }
     }

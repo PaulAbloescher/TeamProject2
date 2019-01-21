@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using YALS_WaspEdition.Model.Component.Manager;
 using System.Collections.ObjectModel;
 using YALS_WaspEdition.Commands;
+using System.Windows.Input;
 
 namespace YALS_WaspEdition.ViewModels
 {
@@ -18,7 +19,36 @@ namespace YALS_WaspEdition.ViewModels
             this.Manager = Provider.Container.GetService<IComponentManager>();
             this.Connections = new ObservableCollection<ConnectionVM>();
             this.NodeVMs = new List<NodeVM>();
+            this.PlayCommand = new Command((obj) => {
+                App.Current.Dispatcher.Invoke(() => {
+                    var task = Task.Factory.StartNew(() => {
+                        this.Manager.Play();
+                    });
+                });
+            });
+            this.PauseCommand = new Command((obj) => {
+                App.Current.Dispatcher.Invoke(this.Manager.Stop);
+            });
+            this.StepCommand = new Command((obj) => {
+                App.Current.Dispatcher.Invoke(this.Manager.Step);
+            });
         }
+
+        public ICommand PlayCommand
+        {
+            get;
+        }
+
+        public ICommand PauseCommand
+        {
+            get;
+        }
+
+        public ICommand StepCommand
+        {
+            get;
+        }
+
 
         public IComponentManager Manager
         {

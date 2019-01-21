@@ -97,30 +97,8 @@ namespace YALS_WaspEdition
         {
             Thumb thumb = e.Source as Thumb;
             var nodeVM = (NodeVM)thumb.DataContext;
-
-            var nodeLeft = Canvas.GetLeft(thumb) + e.HorizontalChange;
-            var nodeTop =  Canvas.GetTop(thumb) + e.VerticalChange;
-
-            if (nodeLeft < 0)
-            {
-                nodeLeft = 0;
-            }
-            else if (nodeLeft + thumb.ActualWidth > this.mainCanvas.ActualWidth)
-            {
-                nodeLeft = this.mainCanvas.ActualWidth - thumb.ActualWidth;
-            }
-
-            if (nodeTop < 0)
-            {
-                nodeTop = 0;
-            }
-            else if (nodeTop + thumb.ActualHeight > this.mainCanvas.ActualHeight)
-            {
-                nodeTop = this.mainCanvas.ActualHeight - thumb.ActualHeight;
-            }
-            
-            Canvas.SetLeft(thumb, nodeLeft);
-            Canvas.SetTop(thumb, nodeTop);
+            Canvas.SetLeft(thumb, Canvas.GetLeft(thumb) + e.HorizontalChange);
+            Canvas.SetTop(thumb, Canvas.GetTop(thumb) + e.VerticalChange);
             nodeVM.Left = Canvas.GetLeft(thumb);
             nodeVM.Top = Canvas.GetTop(thumb);
             this.SetInputOutputPinPositions(thumb);
