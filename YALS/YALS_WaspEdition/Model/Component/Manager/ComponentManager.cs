@@ -61,6 +61,7 @@ namespace YALS_WaspEdition.Model.Component.Manager
 
         public void RemoveNode(INode node)
         {
+            // TODO Remove all associated connections.
             this.Components.Remove(node);
         }
 
