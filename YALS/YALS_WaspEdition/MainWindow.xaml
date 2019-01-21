@@ -19,15 +19,15 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="New"></MenuItem>
-                <MenuItem Header="Open"></MenuItem>
-                <MenuItem Header="Save"></MenuItem>
+                <MenuItem Header="New" InputGestureText="Crtl+N"></MenuItem>
+                <MenuItem Header="Save" InputGestureText="Crtl+S"></MenuItem>
+                <MenuItem Header="Open" InputGestureText="Crtl+O"></MenuItem>
             </MenuItem>
             <MenuItem Header="Plugins">
-                <MenuItem Header="Reload"></MenuItem>
+                <MenuItem Header="Reload" InputGestureText="Crtl+R"></MenuItem>
             </MenuItem>
             <MenuItem Header="Config">
-                <MenuItem Header="Settings"></MenuItem>
+                <MenuItem Header="Settings" InputGestureText="Crtl+Alt+O"></MenuItem>
             </MenuItem>
         </Menu>
 
