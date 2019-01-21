@@ -55,7 +55,7 @@ namespace YALS_WaspEdition
 
             if (component != null)
             {
-                mainVM.Manager.Manager.AddNode(component.Node);
+                mainVM.Manager.AddNode(component);
                 Thumb thumb = new Thumb();
                 thumb.DragDelta += Thumb_DragDelta;
                 thumb.DataContext = component;
@@ -64,21 +64,28 @@ namespace YALS_WaspEdition
                 template.VisualTree = fec;
                 thumb.Template = template;
 
-                Canvas canvas = e.Source as Canvas;
-                Point p = e.GetPosition(canvas);
-                Canvas.SetLeft(thumb, p.X);
-                Canvas.SetTop(thumb, p.Y);
-                component.Left = p.X;
-                component.Top = p.Y;
-                canvas.Children.Add(thumb);
+                try
+                {
+                    Canvas canvas = e.Source as Canvas;
+                    Point p = e.GetPosition(canvas);
+                    Canvas.SetLeft(thumb, p.X);
+                    Canvas.SetTop(thumb, p.Y);
+                    component.Left = p.X;
+                    component.Top = p.Y;
+                    canvas.Children.Add(thumb);
 
-                // Learn a NodeVM how to remove itself.
-                component.RemoveCommand = new Command((obj) => {
-                    canvas.Children.Remove(thumb);
-                    mainVM.Manager.Manager.Components.Remove(component.Node);
-                });
+                    // Learn a NodeVM how to remove itself.
+                    component.RemoveCommand = new Command((obj) => {
+                        canvas.Children.Remove(thumb);
+                        mainVM.Manager.Manager.Components.Remove(component.Node);
+                    });
 
-                thumb.Loaded += Thumb_Loaded;
+                    thumb.Loaded += Thumb_Loaded;
+                }
+                catch(ArgumentNullException ex)
+                {
+                    MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
         }
 
@@ -92,8 +99,30 @@ namespace YALS_WaspEdition
         {
             Thumb thumb = e.Source as Thumb;
             var nodeVM = (NodeVM)thumb.DataContext;
-            Canvas.SetLeft(thumb, Canvas.GetLeft(thumb) + e.HorizontalChange);
-            Canvas.SetTop(thumb, Canvas.GetTop(thumb) + e.VerticalChange);
+
+            var nodeLeft = Canvas.GetLeft(thumb) + e.HorizontalChange;
+            var nodeTop =  Canvas.GetTop(thumb) + e.VerticalChange;
+
+            if (nodeLeft < 0)
+            {
+                nodeLeft = 0;
+            }
+            else if (nodeLeft + thumb.ActualWidth > this.mainCanvas.ActualWidth)
+            {
+                nodeLeft = this.mainCanvas.ActualWidth - thumb.ActualWidth;
+            }
+
+            if (nodeTop < 0)
+            {
+                nodeTop = 0;
+            }
+            else if (nodeTop + thumb.ActualHeight > this.mainCanvas.ActualHeight)
+            {
+                nodeTop = this.mainCanvas.ActualHeight - thumb.ActualHeight;
+            }
+            
+            Canvas.SetLeft(thumb, nodeLeft);
+            Canvas.SetTop(thumb, nodeTop);
             nodeVM.Left = Canvas.GetLeft(thumb);
             nodeVM.Top = Canvas.GetTop(thumb);
             this.SetInputOutputPinPositions(thumb);
@@ -101,7 +130,7 @@ namespace YALS_WaspEdition
 
         private void TreeView_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            TreeViewItem treeViewItem = VisualUpwardSearch(e.OriginalSource as DependencyObject);
+            TreeViewItem treeViewItem = this.VisualUpwardSearch(e.OriginalSource as DependencyObject);
 
             if (treeViewItem != null)
             {
@@ -135,7 +164,7 @@ namespace YALS_WaspEdition
             }
         }
 
-        private static TreeViewItem VisualUpwardSearch(DependencyObject source)
+        private TreeViewItem VisualUpwardSearch(DependencyObject source)
         {
             while (source != null && !(source is TreeViewItem))
                 source = VisualTreeHelper.GetParent(source);

@@ -77,6 +77,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Components\Components.csproj">
+      <Project>{4965b49e-5ffd-447a-83b4-89b01ac48658}</Project>
+      <Name>Components</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Shared\Shared.csproj">
       <Project>{F90C9CBB-2FAA-4B3C-BB12-9D481EE86F19}</Project>
       <Name>Shared</Name>

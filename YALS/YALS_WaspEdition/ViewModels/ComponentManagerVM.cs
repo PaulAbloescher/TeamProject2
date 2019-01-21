@@ -18,6 +18,7 @@ namespace YALS_WaspEdition.ViewModels
         {
             this.Manager = Provider.Container.GetService<IComponentManager>();
             this.Connections = new ObservableCollection<ConnectionVM>();
+            this.NodeVMs = new List<NodeVM>();
         }
 
         public IComponentManager Manager
@@ -29,6 +30,23 @@ namespace YALS_WaspEdition.ViewModels
         public ObservableCollection<ConnectionVM> Connections
         {
             get;
+        }
+
+        public ICollection<NodeVM> NodeVMs
+        {
+            get;
+        }
+
+        public void AddNode(NodeVM node)
+        {
+            this.Manager.AddNode(node.Node);
+            this.NodeVMs.Add(node);
+        }
+
+        public void RemoveNode(NodeVM node)
+        {
+            this.Manager.RemoveNode(node.Node);
+            this.NodeVMs.Remove(node);
         }
 
         public void Connect(PinVM outputPin, PinVM inputPin)
