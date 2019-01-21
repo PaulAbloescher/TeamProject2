@@ -27,14 +27,18 @@ namespace Components.Components
         private Bitmap eImg;
         private Bitmap fImg;
 
+        private Bitmap[] stateImages;
+
         public override void Activate()
         {
-            throw new NotImplementedException();
+            // Nothing to do here.
         }
 
         public override void Execute()
         {
-            throw new NotImplementedException();
+            this.Picture = this.GetRepresentingStateImage();
+
+            this.FirePictureChanged();
         }
 
         protected override void Setup()
@@ -50,6 +54,8 @@ namespace Components.Components
             this.Inputs.Add(x4);
             this.LoadImages();
             this.Picture = this.zeroImg;
+
+
         }
 
         private void LoadImages()
@@ -70,11 +76,37 @@ namespace Components.Components
             this.dImg = Properties.Resources._13;
             this.eImg = Properties.Resources._14;
             this.fImg = Properties.Resources._15;
+
+            this.stateImages = new Bitmap[] { this.zeroImg, this.oneImg, this.twoImg, this.threeImg, this.fourImg,
+                                              this.fiveImg, this.sixImg, this.sevenImg, this.eightImg, this.nineImg,
+                                              this.aImg, this.bImg, this.cImg, this.dImg, this.eImg, this.fImg};
         }
 
         private Bitmap GetRepresentingStateImage()
-        {   
-            throw new NotImplementedException();
+        {
+            int decimalNumberForPins = 0;
+
+            if ((bool)this.Inputs.ElementAt(0).Value.Current)
+            {
+                decimalNumberForPins += 1;
+            }
+
+            if ((bool)this.Inputs.ElementAt(1).Value.Current)
+            {
+                decimalNumberForPins += 2;
+            }
+
+            if ((bool)this.Inputs.ElementAt(2).Value.Current)
+            {
+                decimalNumberForPins += 4;
+            }
+
+            if ((bool)this.Inputs.ElementAt(3).Value.Current)
+            {
+                decimalNumberForPins += 8;
+            }
+
+            return this.stateImages[decimalNumberForPins];
         }
     }
 }
