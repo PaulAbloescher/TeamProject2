@@ -12,6 +12,7 @@ using System.Windows.Input;
 
 namespace YALS_WaspEdition.ViewModels
 {
+    [Serializable()]
     public class ComponentManagerVM
     {
         public ComponentManagerVM()

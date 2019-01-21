@@ -8,6 +8,7 @@ using YALS_WaspEdition.Model.Component.Connection;
 
 namespace YALS_WaspEdition.Model.Component.Manager
 {
+    [Serializable()]
     public class ComponentManager : IComponentManager
     {
         private readonly IConnectionManager connectionManager;

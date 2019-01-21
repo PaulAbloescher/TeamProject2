@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Shared;
 using ComponentTest.Model.Component;
 using ComponentTest.Model.Component.Manager;
-using ComponentTest.Model.Reflection;
 using Components.Components;
 
 namespace ComponentTest
