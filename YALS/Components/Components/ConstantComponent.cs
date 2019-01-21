@@ -10,8 +10,8 @@ namespace Components.Components
 {
     public class ConstantComponent : Component
     {
-        private Bitmap TrueImage;
-        private Bitmap FalseImage;
+        private Bitmap trueImage;
+        private Bitmap falseImage;
 
         public override void Activate()
         {
@@ -21,11 +21,11 @@ namespace Components.Components
 
             if (newState)
             {
-                this.Picture = this.TrueImage;
+                this.Picture = this.trueImage;
             }
             else
             {
-                this.Picture = this.FalseImage;
+                this.Picture = this.falseImage;
             }
 
             this.FirePictureChanged();
@@ -48,8 +48,8 @@ namespace Components.Components
 
         private void LoadImage()
         {
-            this.TrueImage = Properties.Resources.Constant_True;
-            this.FalseImage = Properties.Resources.Constant_False;
+            this.trueImage = Properties.Resources.Constant_True;
+            this.falseImage = Properties.Resources.Constant_False;
         }
     }
 }
