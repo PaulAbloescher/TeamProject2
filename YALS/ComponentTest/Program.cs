@@ -8,6 +8,7 @@ using Shared;
 using ComponentTest.Model.Component;
 using ComponentTest.Model.Component.Manager;
 using ComponentTest.Model.Reflection;
+using Components.Components;
 
 namespace ComponentTest
 {
@@ -39,11 +40,15 @@ namespace ComponentTest
             //componentManager.Step();
             //componentManager.Step();
 
-            IEnumerable<string> paths = new List<string>() { @"C: \Users\Paul\Documents\FHWN\Semester 3\TeamProject2\YALS\Components\bin\Debug" };
-            ComponentLoader loader = new ComponentLoader();
-        
-            var dict = loader.Load(paths);
-            var test = "";
+            //IEnumerable<string> paths = new List<string>() { @"C: \Users\Paul\Documents\FHWN\Semester 3\TeamProject2\YALS\Components\bin\Debug" };
+            //ComponentLoader loader = new ComponentLoader();
+
+            //var dict = loader.Load(paths);
+            //var test = "";
+
+            LEDComponent lEDComponent = new LEDComponent();
+
+            Console.WriteLine();
         }
     }
 }
