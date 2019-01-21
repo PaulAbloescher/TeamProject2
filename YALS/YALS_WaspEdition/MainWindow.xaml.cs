@@ -99,6 +99,13 @@ namespace YALS_WaspEdition
 
         private void TreeView_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            TreeViewItem treeViewItem = VisualUpwardSearch(e.OriginalSource as DependencyObject);
+
+            if (treeViewItem != null)
+            {
+                treeViewItem.Focus();
+            }
+
             MainVM mainVM = (MainVM)this.DataContext;
 
             if (ComponentTV.SelectedItem == null)
@@ -124,6 +131,14 @@ namespace YALS_WaspEdition
                 DataObject data = new DataObject(typeof(NodeVM), nodeVmNew);
                 DragDrop.DoDragDrop(ComponentTV, data, DragDropEffects.Copy);
             }
+        }
+
+        private static TreeViewItem VisualUpwardSearch(DependencyObject source)
+        {
+            while (source != null && !(source is TreeViewItem))
+                source = VisualTreeHelper.GetParent(source);
+
+            return source as TreeViewItem;
         }
 
         private void SetInputOutputPinPositions(Thumb thumb)
