@@ -62,21 +62,28 @@ namespace YALS_WaspEdition
                 template.VisualTree = fec;
                 thumb.Template = template;
 
-                Canvas canvas = e.Source as Canvas;
-                Point p = e.GetPosition(canvas);
-                Canvas.SetLeft(thumb, p.X);
-                Canvas.SetTop(thumb, p.Y);
-                component.Left = p.X;
-                component.Top = p.Y;
-                canvas.Children.Add(thumb);
+                try
+                {
+                    Canvas canvas = e.Source as Canvas;
+                    Point p = e.GetPosition(canvas);
+                    Canvas.SetLeft(thumb, p.X);
+                    Canvas.SetTop(thumb, p.Y);
+                    component.Left = p.X;
+                    component.Top = p.Y;
+                    canvas.Children.Add(thumb);
 
-                // Learn a NodeVM how to remove itself.
-                component.RemoveCommand = new Command((obj) => {
-                    canvas.Children.Remove(thumb);
-                    mainVM.Manager.Manager.Components.Remove(component.Node);
-                });
+                    // Learn a NodeVM how to remove itself.
+                    component.RemoveCommand = new Command((obj) => {
+                        canvas.Children.Remove(thumb);
+                        mainVM.Manager.Manager.Components.Remove(component.Node);
+                    });
 
-                thumb.Loaded += Thumb_Loaded;
+                    thumb.Loaded += Thumb_Loaded;
+                }
+                catch(ArgumentNullException ex)
+                {
+                    MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
         }
 
@@ -99,7 +106,7 @@ namespace YALS_WaspEdition
 
         private void TreeView_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            TreeViewItem treeViewItem = VisualUpwardSearch(e.OriginalSource as DependencyObject);
+            TreeViewItem treeViewItem = this.VisualUpwardSearch(e.OriginalSource as DependencyObject);
 
             if (treeViewItem != null)
             {
@@ -133,7 +140,7 @@ namespace YALS_WaspEdition
             }
         }
 
-        private static TreeViewItem VisualUpwardSearch(DependencyObject source)
+        private TreeViewItem VisualUpwardSearch(DependencyObject source)
         {
             while (source != null && !(source is TreeViewItem))
                 source = VisualTreeHelper.GetParent(source);
