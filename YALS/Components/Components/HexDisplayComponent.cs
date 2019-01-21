@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -38,6 +39,7 @@ namespace Components.Components
 
         protected override void Setup()
         {
+            this.Type = NodeType.Display;
             Pin<bool> x1 = new Pin<bool>("x1");
             Pin<bool> x2 = new Pin<bool>("x2");
             Pin<bool> x3 = new Pin<bool>("x3");
