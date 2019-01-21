@@ -10,12 +10,14 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using YALS_WaspEdition.Commands;
+using YALS_WaspEdition.Model.Serialization;
 using YALS_WaspEdition.ViewModels;
 using YALS_WaspEdition.Views.UserControls;
 
@@ -31,21 +33,21 @@ namespace YALS_WaspEdition
             InitializeComponent();
         }
 
-        private void Canvas_DragOver(object sender, DragEventArgs e)
+        private void Canvas_DragOver(object sender, System.Windows.DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(NodeVM)))
             {
-                e.Effects = DragDropEffects.Copy;
+                e.Effects = System.Windows.DragDropEffects.Copy;
             }
             else
             {
-                e.Effects = DragDropEffects.None;
+                e.Effects = System.Windows.DragDropEffects.None;
             }
 
             e.Handled = true;
         }
 
-        private void Canvas_Drop(object sender, DragEventArgs e)
+        private void Canvas_Drop(object sender, System.Windows.DragEventArgs e)
         {
             // TODO Fix components overlapping drag.
             var component = (NodeVM)e.Data.GetData(typeof(NodeVM));
@@ -128,8 +130,8 @@ namespace YALS_WaspEdition
                         return;
                     mainVM.CurrentSelectedInput = pin;
                 }));
-                DataObject data = new DataObject(typeof(NodeVM), nodeVmNew);
-                DragDrop.DoDragDrop(ComponentTV, data, DragDropEffects.Copy);
+                System.Windows.DataObject data = new System.Windows.DataObject(typeof(NodeVM), nodeVmNew);
+                DragDrop.DoDragDrop(ComponentTV, data, System.Windows.DragDropEffects.Copy);
             }
         }
 
@@ -174,5 +176,18 @@ namespace YALS_WaspEdition
                 currentPin.Top = top + nodeVM.Top;
             }
         }
+
+        private void OpenFile(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = false;
+            
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string fileName = dialog.FileName;
+
+                this.MainVM.Save(fileName);
+            }
+        } 
     }
 }

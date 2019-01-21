@@ -10,6 +10,8 @@ using YALS_WaspEdition.Model.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using YALS_WaspEdition.Commands;
+using System.IO;
+using YALS_WaspEdition.Model.Serialization;
 
 namespace YALS_WaspEdition.ViewModels
 {
@@ -44,6 +46,30 @@ namespace YALS_WaspEdition.ViewModels
                     this.AddConnection(this.CurrentSelectedOutput, this.CurrentSelectedInput);
                 }
             }
+        }
+
+        public void LoadState(string path)
+        {
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException();
+            }
+
+
+        }
+
+        public void Save(string path)
+        {
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException();
+            }
+
+            CurrentState state = new CurrentState(new GlobalConfig.GlobalConfigSettings(), this.Manager);
+
+            ICurrentStateSerializer serializer = Provider.Container.GetService<ICurrentStateSerializer>();
+            serializer.Serialize(path, state);
+
         }
 
         public PinVM CurrentSelectedOutput

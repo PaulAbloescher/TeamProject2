@@ -10,6 +10,7 @@ using YALS_WaspEdition.Commands;
 
 namespace YALS_WaspEdition.ViewModels
 {
+    [Serializable()]
     public class PinVM : INotifyPropertyChanged
     {
         private double left;
