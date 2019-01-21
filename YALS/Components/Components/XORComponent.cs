@@ -20,13 +20,9 @@ namespace Components.Components
 
         public override void Execute()
         {
-            var notNullInputs = this.Inputs.Where(pin => pin.Value != null);
-            var falseInputs = notNullInputs.Where(pin => (bool)pin.Value.Current == false);
+            int trueInputs = this.Inputs.Where(i => (bool)i.Value.Current).Count();
 
-
-            int trueInputs = notNullInputs.Count() - falseInputs.Count();
-
-            if (trueInputs % 2 == 0)
+            if (trueInputs % 2 != 0)
             {
                 this.Outputs.ElementAt(0).Value.Current = true;
             }

@@ -142,6 +142,14 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
+        public string Description
+        {
+            get
+            {
+                return this.Node.Description;
+            }
+        }
+
         protected virtual void FirePropertyChanged(string name)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

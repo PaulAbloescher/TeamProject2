@@ -19,15 +19,15 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="New"></MenuItem>
-                <MenuItem Header="Open" Click="OpenFile"></MenuItem>
-                <MenuItem Header="Save" Click="SaveFile"></MenuItem>
+                <MenuItem Header="New" InputGestureText="Crtl+N"></MenuItem>
+                <MenuItem Header="Save" InputGestureText="Crtl+S" Click="SaveFile"></MenuItem>
+                <MenuItem Header="Open" InputGestureText="Crtl+O" Click="OpenFile"></MenuItem>
             </MenuItem>
             <MenuItem Header="Plugins">
-                <MenuItem Header="Reload"></MenuItem>
+                <MenuItem Header="Reload" InputGestureText="Crtl+R"></MenuItem>
             </MenuItem>
             <MenuItem Header="Config">
-                <MenuItem Header="Settings"></MenuItem>
+                <MenuItem Header="Settings" InputGestureText="Crtl+Alt+O"></MenuItem>
             </MenuItem>
         </Menu>
 
@@ -57,7 +57,7 @@
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
-            <userControls:PlayerUC Grid.Column="1" Grid.Row="0" Height="Auto" Width="Auto" />
+            <userControls:PlayerUC Grid.Column="1" Grid.Row="0" Height="Auto" Width="Auto" DataContext="{Binding Manager}" />
             
             <ScrollViewer HorizontalScrollBarVisibility="Visible" Grid.Column="1" Grid.Row="1">
                 <Canvas Width="5000" Height="5000" Background="LightGray" DragOver="Canvas_DragOver" Drop="Canvas_Drop" AllowDrop="True" x:Name="mainCanvas">
