@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -12,28 +13,39 @@ using YALS_WaspEdition.Commands;
 namespace YALS_WaspEdition.ViewModels
 {
     [Serializable()]
-    public class NodeVM : INotifyPropertyChanged
+    public class NodeVM : INotifyPropertyChanged, ISerializable
     {
         private readonly IDisplayableNode node;
 
+        [NonSerialized()]
         private ICommand inputSelectedCommand;
 
+        [NonSerialized()]
         private ICommand outputSelectedCommand;
+
+        [NonSerialized()]
+        private ICommand removeCommand;
 
         public NodeVM(IDisplayableNode node, ICommand outputSelectedCommand, ICommand inputSelectedCommand)
         {
             this.node = node ?? throw new ArgumentNullException(nameof(node));
             this.node.PictureChanged += Node_PictureChanged;
             this.inputSelectedCommand = inputSelectedCommand ?? throw new ArgumentNullException(nameof(inputSelectedCommand));
-            this.outputSelectedCommand = outputSelectedCommand ?? throw new ArgumentNullException(nameof(outputSelectedCommand));
-            this.ActivateCommand = new Command((obj) =>
-            {
-                this.Node.Activate();
-            });
+            this.outputSelectedCommand = outputSelectedCommand ?? throw new ArgumentNullException(nameof(outputSelectedCommand)); 
             this.Setup();
         }
 
+        public NodeVM(SerializationInfo info, StreamingContext context)
+        {
+            this.node = (IDisplayableNode)info.GetValue("node", typeof(IDisplayableNode));
+            this.Left = (double)info.GetValue("left", typeof(double));
+            this.Top = (double)info.GetValue("top", typeof(double));
+        }
+
+
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
+
 
         public IDisplayableNode Node
         {
@@ -85,13 +97,49 @@ namespace YALS_WaspEdition.ViewModels
 
         public ICommand ActivateCommand
         {
-            get;
+            get
+            {
+                return new Command((obj) =>
+                {
+                    this.Node.Activate();
+                });
+            }
+        }
+
+        public ICommand InputSelectedCommand
+        {
+            get
+            {
+                return this.inputSelectedCommand;
+            }
+            set
+            {
+                this.inputSelectedCommand = value ?? throw new ArgumentNullException();
+            }
+        }
+
+        public ICommand OutputSelectedCommand
+        {
+            get
+            {
+                return this.outputSelectedCommand;
+            }
+            set
+            {
+                this.outputSelectedCommand = value ?? throw new ArgumentNullException();
+            }
         }
 
         public ICommand RemoveCommand
         {
-            get;
-            set;
+            get
+            {
+                return this.removeCommand;
+            }
+            set
+            {
+                this.removeCommand = value ?? throw new ArgumentNullException();
+            }
         }
 
         protected virtual void FirePropertyChanged(string name)
@@ -99,7 +147,7 @@ namespace YALS_WaspEdition.ViewModels
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        private void Setup()
+        public void Setup()
         {
             var inputPinVms = this.node.Inputs.Select(p => new PinVM(p, this.inputSelectedCommand)).ToList();
             var outputPinVms = this.node.Outputs.Select(p => new PinVM(p, this.outputSelectedCommand)).ToList();
@@ -111,6 +159,13 @@ namespace YALS_WaspEdition.ViewModels
         private void Node_PictureChanged(object sender, EventArgs e)
         {
             this.FirePropertyChanged(nameof(this.Picture));
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("node", this.Node);
+            info.AddValue("left", this.Left);
+            info.AddValue("top", this.Top);
         }
     }
 }

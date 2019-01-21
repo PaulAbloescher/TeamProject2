@@ -12,6 +12,7 @@ using System.ComponentModel;
 using YALS_WaspEdition.Commands;
 using System.IO;
 using YALS_WaspEdition.Model.Serialization;
+using System.Windows.Input;
 
 namespace YALS_WaspEdition.ViewModels
 {
@@ -48,14 +49,32 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
-        public void LoadState(string path)
+        public void LoadState(string path, ICommand outputSelected, ICommand inputSelected)
         {
             if (!File.Exists(path))
             {
                 throw new FileNotFoundException();
             }
 
+            ICurrentStateSerializer serializer = Provider.Container.GetService<ICurrentStateSerializer>();
+            CurrentState state = serializer.Deserialize(path);
+            List<NodeVM> nodes = new List<NodeVM>();
+            this.Manager = new ComponentManagerVM();
 
+            foreach (var node in state.NodeVMsWithoutCommands)
+            {
+                node.InputSelectedCommand = inputSelected ?? throw new ArgumentNullException();
+                node.OutputSelectedCommand = outputSelected ?? throw new ArgumentNullException();
+                node.Setup();
+                this.Manager.AddNode(node);
+            } 
+
+            foreach(var connection in state.ConnectedPins)
+            {
+                this.Manager.Connect(connection.Item2, connection.Item1);
+            }
+
+            this.FirePropertyChanged(nameof(this.Manager));
         }
 
         public void Save(string path)
@@ -65,7 +84,7 @@ namespace YALS_WaspEdition.ViewModels
                 throw new FileNotFoundException();
             }
 
-            CurrentState state = new CurrentState(new GlobalConfig.GlobalConfigSettings(), this.Manager);
+            CurrentState state = new CurrentState(new GlobalConfig.GlobalConfigSettings(), this.Manager.Connections.Select(conn => new Tuple<PinVM, PinVM>(conn.InputPin, conn.OutputPin)).ToList(), this.Manager.NodeVMs);
 
             ICurrentStateSerializer serializer = Provider.Container.GetService<ICurrentStateSerializer>();
             serializer.Serialize(path, state);
@@ -93,6 +112,7 @@ namespace YALS_WaspEdition.ViewModels
         public ComponentManagerVM Manager
         {
             get;
+            private set;
         }
 
         public IDictionary<NodeType, ICollection<NodeVM>> AvailableComponents

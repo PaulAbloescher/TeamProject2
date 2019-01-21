@@ -16,12 +16,16 @@ namespace YALS_WaspEdition.ViewModels
         private double left;
         private double top;
 
+        [NonSerialized()]
+        private ICommand selectedCommand;
+
         public PinVM(IPin pin, ICommand selectedCommand)
         {
             this.Pin = pin ?? throw new ArgumentNullException(nameof(pin));
-            this.SelectedCommand = selectedCommand;
+            this.selectedCommand = selectedCommand;
         }
 
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
         public IPin Pin
@@ -32,7 +36,14 @@ namespace YALS_WaspEdition.ViewModels
 
         public ICommand SelectedCommand
         {
-            get;
+            get
+            {
+                return this.selectedCommand;
+            }
+            set
+            {
+                this.selectedCommand = value ?? throw new ArgumentNullException();
+            }
         }
 
         public double Left

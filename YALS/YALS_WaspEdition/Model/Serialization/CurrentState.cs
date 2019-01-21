@@ -14,29 +14,25 @@ namespace YALS_WaspEdition.Model.Serialization
     public class CurrentState
     {
 
-        public CurrentState(GlobalConfigSettings settings, ComponentManagerVM manager)
+        public CurrentState(GlobalConfigSettings settings, ICollection<Tuple<PinVM, PinVM>> connectedPins, ICollection<NodeVM> nodeVMs)
         {
             this.Settings = settings ?? throw new ArgumentNullException(nameof(settings));
-            this.ComponentManagerVM = manager ?? throw new ArgumentNullException(nameof(manager));
+            this.ConnectedPins = connectedPins;
+            this.NodeVMsWithoutCommands = nodeVMs;
         }
-        //public ICollection<IDisplayableNode> Nodes
-        //{
-        //    get;
-        //    set;
-        //}
-
-        //public ICollection<IConnection> Connections
-        //{
-        //    get;
-        //    set;
-        //}
-
-        public GlobalConfigSettings Settings
+        
+        public ICollection<Tuple<PinVM, PinVM>> ConnectedPins
         {
             get;
         }
 
-        public ComponentManagerVM ComponentManagerVM
+        public ICollection<NodeVM> NodeVMsWithoutCommands
+        {
+            get;
+        }
+        
+
+        public GlobalConfigSettings Settings
         {
             get;
         }

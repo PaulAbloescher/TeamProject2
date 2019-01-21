@@ -84,7 +84,7 @@ namespace YALS_WaspEdition
                 }
                 catch(ArgumentNullException ex)
                 {
-                    MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    System.Windows.MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }
@@ -174,6 +174,8 @@ namespace YALS_WaspEdition
 
         private void SetInputOutputPinPositions(Thumb thumb)
         {
+            var test = VisualTreeHelper.GetChildrenCount(thumb);
+
             DesignerComponentUC compUc = VisualTreeHelper.GetChild(thumb, 0) as DesignerComponentUC;
             var icInputs = compUc.Inputs;
             var icOutputs = compUc.Outputs;
@@ -210,13 +212,69 @@ namespace YALS_WaspEdition
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = false;
-            
+
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string fileName = dialog.FileName;
+                MainVM mainVM = (MainVM)this.DataContext;
 
-                this.MainVM.Save(fileName);
+                mainVM.LoadState(fileName, new Command(obj => {
+                    PinVM pin = obj as PinVM;
+                    if (pin == null)
+                        return;
+                    mainVM.CurrentSelectedInput = pin;
+                }), new Command(obj => {
+                    PinVM pin = obj as PinVM;
+                    if (pin == null)
+                        return;
+                    mainVM.CurrentSelectedOutput = pin;
+                }));
+
+                foreach (NodeVM component in mainVM.Manager.NodeVMs)
+                {
+                    Thumb thumb = new Thumb();
+                    thumb.DragDelta += Thumb_DragDelta;
+                    thumb.DataContext = component;
+                    var template = new ControlTemplate();
+                    var fec = new FrameworkElementFactory(typeof(DesignerComponentUC));
+                    template.VisualTree = fec;
+                    thumb.Template = template;
+
+                    try
+                    {
+                        Canvas canvas = this.mainCanvas;
+                        Canvas.SetLeft(thumb, component.Left);
+                        Canvas.SetTop(thumb, component.Top);
+                        canvas.Children.Add(thumb);
+                        component.RemoveCommand = new Command((obj) => {
+                            canvas.Children.Remove(thumb);
+                            mainVM.Manager.Manager.Components.Remove(component.Node);
+                        });
+                        
+
+                        thumb.Loaded += Thumb_Loaded;
+                    }
+                    catch (ArgumentNullException ex)
+                    {
+                        System.Windows.MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+
+
+                }
             }
-        } 
+        }
+
+        private void SaveFile(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = false;
+
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string fileName = dialog.FileName;
+                MainVM mainVM = (MainVM)this.DataContext;
+                mainVM.Save(fileName);
+            }
+        }
     }
 }

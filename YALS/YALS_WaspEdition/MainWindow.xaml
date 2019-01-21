@@ -21,7 +21,7 @@
             <MenuItem Header="File">
                 <MenuItem Header="New"></MenuItem>
                 <MenuItem Header="Open" Click="OpenFile"></MenuItem>
-                <MenuItem Header="Save"></MenuItem>
+                <MenuItem Header="Save" Click="SaveFile"></MenuItem>
             </MenuItem>
             <MenuItem Header="Plugins">
                 <MenuItem Header="Reload"></MenuItem>
