@@ -99,6 +99,8 @@ namespace YALS_WaspEdition
         private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Thumb thumb = e.Source as Thumb;
+            // TODO remove
+            MainVM mainVM = (MainVM)this.DataContext;
             var nodeVM = (NodeVM)thumb.DataContext;
 
             var nodeLeft = Canvas.GetLeft(thumb) + e.HorizontalChange;

@@ -21,6 +21,11 @@ namespace YALS_WaspEdition.Model.Serialization
             this.NodeVMsWithoutCommands = nodeVMs;
         }
         
+        public ICollection<Tuple<NodeVM, NodeVM>> ConnectedNodes
+        {
+            get;
+        }
+
         public ICollection<Tuple<PinVM, PinVM>> ConnectedPins
         {
             get;
