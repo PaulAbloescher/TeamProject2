@@ -11,8 +11,8 @@
     </UserControl.Resources>
 
     <DockPanel>
-        <ToolBarTray DockPanel.Dock="Top" Margin="0,0,227.6,0">
-            <ToolBar>
+        <ToolBarTray DockPanel.Dock="Top" IsLocked="True">
+            <ToolBar HorizontalAlignment="Left">
                 <ToggleButton Name="PlayBtn" Command="{Binding PlayCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Image Width="16" Height="16">
