@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Components.Components
 {
+    [Serializable()]
     public class HexDisplayComponent : Component
     {
         private Bitmap zeroImg;

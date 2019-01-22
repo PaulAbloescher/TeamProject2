@@ -80,12 +80,8 @@ namespace YALS_WaspEdition.ViewModels
 
         public void Save(string path)
         {
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException();
-            }
 
-            //CurrentState state = new CurrentState(new GlobalConfig.GlobalConfigSettings(), new List<Tuple<NodeVM, NodeVM>>() { new Tuple<NodeVM, NodeVM>(this.Manager.NodeVMs.ElementAt(0), this.Manager.NodeVMs.ElementAt(1)) }, this.Manager.NodeVMs);
+
             CurrentState state = new CurrentState(new GlobalConfig.GlobalConfigSettings(), this.Manager.Connections.Select(connection => new Tuple<PinVM, PinVM>(connection.InputPin, connection.OutputPin)).ToList(), this.Manager.NodeVMs);
 
             ICurrentStateSerializer serializer = Provider.Container.GetService<ICurrentStateSerializer>();
