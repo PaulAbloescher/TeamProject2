@@ -24,12 +24,12 @@
                         <Image Source="Resources/page.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Open" InputGestureText="Crtl+O" Click="OpenFile">
+                <MenuItem Header="_Open" InputGestureText="Crtl+O" Click="OpenFile_Handler">
                     <MenuItem.Icon>
                         <Image Source="Resources/folder.png"></Image>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="_Save" InputGestureText="Crtl+S" Click="SaveFile">
+                <MenuItem Header="_Save" InputGestureText="Crtl+S" Click="SaveFile_Handler">
                     <MenuItem.Icon>
                         <Image Source="Resources/disk.png"></Image>
                     </MenuItem.Icon>
@@ -109,4 +109,9 @@
             </ScrollViewer>
         </Grid>
     </DockPanel>
+
+    <Window.InputBindings>
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SaveFileCommand}" />
+        <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding OpenFileCommand}" />
+    </Window.InputBindings>
 </Window>

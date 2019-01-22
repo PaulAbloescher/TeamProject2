@@ -28,8 +28,20 @@ namespace YALS_WaspEdition.ViewModels
         {
             this.Setup();
             this.Manager = new ComponentManagerVM();
+
+            this.SaveFileCommand = new Command(obj =>
+            {
+                this.FireOnSaveFileRequested();
+            });
+
+            this.OpenFileCommand = new Command(obj =>
+            {
+                this.FireOnOpenFileRequested();
+            });
         }
 
+        public event EventHandler OnSaveFileRequested;
+        public event EventHandler OnOpenFileRequested;
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler<NotificationEventArgs> NotificationRequested;
 
@@ -80,8 +92,6 @@ namespace YALS_WaspEdition.ViewModels
 
         public void Save(string path)
         {
-
-
             CurrentState state = new CurrentState(new GlobalConfig.GlobalConfigSettings(), this.Manager.Connections.Select(connection => new Tuple<PinVM, PinVM>(connection.InputPin, connection.OutputPin)).ToList(), this.Manager.NodeVMs);
 
             ICurrentStateSerializer serializer = Provider.Container.GetService<ICurrentStateSerializer>();
@@ -117,6 +127,28 @@ namespace YALS_WaspEdition.ViewModels
         {
             get;
             set;
+        }
+
+        public ICommand OpenFileCommand
+        {
+            get;
+            private set;
+        }
+
+        public ICommand SaveFileCommand
+        {
+            get;
+            private set;
+        }
+
+        protected virtual void FireOnSaveFileRequested()
+        {
+            this.OnSaveFileRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void FireOnOpenFileRequested()
+        {
+            this.OnOpenFileRequested?.Invoke(this, EventArgs.Empty);
         }
 
         protected virtual void FireNotificationRequested(NotificationEventArgs args)

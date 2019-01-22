@@ -213,7 +213,17 @@ namespace YALS_WaspEdition
             }
         }
 
-        private void OpenFile(object sender, RoutedEventArgs e)
+        private void OpenFile_Handler(object sender, RoutedEventArgs e)
+        {
+            this.OpenFile();
+        }
+
+        private void SaveFile_Handler(object sender, RoutedEventArgs e)
+        {
+            this.SaveFile();
+        }
+
+        private void OpenFile()
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = false;
@@ -275,7 +285,7 @@ namespace YALS_WaspEdition
             }
         }
 
-        private void SaveFile(object sender, RoutedEventArgs e)
+        private void SaveFile()
         {
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.AddExtension = true;
@@ -296,11 +306,23 @@ namespace YALS_WaspEdition
         {
             var mainVm = (MainVM)this.DataContext;
             mainVm.NotificationRequested += MainVm_NotificationRequested;
+            mainVm.OnSaveFileRequested += this.MainVM_SaveFileRequested;
+            mainVm.OnOpenFileRequested += this.MainVM_OpenFileRequested;
         }
 
         private void MainVm_NotificationRequested(object sender, NotificationEventArgs e)
         {
             System.Windows.MessageBox.Show(e.Message, e.Caption, e.MessageBoxBtn, e.Icon);
+        }
+
+        private void MainVM_SaveFileRequested(object sender, EventArgs e)
+        {
+            this.SaveFile();
+        }
+
+        private void MainVM_OpenFileRequested(object sender, EventArgs e)
+        {
+            this.OpenFile();
         }
     }
 }
