@@ -101,6 +101,16 @@
                                             <MenuItem Header="Remove" Command="{Binding DisconnectCommand}"></MenuItem>
                                         </ContextMenu>
                                     </Line.ContextMenu>
+                                    <Line.Style>
+                                        <Style>
+                                            <Setter Property="Line.Stroke" Value="Black"></Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="Line.IsMouseOver" Value="True">
+                                                    <Setter Property="Line.Stroke" Value="Red" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Line.Style>
                                 </Line>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
