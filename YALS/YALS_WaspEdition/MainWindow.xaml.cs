@@ -72,6 +72,7 @@ namespace YALS_WaspEdition
                     Point p = e.GetPosition(canvas);
                     Canvas.SetLeft(thumb, p.X);
                     Canvas.SetTop(thumb, p.Y);
+                    Canvas.SetZIndex(thumb, -1);
                     component.Left = p.X;
                     component.Top = p.Y;
                     canvas.Children.Add(thumb);
@@ -214,11 +215,21 @@ namespace YALS_WaspEdition
             }
         }
 
-        private void OpenFile(object sender, RoutedEventArgs e)
+        private void OpenFile_Handler(object sender, RoutedEventArgs e)
+        {
+            this.OpenFile();
+        }
+
+        private void SaveFile_Handler(object sender, RoutedEventArgs e)
+        {
+            this.SaveFile();
+        }
+
+        private void OpenFile()
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = false;
-            dialog.Filter = "Wasp Dateien | *.wsp";
+            dialog.Filter = "Wasp Files | *.wsp";
 
             try
             {
@@ -276,13 +287,13 @@ namespace YALS_WaspEdition
             }
         }
 
-        private void SaveFile(object sender, RoutedEventArgs e)
+        private void SaveFile()
         {
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.AddExtension = true;
             dialog.CheckFileExists = false;
             dialog.AddExtension = true;
-            dialog.Filter = "Wasp Dateien | *.wsp";
+            dialog.Filter = "Wasp Files | *.wsp";
 
 
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -297,11 +308,23 @@ namespace YALS_WaspEdition
         {
             var mainVm = (MainVM)this.DataContext;
             mainVm.NotificationRequested += MainVm_NotificationRequested;
+            mainVm.OnSaveFileRequested += this.MainVM_SaveFileRequested;
+            mainVm.OnOpenFileRequested += this.MainVM_OpenFileRequested;
         }
 
         private void MainVm_NotificationRequested(object sender, NotificationEventArgs e)
         {
             System.Windows.MessageBox.Show(e.Message, e.Caption, e.MessageBoxBtn, e.Icon);
+        }
+
+        private void MainVM_SaveFileRequested(object sender, EventArgs e)
+        {
+            this.SaveFile();
+        }
+
+        private void MainVM_OpenFileRequested(object sender, EventArgs e)
+        {
+            this.OpenFile();
         }
     }
 }
