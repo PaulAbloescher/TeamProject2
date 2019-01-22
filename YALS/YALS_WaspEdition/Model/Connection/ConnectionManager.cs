@@ -30,7 +30,7 @@ namespace YALS_WaspEdition.Model.Component.Connection
 
                 if (existingInputConnection != null)
                 {
-                    throw new InvalidOperationException();
+                    throw new InvalidOperationException("An input pin cannot be connected twice.");
                 }
 
                 if (existingConnection == null)
