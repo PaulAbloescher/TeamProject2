@@ -24,5 +24,10 @@ namespace YALS_WaspEdition.Views.UserControls
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.PlayBtn.IsChecked = false;
+        }
     }
 }

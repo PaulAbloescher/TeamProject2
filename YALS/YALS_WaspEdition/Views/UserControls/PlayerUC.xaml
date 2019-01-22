@@ -21,7 +21,7 @@
             
             <Image  Source="..\..\Resources\PlayBtn.png"></Image>
         </ToggleButton>
-        <Button Width="30" Height="30" Grid.Column="1" Command="{Binding PauseCommand}">
+        <Button Width="30" Height="30" Grid.Column="1" Command="{Binding PauseCommand}" Click="Button_Click">
             <Image Source="..\..\Resources\PauseBtn.png"></Image>
         </Button>
         <Button Command="{Binding StepCommand}" Width="30" Height="30" Grid.Column="2" IsEnabled="{Binding ElementName=PlayBtn, Path=IsChecked, Converter={StaticResource Inverter}}">

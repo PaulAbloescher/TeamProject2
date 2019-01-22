@@ -12,7 +12,7 @@ namespace YALS_WaspEdition.Model.Component.Manager
     {
         ICollection<INode> Components { get; }
         ICollection<IConnection> Connections { get; }
-
+        bool IsRunning { get; }
         void Connect(IPin outputPin, IPin inputPin);
         void Disconnect(IPin output, IPin inputPin);
         void AddNode(INode node);
@@ -20,5 +20,8 @@ namespace YALS_WaspEdition.Model.Component.Manager
         void Play();
         void Step();
         void Stop();
+        Task PlayAsync();
+        Task StepAsync();
+        Task StopAsync();
     }
 }

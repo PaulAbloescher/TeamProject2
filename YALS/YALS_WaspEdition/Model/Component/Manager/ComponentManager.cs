@@ -20,6 +20,8 @@ namespace YALS_WaspEdition.Model.Component.Manager
             this.isRunning = false;
         }
 
+
+
         public ICollection<INode> Components
         {
             get;
@@ -31,6 +33,14 @@ namespace YALS_WaspEdition.Model.Component.Manager
             get
             {
                 return this.connectionManager.Connections;
+            }
+        }
+
+        public bool IsRunning
+        {
+            get
+            {
+                return this.isRunning;
             }
         }
 
@@ -51,12 +61,21 @@ namespace YALS_WaspEdition.Model.Component.Manager
 
         public void Play()
         {
-            this.isRunning = true;
+            this.isRunning = !this.isRunning;
 
             while (this.isRunning)
             {
                 this.Step();
             }
+        }
+
+        public Task PlayAsync()
+        {
+            var task = Task.Factory.StartNew(() => {
+                this.Play();
+            });
+
+            return task;
         }
 
         public void RemoveNode(INode node)
@@ -73,9 +92,27 @@ namespace YALS_WaspEdition.Model.Component.Manager
             }
         }
 
+        public Task StepAsync()
+        {
+            var task = Task.Factory.StartNew(() => {
+                this.Step();
+            });
+
+            return task;
+        }
+
         public void Stop()
         {
             this.isRunning = false;
+        }
+
+        public Task StopAsync()
+        {
+            var task = Task.Factory.StartNew(() => {
+                this.Stop();
+            });
+
+            return task;
         }
 
         private bool CheckIfPinIsInput(INode component, IPin pin)
