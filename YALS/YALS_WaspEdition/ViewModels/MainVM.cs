@@ -63,18 +63,17 @@ namespace YALS_WaspEdition.ViewModels
 
             foreach (var node in state.NodeVMsWithoutCommands)
             {
-                node.InputSelectedCommand = inputSelected ?? throw new ArgumentNullException();
-                node.OutputSelectedCommand = outputSelected ?? throw new ArgumentNullException();
-                node.Setup();
+                node.SetSelectedCommandForPins(inputSelected, outputSelected);
                 this.Manager.AddNode(node);
-            } 
+            }
 
-            foreach(var connection in state.ConnectedPins)
+            foreach(var conn in state.ConnectedPins)
             {
-                this.Manager.Connect(connection.Item2, connection.Item1);
+                this.Manager.Connect(conn.Item2, conn.Item1);
             }
 
             this.FirePropertyChanged(nameof(this.Manager));
+
         }
 
         public void Save(string path)
@@ -84,7 +83,8 @@ namespace YALS_WaspEdition.ViewModels
                 throw new FileNotFoundException();
             }
 
-            CurrentState state = new CurrentState(new GlobalConfig.GlobalConfigSettings(), this.Manager.Connections.Select(conn => new Tuple<PinVM, PinVM>(conn.InputPin, conn.OutputPin)).ToList(), this.Manager.NodeVMs);
+            //CurrentState state = new CurrentState(new GlobalConfig.GlobalConfigSettings(), new List<Tuple<NodeVM, NodeVM>>() { new Tuple<NodeVM, NodeVM>(this.Manager.NodeVMs.ElementAt(0), this.Manager.NodeVMs.ElementAt(1)) }, this.Manager.NodeVMs);
+            CurrentState state = new CurrentState(new GlobalConfig.GlobalConfigSettings(), this.Manager.Connections.Select(connection => new Tuple<PinVM, PinVM>(connection.InputPin, connection.OutputPin)).ToList(), this.Manager.NodeVMs);
 
             ICurrentStateSerializer serializer = Provider.Container.GetService<ICurrentStateSerializer>();
             serializer.Serialize(path, state);

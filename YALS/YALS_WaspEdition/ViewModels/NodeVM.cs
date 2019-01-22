@@ -40,6 +40,8 @@ namespace YALS_WaspEdition.ViewModels
             this.node = (IDisplayableNode)info.GetValue("node", typeof(IDisplayableNode));
             this.Left = (double)info.GetValue("left", typeof(double));
             this.Top = (double)info.GetValue("top", typeof(double));
+            this.Inputs = (ICollection<PinVM>)info.GetValue("inputs", typeof(ICollection<PinVM>));
+            this.Outputs= (ICollection<PinVM>)info.GetValue("outputs", typeof(ICollection<PinVM>));
         }
 
 
@@ -112,7 +114,7 @@ namespace YALS_WaspEdition.ViewModels
             {
                 return this.inputSelectedCommand;
             }
-            set
+            private set
             {
                 this.inputSelectedCommand = value ?? throw new ArgumentNullException();
             }
@@ -124,7 +126,7 @@ namespace YALS_WaspEdition.ViewModels
             {
                 return this.outputSelectedCommand;
             }
-            set
+            private set
             {
                 this.outputSelectedCommand = value ?? throw new ArgumentNullException();
             }
@@ -155,7 +157,7 @@ namespace YALS_WaspEdition.ViewModels
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public void Setup()
+        private void Setup()
         {
             var inputPinVms = this.node.Inputs.Select(p => new PinVM(p, this.inputSelectedCommand)).ToList();
             var outputPinVms = this.node.Outputs.Select(p => new PinVM(p, this.outputSelectedCommand)).ToList();
@@ -169,11 +171,29 @@ namespace YALS_WaspEdition.ViewModels
             this.FirePropertyChanged(nameof(this.Picture));
         }
 
+        public void SetSelectedCommandForPins(ICommand inputSelected, ICommand outputSelected)
+        {
+            this.inputSelectedCommand = inputSelected ?? throw new ArgumentNullException(nameof(inputSelected));
+            this.outputSelectedCommand = outputSelected ?? throw new ArgumentNullException(nameof(outputSelected));
+
+            foreach(var pin in this.Inputs)
+            {
+                pin.SelectedCommand = inputSelected;
+            }
+
+            foreach(var pin in this.Outputs)
+            {
+                pin.SelectedCommand = outputSelected;
+            }
+        }
+
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
             info.AddValue("node", this.Node);
             info.AddValue("left", this.Left);
             info.AddValue("top", this.Top);
+            info.AddValue("inputs", this.Inputs);
+            info.AddValue("outputs", this.Outputs);
         }
     }
 }
