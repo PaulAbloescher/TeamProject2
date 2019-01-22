@@ -63,7 +63,7 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
-        public void LoadState(string path, ICommand outputSelected, ICommand inputSelected)
+        public void LoadState(string path, ICommand inputSelected, ICommand outputSelected)
         {
             if (!File.Exists(path))
             {
