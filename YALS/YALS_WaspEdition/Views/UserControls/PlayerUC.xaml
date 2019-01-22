@@ -8,7 +8,6 @@
              mc:Ignorable="d">
     <UserControl.Resources>
         <converters:Inverter x:Key="Inverter"></converters:Inverter>
-
     </UserControl.Resources>
 
     <DockPanel>
@@ -48,7 +47,7 @@
                         </TextBlock>
                     </StackPanel>
                 </ToggleButton>
-                <Button Command="{Binding PauseCommand}">
+                <Button Command="{Binding PauseCommand}" Click="Button_Click">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="..\..\Resources\control_pause.png"></Image>
                         <TextBlock Margin="3,0,0,0">Pause</TextBlock>
@@ -63,23 +62,4 @@
             </ToolBar>
         </ToolBarTray>
     </DockPanel>
-
-
-    <!--<Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <ToggleButton Width="30" Height="30" Name="PlayBtn" Command="{Binding PlayCommand}">
-            
-            <Image  Source="..\..\Resources\PlayBtn.png"></Image>
-        </ToggleButton>
-        <Button Width="30" Height="30" Grid.Column="1" Command="{Binding PauseCommand}" Click="Button_Click">
-            <Image Source="..\..\Resources\PauseBtn.png"></Image>
-        </Button>
-        <Button Command="{Binding StepCommand}" Width="30" Height="30" Grid.Column="2" IsEnabled="{Binding ElementName=PlayBtn, Path=IsChecked, Converter={StaticResource Inverter}}">
-            <Image Source="..\..\Resources\StepBtn.png"></Image>
-        </Button>
-    </Grid>-->
 </UserControl>
