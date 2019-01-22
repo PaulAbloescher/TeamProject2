@@ -41,10 +41,11 @@ namespace YALS_WaspEdition.ViewModels
 
             this.ClearCommand = new Command(obj =>
             {
-                this.Manager.Clear();
+                this.FireOnNewRequested();
             });
         }
 
+        public event EventHandler OnNewRequested;
         public event EventHandler OnSaveFileRequested;
         public event EventHandler OnOpenFileRequested;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -151,6 +152,11 @@ namespace YALS_WaspEdition.ViewModels
         {
             get;
             private set;
+        }
+
+        protected virtual void FireOnNewRequested()
+        {
+            this.OnNewRequested?.Invoke(this, EventArgs.Empty);
         }
 
         protected virtual void FireOnSaveFileRequested()

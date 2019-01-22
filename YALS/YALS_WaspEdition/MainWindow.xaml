@@ -95,12 +95,22 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Line ToolTip="{Binding ConnectionAsString}" StrokeThickness="3" Stroke="Black" X1="{Binding InputPin.Left}" Y1="{Binding InputPin.Top}" X2="{Binding OutputPin.Left}" Y2="{Binding OutputPin.Top}" Canvas.ZIndex="1">
+                                <Line ToolTip="{Binding ConnectionAsString}" StrokeThickness="3" X1="{Binding InputPin.Left}" Y1="{Binding InputPin.Top}" X2="{Binding OutputPin.Left}" Y2="{Binding OutputPin.Top}" Canvas.ZIndex="1">
                                     <Line.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem Header="Remove" Command="{Binding DisconnectCommand}"></MenuItem>
                                         </ContextMenu>
                                     </Line.ContextMenu>
+                                    <Line.Style>
+                                        <Style>
+                                            <Setter Property="Line.Stroke" Value="Black"></Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="Line.IsMouseOver" Value="True">
+                                                    <Setter Property="Line.Stroke" Value="Red" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Line.Style>
                                 </Line>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -113,5 +123,6 @@
     <Window.InputBindings>
         <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SaveFileCommand}" />
         <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding OpenFileCommand}" />
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding ClearCommand}" />
     </Window.InputBindings>
 </Window>
