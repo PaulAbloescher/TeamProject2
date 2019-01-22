@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Components.Components
 {
+    [Serializable()]
     public class SwitchComponent : Component
     {
         private Bitmap switchOn;
