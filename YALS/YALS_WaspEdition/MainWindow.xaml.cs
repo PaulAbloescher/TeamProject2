@@ -267,13 +267,6 @@ namespace YALS_WaspEdition
                             System.Windows.MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                         }
                     }
-<<<<<<< HEAD
-                    catch (ArgumentNullException)
-                    {
-                        System.Windows.MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-=======
->>>>>>> 4052e3ec9d796702df8bf2c1391a768775be5fcc
                 }
             }
             catch (InvalidOperationException ex)

@@ -221,17 +221,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\PauseBtn.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\PlayBtn.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\StepBtn.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\control_play.png" />
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +231,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\control_stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\arrow_refresh.png" />
+    <Resource Include="Resources\cog.png" />
+    <Resource Include="Resources\disk.png" />
+    <Resource Include="Resources\door_open.png" />
+    <Resource Include="Resources\folder.png" />
+    <Resource Include="Resources\page.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
