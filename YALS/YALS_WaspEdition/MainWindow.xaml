@@ -91,7 +91,7 @@
             <ScrollViewer HorizontalScrollBarVisibility="Visible" Grid.Column="1" Grid.Row="1">
                 <Canvas Width="5000" Height="5000" DragOver="Canvas_DragOver" Drop="Canvas_Drop" AllowDrop="True" x:Name="mainCanvas">
                     <Canvas.Background>
-                        <ImageBrush ImageSource="Resources/gridme.png" TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,50,50" ViewboxUnits="Absolute" Viewbox="0,0,50,50"/>
+                        <ImageBrush ImageSource="Resources/graphy.png" TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,80,160" ViewboxUnits="Absolute" Viewbox="0,0,80,160"/>
                     </Canvas.Background>
 
                     <ItemsControl ItemsSource="{Binding Manager.Connections}">
