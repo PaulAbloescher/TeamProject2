@@ -45,9 +45,9 @@
             <MenuItem Header="_Plugins">
                 <MenuItem Header="_Reload" InputGestureText="Crtl+R">
                     <MenuItem.Icon>
-                    <Image Source="Resources/arrow_refresh.png"></Image>
-                </MenuItem.Icon>
-            </MenuItem>
+                        <Image Source="Resources/arrow_refresh.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="_Config">
                 <MenuItem Header="_Settings" InputGestureText="Crtl+Alt+O">
@@ -89,8 +89,11 @@
 
 
             <ScrollViewer HorizontalScrollBarVisibility="Visible" Grid.Column="1" Grid.Row="1">
-                <Canvas Width="5000" Height="5000" Background="LightGray" DragOver="Canvas_DragOver" Drop="Canvas_Drop" AllowDrop="True" x:Name="mainCanvas">
-                    
+                <Canvas Width="5000" Height="5000" DragOver="Canvas_DragOver" Drop="Canvas_Drop" AllowDrop="True" x:Name="mainCanvas">
+                    <Canvas.Background>
+                        <ImageBrush ImageSource="Resources/gridme.png" TileMode="Tile" Stretch="None" ViewportUnits="Absolute" Viewport="0,0,50,50" ViewboxUnits="Absolute" Viewbox="0,0,50,50"/>
+                    </Canvas.Background>
+
                     <ItemsControl ItemsSource="{Binding Manager.Connections}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>

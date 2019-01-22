@@ -255,5 +255,8 @@
   <ItemGroup>
     <Folder Include="Serialization\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\gridme.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
