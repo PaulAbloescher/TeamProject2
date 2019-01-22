@@ -15,6 +15,7 @@
     </Window.DataContext>
     <Window.Resources>
         <converters:BitmapConverter x:Key="BitmapConverter"></converters:BitmapConverter>
+        <converters:BezierConverter x:Key="BezierConverter"></converters:BezierConverter>
     </Window.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -84,9 +85,12 @@
                 </TreeView.ItemTemplate>
             </TreeView>
             <userControls:PlayerUC Grid.Column="1" Grid.Row="0" Height="Auto" Width="Auto" DataContext="{Binding Manager}" />
-            
+
+
+
             <ScrollViewer HorizontalScrollBarVisibility="Visible" Grid.Column="1" Grid.Row="1">
                 <Canvas Width="5000" Height="5000" Background="LightGray" DragOver="Canvas_DragOver" Drop="Canvas_Drop" AllowDrop="True" x:Name="mainCanvas">
+                    
                     <ItemsControl ItemsSource="{Binding Manager.Connections}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -95,7 +99,17 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Line ToolTip="{Binding ConnectionAsString}" StrokeThickness="3" Stroke="Black" X1="{Binding InputPin.Left}" Y1="{Binding InputPin.Top}" X2="{Binding OutputPin.Left}" Y2="{Binding OutputPin.Top}" Canvas.ZIndex="1">
+                                <Path Stroke="Black" StrokeThickness="3">
+                                    <Path.Data>
+                                        <MultiBinding Converter="{StaticResource BezierConverter}">
+                                            <Binding Path="OutputPin.Left"/>
+                                            <Binding Path="OutputPin.Top"/>
+                                            <Binding Path="InputPin.Left"/>
+                                            <Binding Path="InputPin.Top"/>
+                                        </MultiBinding>
+                                    </Path.Data>
+                                </Path>
+                                <!--<Line ToolTip="{Binding ConnectionAsString}" StrokeThickness="3" X1="{Binding InputPin.Left}" Y1="{Binding InputPin.Top}" X2="{Binding OutputPin.Left}" Y2="{Binding OutputPin.Top}" Canvas.ZIndex="1">
                                     <Line.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem Header="Remove" Command="{Binding DisconnectCommand}"></MenuItem>
@@ -111,7 +125,7 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Line.Style>
-                                </Line>
+                                </Line>-->
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
