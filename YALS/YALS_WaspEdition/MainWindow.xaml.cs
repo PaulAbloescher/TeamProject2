@@ -72,6 +72,7 @@ namespace YALS_WaspEdition
                     Point p = e.GetPosition(canvas);
                     Canvas.SetLeft(thumb, p.X);
                     Canvas.SetTop(thumb, p.Y);
+                    Canvas.SetZIndex(thumb, -1);
                     component.Left = p.X;
                     component.Top = p.Y;
                     canvas.Children.Add(thumb);
