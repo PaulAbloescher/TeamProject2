@@ -14,8 +14,10 @@ namespace YALS_WaspEdition.Converters
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var coords = values.Select(System.Convert.ToInt32).ToArray();
+
+            const int controlOffset = 100;
             // M X1,Y1 C X1+100,Y1 X2-100,Y2 X2,Y2
-            return Geometry.Parse($"M {coords[0]},{coords[1]} C {coords[0] + 100},{coords[1]} {coords[2]-100},{coords[3]} {coords[2]},{coords[3]}");
+            return Geometry.Parse($"M {coords[0]},{coords[1]} C {coords[0] + controlOffset},{coords[1]} {coords[2]- controlOffset},{coords[3]} {coords[2]},{coords[3]}");
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
