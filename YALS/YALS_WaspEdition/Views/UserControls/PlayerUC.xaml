@@ -15,7 +15,7 @@
             <ToolBar>
                 <ToggleButton Name="PlayBtn" Command="{Binding PlayCommand}">
                     <StackPanel Orientation="Horizontal">
-                        <Image>
+                        <Image Width="16" Height="16">
                             <Image.Style>
                                 <Style TargetType="{x:Type Image}">
                                     <Setter Property="Source" Value="../../Resources/control_play.png" />

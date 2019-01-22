@@ -50,6 +50,7 @@
     <Compile Include="Components\NotComponent.cs" />
     <Compile Include="Components\OrComponent.cs" />
     <Compile Include="Components\Pin.cs" />
+    <Compile Include="Components\SwitchComponent.cs" />
     <Compile Include="Components\ValueGeneric.cs" />
     <Compile Include="Components\XORComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,6 +92,8 @@
     <Content Include="Resources\HexDisplay\9.png" />
     <Content Include="Resources\Led_Green.png" />
     <Content Include="Resources\Led_Red.png" />
+    <Content Include="Resources\switch_off.png" />
+    <Content Include="Resources\switch_on.png" />
     <None Include="Resources\Constant_False.png" />
     <None Include="Resources\Constant_True.png" />
     <Content Include="Resources\gate_not.png" />
