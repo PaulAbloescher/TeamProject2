@@ -20,6 +20,7 @@ using YALS_WaspEdition.Commands;
 using YALS_WaspEdition.Model.Serialization;
 using YALS_WaspEdition.ViewModels;
 using YALS_WaspEdition.Views.UserControls;
+using YALS_WaspEdition.MyEventArgs;
 
 namespace YALS_WaspEdition
 {
@@ -31,6 +32,7 @@ namespace YALS_WaspEdition
         public MainWindow()
         {
             InitializeComponent();
+            this.Setup();
         }
 
         private void Canvas_DragOver(object sender, System.Windows.DragEventArgs e)
@@ -83,7 +85,7 @@ namespace YALS_WaspEdition
 
                     thumb.Loaded += Thumb_Loaded;
                 }
-                catch(ArgumentNullException ex)
+                catch(ArgumentNullException)
                 {
                     System.Windows.MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
@@ -257,12 +259,10 @@ namespace YALS_WaspEdition
 
                         thumb.Loaded += Thumb_Loaded;
                     }
-                    catch (ArgumentNullException ex)
+                    catch (ArgumentNullException)
                     {
                         System.Windows.MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
-
-
                 }
             }
         }
@@ -278,6 +278,17 @@ namespace YALS_WaspEdition
                 MainVM mainVM = (MainVM)this.DataContext;
                 mainVM.Save(fileName);
             }
+        }
+
+        private void Setup()
+        {
+            var mainVm = (MainVM)this.DataContext;
+            mainVm.NotificationRequested += MainVm_NotificationRequested;
+        }
+
+        private void MainVm_NotificationRequested(object sender, NotificationEventArgs e)
+        {
+            System.Windows.MessageBox.Show(e.Message, e.Caption, e.MessageBoxBtn, e.Icon);
         }
     }
 }

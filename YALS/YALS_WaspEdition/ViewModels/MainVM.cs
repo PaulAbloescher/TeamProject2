@@ -13,6 +13,7 @@ using YALS_WaspEdition.Commands;
 using System.IO;
 using YALS_WaspEdition.Model.Serialization;
 using System.Windows.Input;
+using YALS_WaspEdition.MyEventArgs;
 
 namespace YALS_WaspEdition.ViewModels
 {
@@ -30,6 +31,7 @@ namespace YALS_WaspEdition.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler<NotificationEventArgs> NotificationRequested;
 
         public PinVM CurrentSelectedInput
         {
@@ -121,6 +123,11 @@ namespace YALS_WaspEdition.ViewModels
             set;
         }
 
+        protected virtual void FireNotificationRequested(NotificationEventArgs args)
+        {
+            this.NotificationRequested?.Invoke(this, args);
+        }
+
         protected virtual void FirePropertyChanged(string name)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -158,9 +165,23 @@ namespace YALS_WaspEdition.ViewModels
 
         private void AddConnection(PinVM outputPin, PinVM inputPin)
         {
-            this.Manager.Connect(outputPin, inputPin);
-            this.CurrentSelectedInput = null;
-            this.CurrentSelectedOutput = null;
+            try
+            {
+                this.Manager.Connect(outputPin, inputPin);
+            }
+            catch (InvalidOperationException ex)
+            {
+                this.FireNotificationRequested(new NotificationEventArgs(ex.Message, "Pin type match error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error));
+            }
+            catch (Exception)
+            {
+                this.FireNotificationRequested(new NotificationEventArgs("An unknown error occurred.", "Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error));
+            }
+            finally
+            {
+                this.CurrentSelectedInput = null;
+                this.CurrentSelectedOutput = null;
+            }
         }
     }
 }

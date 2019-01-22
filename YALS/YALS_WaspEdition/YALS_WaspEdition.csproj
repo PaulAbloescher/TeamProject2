@@ -107,6 +107,7 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Converters\BitmapConverter.cs" />
     <Compile Include="Converters\Inverter.cs" />
+    <Compile Include="EventArgs\NotificationEventArgs.cs" />
     <Compile Include="EventArgs\PinSelectedEventArgs.cs" />
     <Compile Include="GlobalConfig\ColorConfigurationWindow.xaml.cs">
       <DependentUpon>ColorConfigurationWindow.xaml</DependentUpon>

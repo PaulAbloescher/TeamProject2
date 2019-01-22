@@ -11,6 +11,7 @@ namespace Shared
         Logic,
         Display,
         Source,
-        Switch
+        Switch,
+        Converter
     }
 }

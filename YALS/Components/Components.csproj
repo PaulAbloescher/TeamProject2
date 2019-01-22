@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\AndComponent.cs" />
+    <Compile Include="Components\BoolToIntComponent.cs" />
     <Compile Include="Components\Component.cs" />
     <Compile Include="Components\ConstantComponent.cs" />
     <Compile Include="Components\HexDisplayComponent.cs" />
@@ -74,6 +75,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Resources\boolToIntConverter.png" />
     <Content Include="Resources\HexDisplay\0.png" />
     <Content Include="Resources\HexDisplay\1.png" />
     <Content Include="Resources\HexDisplay\10.png" />
