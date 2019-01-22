@@ -227,7 +227,7 @@ namespace YALS_WaspEdition
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = false;
-            dialog.Filter = "Wasp Dateien | *.wsp";
+            dialog.Filter = "Wasp Files | *.wsp";
 
             try
             {
@@ -291,7 +291,7 @@ namespace YALS_WaspEdition
             dialog.AddExtension = true;
             dialog.CheckFileExists = false;
             dialog.AddExtension = true;
-            dialog.Filter = "Wasp Dateien | *.wsp";
+            dialog.Filter = "Wasp Files | *.wsp";
 
 
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
