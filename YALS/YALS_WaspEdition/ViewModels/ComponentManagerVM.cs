@@ -98,10 +98,20 @@ namespace YALS_WaspEdition.ViewModels
 
         public void Connect(PinVM outputPin, PinVM inputPin)
         {
-            this.Manager.Connect(outputPin.Pin, inputPin.Pin);
-            this.Connections.Add(new ConnectionVM(outputPin, inputPin, new Command((obj) => {
-                this.Disconnect(outputPin, inputPin);
-            })));
+            try
+            {
+
+
+                this.Manager.Connect(outputPin.Pin, inputPin.Pin);
+                this.Connections.Add(new ConnectionVM(outputPin, inputPin, new Command((obj) =>
+                {
+                    this.Disconnect(outputPin, inputPin);
+                })));
+            }
+            catch(InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("An input pin cannot be connected twice.", ex);
+            }
         }
 
         public void Disconnect(PinVM outputPin, PinVM inputPin)

@@ -19,6 +19,11 @@ namespace YALS_WaspEdition.GlobalConfig
             this.StringValues = new Dictionary<string, Color>();
         }
 
+        public Color DefaultColor
+        {
+            get;
+        }
+
         public Dictionary<int, Color> IntValues
         {
             get;

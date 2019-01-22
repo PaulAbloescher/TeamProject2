@@ -308,6 +308,7 @@ namespace YALS_WaspEdition
         {
             var mainVm = (MainVM)this.DataContext;
             mainVm.NotificationRequested += MainVm_NotificationRequested;
+            mainVm.OnNewRequested += this.MainVM_NewRequested;
             mainVm.OnSaveFileRequested += this.MainVM_SaveFileRequested;
             mainVm.OnOpenFileRequested += this.MainVM_OpenFileRequested;
         }
@@ -315,6 +316,18 @@ namespace YALS_WaspEdition
         private void MainVm_NotificationRequested(object sender, NotificationEventArgs e)
         {
             System.Windows.MessageBox.Show(e.Message, e.Caption, e.MessageBoxBtn, e.Icon);
+        }
+
+        private void MainVM_NewRequested(object sender, EventArgs e)
+        {
+            var mainVm = (MainVM)this.DataContext;
+
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show(this, "Are you sure you want to create a new file? Unsaved changes might be lost!", "Info", MessageBoxButton.YesNo, MessageBoxImage.Information);
+
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                mainVm.Manager.Clear();
+            }
         }
 
         private void MainVM_SaveFileRequested(object sender, EventArgs e)

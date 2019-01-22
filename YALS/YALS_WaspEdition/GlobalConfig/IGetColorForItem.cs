@@ -7,8 +7,8 @@ using System.Windows.Media;
 
 namespace YALS_WaspEdition.GlobalConfig
 {
-    public interface IGetColorForType
+    public interface IGetColorForItem
     {
-       
+        Color GetColor(object item);
     }
 }

@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\wasp.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Extensions.Configuration, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.2.2.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
@@ -116,8 +119,9 @@
     <Compile Include="GlobalConfig\ColorSettingsListBox.xaml.cs">
       <DependentUpon>ColorSettingsListBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GlobalConfig\GetColorForTypes.cs" />
     <Compile Include="GlobalConfig\GlobalConfigSettings.cs" />
-    <Compile Include="GlobalConfig\IGetColorForType.cs" />
+    <Compile Include="GlobalConfig\IGetColorForItem.cs" />
     <Compile Include="GlobalConfig\ValueInputWindow.xaml.cs">
       <DependentUpon>ValueInputWindow.xaml</DependentUpon>
     </Compile>
@@ -244,6 +248,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Serialization\" />
+    <Resource Include="Resources\wasp.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

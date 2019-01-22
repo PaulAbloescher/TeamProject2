@@ -135,5 +135,6 @@
     <Window.InputBindings>
         <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SaveFileCommand}" />
         <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding OpenFileCommand}" />
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding ClearCommand}" />
     </Window.InputBindings>
 </Window>
