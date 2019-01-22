@@ -102,7 +102,11 @@
                                 <Path StrokeThickness="3">
                                     <Path.ContextMenu>
                                         <ContextMenu>
-                                            <MenuItem Header="Remove" Command="{Binding DisconnectCommand}"></MenuItem>
+                                            <MenuItem Header="Remove" Command="{Binding DisconnectCommand}">
+                                                <MenuItem.Icon>
+                                                    <Image Source="Resources/cut_red.png"></Image>
+                                                </MenuItem.Icon>
+                                            </MenuItem>
                                         </ContextMenu>
                                     </Path.ContextMenu>
                                     <Path.Data>

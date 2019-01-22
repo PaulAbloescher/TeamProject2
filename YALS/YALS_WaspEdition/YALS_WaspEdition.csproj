@@ -247,8 +247,13 @@
     <Resource Include="Resources\page.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Serialization\" />
     <Resource Include="Resources\wasp.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\cut_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Serialization\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
