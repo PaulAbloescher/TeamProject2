@@ -115,8 +115,9 @@
     <Compile Include="GlobalConfig\ColorSettingsListBox.xaml.cs">
       <DependentUpon>ColorSettingsListBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GlobalConfig\GetColorForTypes.cs" />
     <Compile Include="GlobalConfig\GlobalConfigSettings.cs" />
-    <Compile Include="GlobalConfig\IGetColorForType.cs" />
+    <Compile Include="GlobalConfig\IGetColorForItem.cs" />
     <Compile Include="GlobalConfig\ValueInputWindow.xaml.cs">
       <DependentUpon>ValueInputWindow.xaml</DependentUpon>
     </Compile>

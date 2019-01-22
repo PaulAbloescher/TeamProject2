@@ -26,6 +26,12 @@ namespace YALS_WaspEdition.Model.Component.Connection
             if (this.CheckPinCompatibility(output, input))
             {
                 var existingConnection = this.Connections.FirstOrDefault(c => c.Output.Equals(output));
+                var existingInputConnection = this.Connections.FirstOrDefault(c => c.InputPins.Contains(input));
+
+                if (existingInputConnection != null)
+                {
+                    throw new InvalidOperationException();
+                }
 
                 if (existingConnection == null)
                 {
