@@ -22,16 +22,18 @@ namespace YALS_WaspEdition.ViewModels
             this.NodeVMs = new List<NodeVM>();
             this.PlayCommand = new Command((obj) => {
                 App.Current.Dispatcher.Invoke(() => {
-                    var task = Task.Factory.StartNew(() => {
-                        this.Manager.Play();
-                    });
+                    var task = this.Manager.PlayAsync();
                 });
             });
             this.PauseCommand = new Command((obj) => {
-                App.Current.Dispatcher.Invoke(this.Manager.Stop);
+                App.Current.Dispatcher.Invoke(() => {
+                    var task = this.Manager.StopAsync();
+                });
             });
             this.StepCommand = new Command((obj) => {
-                App.Current.Dispatcher.Invoke(this.Manager.Step);
+                App.Current.Dispatcher.Invoke(() => {
+                    var task = this.Manager.StepAsync();
+                });
             });
         }
 

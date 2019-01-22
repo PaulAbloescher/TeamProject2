@@ -64,10 +64,6 @@
     <Compile Include="Model\Connection\ConnectionManager.cs" />
     <Compile Include="Model\Connection\IConnection.cs" />
     <Compile Include="Model\Connection\IConnectionManager.cs" />
-    <Compile Include="Model\Reflection\ComponentLoader.cs" />
-    <Compile Include="Model\Reflection\ComponentLoaderController.cs" />
-    <Compile Include="Model\Reflection\IComponentLoader.cs" />
-    <Compile Include="Model\Reflection\IComponentLoaderController.cs" />
     <Compile Include="Model\Value\ValueGeneric.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -230,5 +230,17 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\control_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\control_pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\control_end.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\control_stop.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -47,7 +47,7 @@ namespace YALS_WaspEdition
             e.Handled = true;
         }
 
-        private void Canvas_Drop(object sender, System.Windows.DragEventArgs e)
+        private async void Canvas_Drop(object sender, System.Windows.DragEventArgs e)
         {
             // TODO Fix components overlapping drag.
             var component = (NodeVM)e.Data.GetData(typeof(NodeVM));
@@ -75,7 +75,8 @@ namespace YALS_WaspEdition
                     canvas.Children.Add(thumb);
 
                     // Learn a NodeVM how to remove itself.
-                    component.RemoveCommand = new Command((obj) => {
+                    component.RemoveCommand = new Command(async (obj) => {
+                        await mainVM.Manager.Manager.StopAsync();
                         canvas.Children.Remove(thumb);
                         mainVM.Manager.Manager.Components.Remove(component.Node);
                     });
