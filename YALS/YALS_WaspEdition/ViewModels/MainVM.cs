@@ -75,7 +75,6 @@ namespace YALS_WaspEdition.ViewModels
             }
 
             this.FirePropertyChanged(nameof(this.Manager));
-
         }
 
         public void Save(string path)

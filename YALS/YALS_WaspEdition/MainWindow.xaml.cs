@@ -81,6 +81,7 @@ namespace YALS_WaspEdition
                         await mainVM.Manager.Manager.StopAsync();
                         canvas.Children.Remove(thumb);
                         mainVM.Manager.Manager.Components.Remove(component.Node);
+                        mainVM.Manager.RemoveNode(component);
                     });
 
                     thumb.Loaded += Thumb_Loaded;

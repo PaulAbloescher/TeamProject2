@@ -77,6 +77,13 @@ namespace YALS_WaspEdition.ViewModels
 
         public void RemoveNode(NodeVM node)
         {
+            var affectedConnections = this.Connections.Where(c => node.Inputs.Contains(c.InputPin) || node.Outputs.Contains(c.OutputPin)).ToList();
+            foreach (var connection in affectedConnections)
+            {
+                this.Manager.Disconnect(connection.OutputPin.Pin, connection.InputPin.Pin);
+                this.Connections.Remove(connection);
+            }
+
             this.Manager.RemoveNode(node.Node);
             this.NodeVMs.Remove(node);
         }
