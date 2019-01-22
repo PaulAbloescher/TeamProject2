@@ -25,7 +25,18 @@ namespace YALS_WaspEdition.Model.Serialization
 
             using (Stream stream = new FileStream(path, FileMode.Open))
             {
-                state = (CurrentState)this.binaryFormatter.Deserialize(stream);
+                try
+                {
+                    state = (CurrentState)this.binaryFormatter.Deserialize(stream);
+                }
+                catch(SerializationException e)
+                {
+                    throw new InvalidOperationException("The file does not have the right format or the components that are saved in the file are not loaded in the current application.", e);
+                }
+                catch(InvalidCastException e)
+                {
+                    throw new InvalidOperationException("The file does not have the right format.", e);
+                }
             }
 
             return state;

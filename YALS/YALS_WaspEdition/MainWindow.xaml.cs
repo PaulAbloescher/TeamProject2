@@ -215,62 +215,72 @@ namespace YALS_WaspEdition
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = false;
+            dialog.Filter = "Wasp Dateien | *.wsp";
 
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            try
             {
-                string fileName = dialog.FileName;
-                MainVM mainVM = (MainVM)this.DataContext;
-
-                mainVM.LoadState(fileName, new Command(obj => {
-                    PinVM pin = obj as PinVM;
-                    if (pin == null)
-                        return;
-                    mainVM.CurrentSelectedInput = pin;
-                }), new Command(obj => {
-                    PinVM pin = obj as PinVM;
-                    if (pin == null)
-                        return;
-                    mainVM.CurrentSelectedOutput = pin;
-                }));
-
-                foreach (NodeVM component in mainVM.Manager.NodeVMs)
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    Thumb thumb = new Thumb();
-                    thumb.DragDelta += Thumb_DragDelta;
-                    thumb.DataContext = component;
-                    var template = new ControlTemplate();
-                    var fec = new FrameworkElementFactory(typeof(DesignerComponentUC));
-                    template.VisualTree = fec;
-                    thumb.Template = template;
+                    string fileName = dialog.FileName;
+                    MainVM mainVM = (MainVM)this.DataContext;
 
-                    try
+                    mainVM.LoadState(fileName, new Command(obj => {
+                        PinVM pin = obj as PinVM;
+                        if (pin == null)
+                            return;
+                        mainVM.CurrentSelectedInput = pin;
+                    }), new Command(obj => {
+                        PinVM pin = obj as PinVM;
+                        if (pin == null)
+                            return;
+                        mainVM.CurrentSelectedOutput = pin;
+                    }));
+
+                    foreach (NodeVM component in mainVM.Manager.NodeVMs)
                     {
-                        Canvas canvas = this.mainCanvas;
-                        Canvas.SetLeft(thumb, component.Left);
-                        Canvas.SetTop(thumb, component.Top);
-                        canvas.Children.Add(thumb);
-                        component.RemoveCommand = new Command((obj) => {
-                            canvas.Children.Remove(thumb);
-                            mainVM.Manager.Manager.Components.Remove(component.Node);
-                        });
-                        
+                        Thumb thumb = new Thumb();
+                        thumb.DragDelta += Thumb_DragDelta;
+                        thumb.DataContext = component;
+                        var template = new ControlTemplate();
+                        var fec = new FrameworkElementFactory(typeof(DesignerComponentUC));
+                        template.VisualTree = fec;
+                        thumb.Template = template;
 
-                        thumb.Loaded += Thumb_Loaded;
+                        try
+                        {
+                            Canvas canvas = this.mainCanvas;
+                            Canvas.SetLeft(thumb, component.Left);
+                            Canvas.SetTop(thumb, component.Top);
+                            canvas.Children.Add(thumb);
+                            component.RemoveCommand = new Command((obj) => {
+                                canvas.Children.Remove(thumb);
+                                mainVM.Manager.Manager.Components.Remove(component.Node);
+                            });
+
+
+                            thumb.Loaded += Thumb_Loaded;
+                        }
+                        catch (ArgumentNullException ex)
+                        {
+                            System.Windows.MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        }
                     }
-                    catch (ArgumentNullException ex)
-                    {
-                        System.Windows.MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    }
-
-
                 }
+            }
+            catch (InvalidOperationException ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
         private void SaveFile(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Multiselect = false;
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.AddExtension = true;
+            dialog.CheckFileExists = false;
+            dialog.AddExtension = true;
+            dialog.Filter = "Wasp Dateien | *.wsp";
+
 
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {

@@ -25,7 +25,7 @@ namespace YALS_WaspEdition.ViewModels
             this.selectedCommand = selectedCommand;
         }
 
-        [field: NonSerialized]
+        [field: NonSerialized()]
         public event PropertyChangedEventHandler PropertyChanged;
 
         public IPin Pin
