@@ -10,12 +10,14 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using YALS_WaspEdition.Commands;
+using YALS_WaspEdition.Model.Serialization;
 using YALS_WaspEdition.ViewModels;
 using YALS_WaspEdition.Views.UserControls;
 
@@ -31,21 +33,21 @@ namespace YALS_WaspEdition
             InitializeComponent();
         }
 
-        private void Canvas_DragOver(object sender, DragEventArgs e)
+        private void Canvas_DragOver(object sender, System.Windows.DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(NodeVM)))
             {
-                e.Effects = DragDropEffects.Copy;
+                e.Effects = System.Windows.DragDropEffects.Copy;
             }
             else
             {
-                e.Effects = DragDropEffects.None;
+                e.Effects = System.Windows.DragDropEffects.None;
             }
 
             e.Handled = true;
         }
 
-        private async void Canvas_Drop(object sender, DragEventArgs e)
+        private async void Canvas_Drop(object sender, System.Windows.DragEventArgs e)
         {
             // TODO Fix components overlapping drag.
             var component = (NodeVM)e.Data.GetData(typeof(NodeVM));
@@ -83,7 +85,7 @@ namespace YALS_WaspEdition
                 }
                 catch(ArgumentNullException ex)
                 {
-                    MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    System.Windows.MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }
@@ -158,8 +160,8 @@ namespace YALS_WaspEdition
                         return;
                     mainVM.CurrentSelectedInput = pin;
                 }));
-                DataObject data = new DataObject(typeof(NodeVM), nodeVmNew);
-                DragDrop.DoDragDrop(ComponentTV, data, DragDropEffects.Copy);
+                System.Windows.DataObject data = new System.Windows.DataObject(typeof(NodeVM), nodeVmNew);
+                DragDrop.DoDragDrop(ComponentTV, data, System.Windows.DragDropEffects.Copy);
             }
         }
 
@@ -173,6 +175,8 @@ namespace YALS_WaspEdition
 
         private void SetInputOutputPinPositions(Thumb thumb)
         {
+            var test = VisualTreeHelper.GetChildrenCount(thumb);
+
             DesignerComponentUC compUc = VisualTreeHelper.GetChild(thumb, 0) as DesignerComponentUC;
             var icInputs = compUc.Inputs;
             var icOutputs = compUc.Outputs;
@@ -202,6 +206,75 @@ namespace YALS_WaspEdition
                 var currentPin = icOutputs.Items[i] as PinVM;
                 currentPin.Left = compUc.ActualWidth - left + nodeVM.Left;
                 currentPin.Top = top + nodeVM.Top;
+            }
+        }
+
+        private void OpenFile(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = false;
+
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string fileName = dialog.FileName;
+                MainVM mainVM = (MainVM)this.DataContext;
+
+                mainVM.LoadState(fileName, new Command(obj => {
+                    PinVM pin = obj as PinVM;
+                    if (pin == null)
+                        return;
+                    mainVM.CurrentSelectedInput = pin;
+                }), new Command(obj => {
+                    PinVM pin = obj as PinVM;
+                    if (pin == null)
+                        return;
+                    mainVM.CurrentSelectedOutput = pin;
+                }));
+
+                foreach (NodeVM component in mainVM.Manager.NodeVMs)
+                {
+                    Thumb thumb = new Thumb();
+                    thumb.DragDelta += Thumb_DragDelta;
+                    thumb.DataContext = component;
+                    var template = new ControlTemplate();
+                    var fec = new FrameworkElementFactory(typeof(DesignerComponentUC));
+                    template.VisualTree = fec;
+                    thumb.Template = template;
+
+                    try
+                    {
+                        Canvas canvas = this.mainCanvas;
+                        Canvas.SetLeft(thumb, component.Left);
+                        Canvas.SetTop(thumb, component.Top);
+                        canvas.Children.Add(thumb);
+                        component.RemoveCommand = new Command((obj) => {
+                            canvas.Children.Remove(thumb);
+                            mainVM.Manager.Manager.Components.Remove(component.Node);
+                        });
+                        
+
+                        thumb.Loaded += Thumb_Loaded;
+                    }
+                    catch (ArgumentNullException ex)
+                    {
+                        System.Windows.MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+
+
+                }
+            }
+        }
+
+        private void SaveFile(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Multiselect = false;
+
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string fileName = dialog.FileName;
+                MainVM mainVM = (MainVM)this.DataContext;
+                mainVM.Save(fileName);
             }
         }
     }

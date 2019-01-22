@@ -5,13 +5,67 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:YALS_WaspEdition.Views.UserControls"
              xmlns:converters="clr-namespace:YALS_WaspEdition.Converters"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d">
     <UserControl.Resources>
         <converters:Inverter x:Key="Inverter"></converters:Inverter>
 
     </UserControl.Resources>
-    <Grid>
+
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top" Margin="0,0,227.6,0">
+            <ToolBar>
+                <ToggleButton Name="PlayBtn" Command="{Binding PlayCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image>
+                            <Image.Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Source" Value="../../Resources/control_play.png" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type ToggleButton}}, Path=IsChecked}" Value="true">
+                                            <Setter Property="Source" Value="../../Resources/control_stop.png"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type ToggleButton}}, Path=IsChecked}" Value="false">
+                                            <Setter Property="Source" Value="../../Resources/control_play.png"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                        </Image>
+                        <TextBlock Margin="3,0,0,0">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Text" Value="Run"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type ToggleButton}}, Path=IsChecked}" Value="true">
+                                            <Setter Property="Text" Value="Stop"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor,  AncestorType={x:Type ToggleButton}}, Path=IsChecked}" Value="false">
+                                            <Setter Property="Text" Value="Run"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
+                </ToggleButton>
+                <Button Command="{Binding PauseCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\..\Resources\control_pause.png"></Image>
+                        <TextBlock Margin="3,0,0,0">Pause</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding StepCommand}" IsEnabled="{Binding ElementName=PlayBtn, Path=IsChecked, Converter={StaticResource Inverter}}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="..\..\Resources\control_end.png"></Image>
+                        <TextBlock Margin="3,0,0,0">Step</TextBlock>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+    </DockPanel>
+
+
+    <!--<Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -27,5 +81,5 @@
         <Button Command="{Binding StepCommand}" Width="30" Height="30" Grid.Column="2" IsEnabled="{Binding ElementName=PlayBtn, Path=IsChecked, Converter={StaticResource Inverter}}">
             <Image Source="..\..\Resources\StepBtn.png"></Image>
         </Button>
-    </Grid>
+    </Grid>-->
 </UserControl>

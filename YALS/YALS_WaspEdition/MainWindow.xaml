@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowState="Maximized">
     <Window.DataContext>
-        <vms:MainVM></vms:MainVM>
+        <vms:MainVM x:Name="MainVM"></vms:MainVM>
     </Window.DataContext>
     <Window.Resources>
         <converters:BitmapConverter x:Key="BitmapConverter"></converters:BitmapConverter>
@@ -20,8 +20,8 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
                 <MenuItem Header="New" InputGestureText="Crtl+N"></MenuItem>
-                <MenuItem Header="Save" InputGestureText="Crtl+S"></MenuItem>
-                <MenuItem Header="Open" InputGestureText="Crtl+O"></MenuItem>
+                <MenuItem Header="Save" InputGestureText="Crtl+S" Click="SaveFile"></MenuItem>
+                <MenuItem Header="Open" InputGestureText="Crtl+O" Click="OpenFile"></MenuItem>
             </MenuItem>
             <MenuItem Header="Plugins">
                 <MenuItem Header="Reload" InputGestureText="Crtl+R"></MenuItem>

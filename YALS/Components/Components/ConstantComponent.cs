@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Components.Components
 {
+    [Serializable()]
     public class ConstantComponent : Component
     {
         private Bitmap trueImage;

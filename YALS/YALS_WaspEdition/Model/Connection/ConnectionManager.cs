@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace YALS_WaspEdition.Model.Component.Connection
 {
+    [Serializable()]
     public class ConnectionManager : IConnectionManager
     {
         public ConnectionManager()
