@@ -38,6 +38,11 @@ namespace YALS_WaspEdition.ViewModels
             {
                 this.FireOnOpenFileRequested();
             });
+
+            this.ClearCommand = new Command(obj =>
+            {
+                this.Manager.Clear();
+            });
         }
 
         public event EventHandler OnSaveFileRequested;
@@ -69,6 +74,7 @@ namespace YALS_WaspEdition.ViewModels
             {
                 throw new FileNotFoundException();
             }
+            this.Manager.Clear();
 
             ICurrentStateSerializer serializer = Provider.Container.GetService<ICurrentStateSerializer>();
             CurrentState state = serializer.Deserialize(path);
@@ -117,6 +123,7 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
+
         public ComponentManagerVM Manager
         {
             get;
@@ -136,6 +143,12 @@ namespace YALS_WaspEdition.ViewModels
         }
 
         public ICommand SaveFileCommand
+        {
+            get;
+            private set;
+        }
+
+        public ICommand ClearCommand
         {
             get;
             private set;

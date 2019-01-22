@@ -81,6 +81,14 @@ namespace YALS_WaspEdition.ViewModels
             this.NodeVMs.Remove(node);
         }
 
+        public void Clear()
+        {
+            for(int i = 0; i < this.NodeVMs.Count; i++)
+            {
+                this.NodeVMs.ElementAt(i).RemoveCommand.Execute(null);
+            }
+        }
+
         public void Connect(PinVM outputPin, PinVM inputPin)
         {
             this.Manager.Connect(outputPin.Pin, inputPin.Pin);

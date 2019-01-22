@@ -74,6 +74,11 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
+        public void ApplyColorRules()
+        {
+
+        }
+
         protected virtual void FirePropertyChanged(string name)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));

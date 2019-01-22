@@ -19,7 +19,7 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
-                <MenuItem Header="_New" InputGestureText="Crtl+N">
+                <MenuItem Header="_New" InputGestureText="Crtl+N" Command="{Binding ClearCommand}">
                     <MenuItem.Icon>
                         <Image Source="Resources/page.png"/>
                     </MenuItem.Icon>
