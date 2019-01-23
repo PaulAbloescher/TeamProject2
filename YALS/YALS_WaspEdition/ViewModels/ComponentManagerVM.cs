@@ -144,7 +144,7 @@ namespace YALS_WaspEdition.ViewModels
 
         public void Clear()
         {
-            for(int i = 0; i < this.NodeVMs.Count; i++)
+            for (int i = 0; i < this.NodeVMs.Count; i++)
             {
                 this.NodeVMs.ElementAt(i).RemoveCommand.Execute(null);
             }
