@@ -69,9 +69,7 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
-        public async 
-        Task
-LoadStateAsync(string path, ICommand inputSelected, ICommand outputSelected)
+        public async Task LoadStateAsync(string path, ICommand inputSelected, ICommand outputSelected)
         {
             if (!File.Exists(path))
             {
