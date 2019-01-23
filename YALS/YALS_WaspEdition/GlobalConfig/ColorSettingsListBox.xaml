@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:YALS_WaspEdition.GlobalConfig"
+             xmlns:converters="clr-namespace:YALS_WaspEdition.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:SerializableColorToSolidColorBrush x:Key="brushConverter"/>
+    </UserControl.Resources>
     <Grid>
         <ListBox x:Name="SettingsListBox" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
@@ -17,10 +21,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBox IsReadOnly="True" Text='{Binding Key, Mode=OneWay}' Grid.Column="0" TextWrapping="Wrap" DockPanel.Dock="Left" />
                         <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1" DockPanel.Dock="Right">
-                            <TextBlock MinHeight="20" Height="Auto">
-                                <TextBlock.Background>
-                                    <SolidColorBrush Color="{Binding Value}"/>
-                                </TextBlock.Background></TextBlock>
+                            <TextBlock MinHeight="20" Height="Auto" Background="{Binding Value, Converter={StaticResource brushConverter}}">
+                            </TextBlock>
                         </Border>
                     </Grid>
                 </DataTemplate>

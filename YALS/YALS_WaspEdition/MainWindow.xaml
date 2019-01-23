@@ -50,7 +50,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Config">
-                <MenuItem Header="_Settings" InputGestureText="Crtl+Alt+O">
+                <MenuItem Header="_Settings" Click="SettingsSelected" InputGestureText="Crtl+Alt+O">
                     <MenuItem.Icon>
                         <Image Source="Resources/cog.png"></Image>
                     </MenuItem.Icon>

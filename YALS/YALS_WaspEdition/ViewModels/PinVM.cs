@@ -19,6 +19,9 @@ namespace YALS_WaspEdition.ViewModels
         private double top;
 
         [NonSerialized()]
+        private Color pinColor;
+
+        [NonSerialized()]
         private ICommand selectedCommand;
 
         public PinVM(IPin pin, ICommand selectedCommand)
@@ -37,10 +40,22 @@ namespace YALS_WaspEdition.ViewModels
             private set;
         }
 
+        
         public Color PinColor
         {
-            get;
-            private set;
+            get
+            {
+                return this.pinColor;
+            }
+            private set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(value));
+                }              
+                this.pinColor = value;
+                this.FirePropertyChanged(nameof(this.PinColor));
+            }
         }
 
         public ICommand SelectedCommand
@@ -86,7 +101,6 @@ namespace YALS_WaspEdition.ViewModels
         public void ApplyColorRules(IGetColorForPin colorSetter)
         {
             this.PinColor = colorSetter.GetColor(this.Pin);
-            this.FirePropertyChanged(nameof(this.PinColor));
         }
 
         protected virtual void FirePropertyChanged(string name)

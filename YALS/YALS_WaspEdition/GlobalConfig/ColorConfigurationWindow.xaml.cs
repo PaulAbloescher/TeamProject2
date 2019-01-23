@@ -25,7 +25,6 @@ namespace YALS_WaspEdition.GlobalConfig
         public ColorConfigurationWindow()
         {
             InitializeComponent();
-            this.Settings = new GlobalConfigSettings();
             this.IntSettingsView.SettingsListBox.SelectionChanged += IntSettingsSelected;
             this.StringSettingsView.SettingsListBox.SelectionChanged += StringSettingsSelected;
             this.BoolSettingsView.SettingsListBox.SelectionChanged += BoolSettingsSelected;
@@ -73,7 +72,7 @@ namespace YALS_WaspEdition.GlobalConfig
 
         }
 
-        private Dictionary<T, Color> UpdateColorOfValues<T>(Dictionary<T, Color> values, int selectedIndex)
+        private Dictionary<T, SerializableColor> UpdateColorOfValues<T>(Dictionary<T, SerializableColor> values, int selectedIndex)
         {
             if (selectedIndex < values.Count() && selectedIndex >= 0)
             {
@@ -81,13 +80,13 @@ namespace YALS_WaspEdition.GlobalConfig
 
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    System.Drawing.Color selectColor = dialog.Color;
+                    System.Drawing.Color selectedColor = dialog.Color;
 
                     var selectedItem = values.ElementAt(selectedIndex);
                     T key = selectedItem.Key;
 
                     values.Remove(key);
-                    values.Add(key, Color.FromRgb(selectColor.R, selectColor.G, selectColor.B));
+                    values.Add(key, new SerializableColor(selectedColor.R, selectedColor.G, selectedColor.B));
                 }
             }
             return values;
@@ -98,7 +97,7 @@ namespace YALS_WaspEdition.GlobalConfig
             this.BoolSettingsView.SettingsListBox.ItemsSource = this.Settings.BoolValues;
             this.IntSettingsView.SettingsListBox.ItemsSource = this.Settings.IntValues;
             this.StringSettingsView.SettingsListBox.ItemsSource = this.Settings.StringValues;
-
+            this.DefaultColorBlock.Background = new SolidColorBrush(Color.FromRgb((byte)this.settings.DefaultColor.R, (byte)this.settings.DefaultColor.G, (byte)this.settings.DefaultColor.B));
         }
 
         private void AddIntValue(object sender, RoutedEventArgs e)
@@ -109,12 +108,12 @@ namespace YALS_WaspEdition.GlobalConfig
             {
                 if (int.TryParse(valueInputWindow.NewValueTextBox.Text, out int key))
                 {
-                    if (this.settings.IntValues.TryGetValue(key, out Color oldColor))
+                    if (this.settings.IntValues.TryGetValue(key, out SerializableColor oldColor))
                     {
                         this.settings.IntValues.Remove(key);
                     }
 
-                    this.settings.IntValues.Add(key, valueInputWindow.SelectedColor);
+                    this.settings.IntValues.Add(key, ConvertColorToSerializableColor(valueInputWindow.SelectedColor));
                     this.IntSettingsView.SettingsListBox.ItemsSource = this.settings.IntValues.OrderBy(value => value.Key);
                 }
                 else
@@ -134,16 +133,33 @@ namespace YALS_WaspEdition.GlobalConfig
             {
                 string key = valueInputWindow.NewValueTextBox.Text;
 
-                if (this.settings.StringValues.TryGetValue(key, out Color oldColor))
+                if (this.settings.StringValues.TryGetValue(key, out SerializableColor oldColor))
                 {
                     this.settings.StringValues.Remove(key);
                 }
 
-                this.settings.StringValues.Add(key, valueInputWindow.SelectedColor);
+                this.settings.StringValues.Add(key, ConvertColorToSerializableColor(valueInputWindow.SelectedColor));
                 this.StringSettingsView.SettingsListBox.ItemsSource = this.settings.StringValues.OrderBy(value => value.Key);
 
             }
 
+        }
+
+        private SerializableColor ConvertColorToSerializableColor(Color color)
+        {
+            return new SerializableColor(color.R, color.G, color.B);
+        }
+
+        private void DefaultColorBlockSelected(object sender, MouseButtonEventArgs e)
+        {
+            ColorDialog dialog = new ColorDialog();
+
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                System.Drawing.Color selectedColor = dialog.Color;
+                this.DefaultColorBlock.Background = new SolidColorBrush(Color.FromRgb(selectedColor.R, selectedColor.G, selectedColor.B));
+                this.Settings.DefaultColor = new SerializableColor(selectedColor.R, selectedColor.G, selectedColor.B);
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ using YALS_WaspEdition.Commands;
 namespace YALS_WaspEdition.ViewModels
 {
     [Serializable()]
-    public class ConnectionVM : INotifyPropertyChanged
+    public class ConnectionVM
     {
         public ConnectionVM(PinVM outputPin, PinVM inputPin, ICommand disconnectCommand)
         {
@@ -30,14 +30,6 @@ namespace YALS_WaspEdition.ViewModels
             get;
         }
 
-        public Color ConnectionColor
-        {
-            get
-            {
-                return this.OutputPin.PinColor;
-            }
-        }
-
         public string ConnectionAsString
         {
             get
@@ -50,7 +42,5 @@ namespace YALS_WaspEdition.ViewModels
         {
             get;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

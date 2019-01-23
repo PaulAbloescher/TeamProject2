@@ -110,7 +110,7 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Converters\BezierConverter.cs" />
     <Compile Include="Converters\BitmapConverter.cs" />
-    <Compile Include="Converters\ColorToSolidColorBrush.cs" />
+    <Compile Include="Converters\SerializableColorToSolidColorBrush.cs" />
     <Compile Include="Converters\Inverter.cs" />
     <Compile Include="EventArgs\NotificationEventArgs.cs" />
     <Compile Include="EventArgs\PinSelectedEventArgs.cs" />
@@ -123,6 +123,7 @@
     <Compile Include="GlobalConfig\GetColorWithGlobalConfigSettings.cs" />
     <Compile Include="GlobalConfig\GlobalConfigSettings.cs" />
     <Compile Include="GlobalConfig\IGetColorForPin.cs" />
+    <Compile Include="GlobalConfig\SerializableColor.cs" />
     <Compile Include="GlobalConfig\ValueInputWindow.xaml.cs">
       <DependentUpon>ValueInputWindow.xaml</DependentUpon>
     </Compile>

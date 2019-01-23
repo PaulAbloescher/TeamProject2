@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YALS_WaspEdition.GlobalConfig"
         mc:Ignorable="d"
-        Title="ColorConfigurationWindow" Height="450" Width="800">
+        Title="ColorConfigurationWindow" Height="450" Width="800" SizeToContent="WidthAndHeight">
     <Grid>
         <TabControl>
             <TabItem Header="Bool Settings">
@@ -29,6 +29,19 @@
                     </Grid.RowDefinitions>
                     <local:ColorSettingsListBox x:Name="StringSettingsView"/>
                     <Button Grid.Row="1" Click="AddStringValue">Add Value</Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Default Color" HorizontalAlignment="Stretch" VerticalContentAlignment="Top"> 
+                <Grid Height="20" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox IsReadOnly="True" Text="Default Color" Grid.Column="0"/>
+                    <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1">
+                        <TextBlock MinHeight="20" Height="Auto" x:Name="DefaultColorBlock" MouseDown="DefaultColorBlockSelected">
+                        </TextBlock>
+                    </Border>
                 </Grid>
             </TabItem>
         </TabControl>

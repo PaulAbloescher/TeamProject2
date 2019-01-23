@@ -21,6 +21,7 @@ using YALS_WaspEdition.Model.Serialization;
 using YALS_WaspEdition.ViewModels;
 using YALS_WaspEdition.Views.UserControls;
 using YALS_WaspEdition.MyEventArgs;
+using YALS_WaspEdition.GlobalConfig;
 
 namespace YALS_WaspEdition
 {
@@ -338,6 +339,13 @@ namespace YALS_WaspEdition
         private void MainVM_OpenFileRequested(object sender, EventArgs e)
         {
             this.OpenFile();
+        }
+
+        private void SettingsSelected(object sender, RoutedEventArgs e)
+        {
+            ColorConfigurationWindow configWindow = new ColorConfigurationWindow();
+            configWindow.Settings = ((MainVM)this.DataContext).Manager.Settings;
+            configWindow.ShowDialog();
         }
     }
 }

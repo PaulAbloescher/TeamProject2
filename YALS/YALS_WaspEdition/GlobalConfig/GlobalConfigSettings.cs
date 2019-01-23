@@ -14,28 +14,28 @@ namespace YALS_WaspEdition.GlobalConfig
         // TODO maybe add settings for null strings
         public GlobalConfigSettings()
         {
-            this.IntValues = new Dictionary<int, Color>();
-            this.BoolValues = new Dictionary<bool, Color>();
-            this.StringValues = new Dictionary<string, Color>();
+            this.IntValues = new Dictionary<int, SerializableColor>();
+            this.BoolValues = new Dictionary<bool, SerializableColor>();
+            this.StringValues = new Dictionary<string, SerializableColor>();
         }
 
-        public Color DefaultColor
+        public SerializableColor DefaultColor
         {
             get;
             set;
         }
 
-        public Dictionary<int, Color> IntValues
+        public Dictionary<int, SerializableColor> IntValues
         {
             get;
         }
 
-        public Dictionary<bool, Color> BoolValues
+        public Dictionary<bool, SerializableColor> BoolValues
         {
             get;
         }
 
-        public Dictionary<string, Color> StringValues
+        public Dictionary<string, SerializableColor> StringValues
         {
             get;
         }
@@ -43,9 +43,9 @@ namespace YALS_WaspEdition.GlobalConfig
         public static GlobalConfigSettings GetDefaultSettings()
         {
             GlobalConfigSettings settings = new GlobalConfigSettings();
-            settings.BoolValues.Add(true, Color.FromRgb(0, 0, 255));
-            settings.BoolValues.Add(false, Color.FromRgb(255, 0, 0));
-            settings.DefaultColor = Color.FromRgb(0, 0, 0);
+            settings.BoolValues.Add(true, new SerializableColor(0, 0, 255));
+            settings.BoolValues.Add(false, new SerializableColor(255, 0, 0));
+            settings.DefaultColor = new SerializableColor(0, 0, 0);
             return settings;
         }
     }

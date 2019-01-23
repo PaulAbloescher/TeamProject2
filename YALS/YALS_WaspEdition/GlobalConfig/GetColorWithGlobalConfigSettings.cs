@@ -19,7 +19,7 @@ namespace YALS_WaspEdition.GlobalConfig
 
         public Color GetColor(IPin item)
         {
-            Color defaultColor = this.settings.DefaultColor;
+            Color defaultColor = this.ConvertSerializableColorToColor(settings.DefaultColor);
 
             var pinType = item.GetType();
             var pinGenericTypes = pinType.GetGenericArguments();
@@ -43,29 +43,34 @@ namespace YALS_WaspEdition.GlobalConfig
                     return defaultColor;
                 }
 
-                if (this.settings.StringValues.TryGetValue((string)item.Value.Current, out Color settingsColor))
+                if (this.settings.StringValues.TryGetValue((string)item.Value.Current, out SerializableColor settingsColor))
                 {
-                    return settingsColor;
+                    return this.ConvertSerializableColorToColor(settingsColor);
                 }
             }
 
             if (type == typeof(int))
             {
-                if (this.settings.IntValues.TryGetValue((int)item.Value.Current, out Color settingsColor))
+                if (this.settings.IntValues.TryGetValue((int)item.Value.Current, out SerializableColor settingsColor))
                 {
-                    return settingsColor;
+                    return this.ConvertSerializableColorToColor(settingsColor);
                 }
             }
 
             if (type == typeof(bool))
             {
-                if (this.settings.BoolValues.TryGetValue((bool)item.Value.Current, out Color settingsColor))
+                if (this.settings.BoolValues.TryGetValue((bool)item.Value.Current, out SerializableColor settingsColor))
                 {
-                    return settingsColor;
+                    return this.ConvertSerializableColorToColor(settingsColor);
                 }
             }
 
             return defaultColor;
+        }
+
+        private Color ConvertSerializableColorToColor(SerializableColor color)
+        {
+            return Color.FromRgb(Convert.ToByte(color.R), Convert.ToByte(color.G), Convert.ToByte(color.B));
         }
     }
 }
