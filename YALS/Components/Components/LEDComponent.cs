@@ -46,6 +46,7 @@ namespace Components.Components
         {
             this.Type = NodeType.Display;
             this.Label = "LED";
+            this.Description = "Emits green light if input is true. Otherwise emits red light.";
             var input = new Pin<bool>("Input");
             this.Inputs.Add(input);
             this.LoadImage();
