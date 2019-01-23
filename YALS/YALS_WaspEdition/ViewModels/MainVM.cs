@@ -85,7 +85,7 @@ namespace YALS_WaspEdition.ViewModels
             foreach (var node in state.NodeVMsWithoutCommands)
             {
                 node.SetSelectedCommandForPins(inputSelected, outputSelected);
-                this.Manager.AddNode(node);
+                this.Manager.AddNodeAsync(node);
             }
 
             foreach(var conn in state.ConnectedPins)
@@ -123,6 +123,24 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
+        public PinVM FirstSelectedPin
+        {
+            get
+            {
+                if (this.CurrentSelectedOutput != null)
+                {
+                    return this.CurrentSelectedOutput;
+                }
+                else if (this.CurrentSelectedInput != null)
+                {
+                    return this.CurrentSelectedInput;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
 
         public ComponentManagerVM Manager
         {

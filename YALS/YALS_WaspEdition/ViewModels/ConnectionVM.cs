@@ -11,6 +11,49 @@ using YALS_WaspEdition.Commands;
 namespace YALS_WaspEdition.ViewModels
 {
     [Serializable()]
+    public class ConnectionVM : INotifyPropertyChanged
+    {
+        public ConnectionVM(PinVM outputPin, PinVM inputPin, ICommand disconnectCommand)
+        {
+            this.OutputPin = outputPin ?? throw new ArgumentNullException(nameof(outputPin));
+            this.InputPin = inputPin ?? throw new ArgumentNullException(nameof(inputPin));
+            this.DisconnectCommand = disconnectCommand ?? throw new ArgumentNullException(nameof(disconnectCommand));
+        }
+
+        public PinVM OutputPin
+        {
+            get;
+        }
+
+        public PinVM InputPin
+        {
+            get;
+        }
+
+        public Color ConnectionColor
+        {
+            get
+            {
+                return this.OutputPin.PinColor;
+            }
+        }
+
+        public string ConnectionAsString
+        {
+            get
+            {
+                return $"Output: {this.OutputPin.Pin.Label} -> Input: {this.InputPin.Pin.Label}";
+            }
+        }
+
+        public ICommand DisconnectCommand
+        {
+            get;
+using YALS_WaspEdition.Commands;
+
+namespace YALS_WaspEdition.ViewModels
+{
+    [Serializable()]
     public class ConnectionVM
     {
         public ConnectionVM(PinVM outputPin, PinVM inputPin, ICommand disconnectCommand)
@@ -42,5 +85,9 @@ namespace YALS_WaspEdition.ViewModels
         {
             get;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+    }
+}
     }
 }
