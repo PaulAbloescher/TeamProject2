@@ -90,6 +90,7 @@ namespace YALS_WaspEdition.ViewModels
         public GlobalConfigSettings Settings
         {
             get;
+            set;
         }
 
 
@@ -143,9 +144,11 @@ namespace YALS_WaspEdition.ViewModels
 
         public void Clear()
         {
-            for(int i = 0; i < this.NodeVMs.Count; i++)
+            var nodes = this.NodeVMs.ToList();
+
+            foreach (var node in nodes)
             {
-                this.NodeVMs.ElementAt(i).RemoveCommand.Execute(null);
+                node.RemoveCommand.Execute(null);
             }
         }
 

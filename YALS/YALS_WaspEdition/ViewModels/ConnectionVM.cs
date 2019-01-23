@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media;
-using YALS_WaspEdition.Commands;
 
 namespace YALS_WaspEdition.ViewModels
 {

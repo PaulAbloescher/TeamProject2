@@ -69,9 +69,7 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
-        public async 
-        Task
-LoadStateAsync(string path, ICommand inputSelected, ICommand outputSelected)
+        public async Task LoadStateAsync(string path, ICommand inputSelected, ICommand outputSelected)
         {
             if (!File.Exists(path))
             {
@@ -83,6 +81,7 @@ LoadStateAsync(string path, ICommand inputSelected, ICommand outputSelected)
             CurrentState state = serializer.Deserialize(path);
             List<NodeVM> nodes = new List<NodeVM>();
             this.Manager = new ComponentManagerVM();
+            this.Manager.Settings = state.Settings;
 
             foreach (var node in state.NodeVMsWithoutCommands)
             {
