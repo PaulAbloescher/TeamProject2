@@ -268,9 +268,11 @@ namespace YALS_WaspEdition
                             Canvas.SetLeft(thumb, component.Left);
                             Canvas.SetTop(thumb, component.Top);
                             canvas.Children.Add(thumb);
-                            component.RemoveCommand = new Command((obj) => {
+                            component.RemoveCommand = new Command(async (obj) => {
+                                await mainVM.Manager.Manager.StopAsync();
                                 canvas.Children.Remove(thumb);
                                 mainVM.Manager.Manager.Components.Remove(component.Node);
+                                mainVM.Manager.RemoveNode(component);
                             });
 
 
