@@ -22,7 +22,13 @@ namespace Components.Components
         public override void Execute()
         {
             var input = this.Inputs.First();
-            var state = (bool)input.Value.Current;
+
+            bool state = false;
+
+            if (input.Value != null)
+            {
+                state = (bool)input.Value.Current;
+            }
 
             if (state)
             {
