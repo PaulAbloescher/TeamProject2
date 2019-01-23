@@ -22,6 +22,7 @@ namespace YALS_WaspEdition.GlobalConfig
         public Color DefaultColor
         {
             get;
+            set;
         }
 
         public Dictionary<int, Color> IntValues
@@ -37,6 +38,15 @@ namespace YALS_WaspEdition.GlobalConfig
         public Dictionary<string, Color> StringValues
         {
             get;
+        }
+
+        public static GlobalConfigSettings GetDefaultSettings()
+        {
+            GlobalConfigSettings settings = new GlobalConfigSettings();
+            settings.BoolValues.Add(true, Color.FromRgb(0, 0, 255));
+            settings.BoolValues.Add(false, Color.FromRgb(255, 0, 0));
+            settings.DefaultColor = Color.FromRgb(0, 0, 0);
+            return settings;
         }
     }
 }

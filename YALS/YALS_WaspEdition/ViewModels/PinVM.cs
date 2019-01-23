@@ -6,7 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 using YALS_WaspEdition.Commands;
+using YALS_WaspEdition.GlobalConfig;
 
 namespace YALS_WaspEdition.ViewModels
 {
@@ -23,12 +25,19 @@ namespace YALS_WaspEdition.ViewModels
         {
             this.Pin = pin ?? throw new ArgumentNullException(nameof(pin));
             this.selectedCommand = selectedCommand;
+            this.PinColor = Color.FromRgb(0, 0, 0);
         }
 
         [field: NonSerialized()]
         public event PropertyChangedEventHandler PropertyChanged;
 
         public IPin Pin
+        {
+            get;
+            private set;
+        }
+
+        public Color PinColor
         {
             get;
             private set;
@@ -74,9 +83,10 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
-        public void ApplyColorRules()
+        public void ApplyColorRules(IGetColorForPin colorSetter)
         {
-
+            this.PinColor = colorSetter.GetColor(this.Pin);
+            this.FirePropertyChanged(nameof(this.PinColor));
         }
 
         protected virtual void FirePropertyChanged(string name)

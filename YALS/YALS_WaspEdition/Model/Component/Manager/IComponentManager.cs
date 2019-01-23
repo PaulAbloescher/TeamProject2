@@ -12,6 +12,7 @@ namespace YALS_WaspEdition.Model.Component.Manager
     {
         ICollection<INode> Components { get; }
         ICollection<IConnection> Connections { get; }
+        event EventHandler StepFinished;
         bool IsRunning { get; }
         void Connect(IPin outputPin, IPin inputPin);
         void Disconnect(IPin output, IPin inputPin);

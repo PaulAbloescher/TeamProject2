@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 using YALS_WaspEdition.Commands;
 
 namespace YALS_WaspEdition.ViewModels
 {
     [Serializable()]
-    public class ConnectionVM
+    public class ConnectionVM : INotifyPropertyChanged
     {
         public ConnectionVM(PinVM outputPin, PinVM inputPin, ICommand disconnectCommand)
         {
@@ -29,6 +30,14 @@ namespace YALS_WaspEdition.ViewModels
             get;
         }
 
+        public Color ConnectionColor
+        {
+            get
+            {
+                return this.OutputPin.PinColor;
+            }
+        }
+
         public string ConnectionAsString
         {
             get
@@ -41,5 +50,7 @@ namespace YALS_WaspEdition.ViewModels
         {
             get;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

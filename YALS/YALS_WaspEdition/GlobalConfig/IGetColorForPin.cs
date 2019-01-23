@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using YALS_WaspEdition.ViewModels;
 
 namespace YALS_WaspEdition.GlobalConfig
 {
-    public interface IGetColorForItem
+    public interface IGetColorForPin
     {
-        Color GetColor(object item);
+        Color GetColor(IPin item);
     }
 }

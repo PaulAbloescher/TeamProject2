@@ -51,7 +51,11 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Ellipse Width="10" Height="10" Canvas.Left="{Binding Left}" Canvas.Top="{Binding Top}" Fill="Black"></Ellipse>
+                        <Ellipse Width="10" Height="10" Canvas.Left="{Binding Left}" Canvas.Top="{Binding Top}">
+                            <Ellipse.Fill>
+                                <SolidColorBrush Color="{Binding PinColor}"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -66,7 +70,11 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Ellipse Width="10" Height="10" Fill="Black"></Ellipse>
+                        <Ellipse Width="10" Height="10">
+                            <Ellipse.Fill>
+                                <SolidColorBrush Color="{Binding PinColor}"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

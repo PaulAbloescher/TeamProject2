@@ -45,6 +45,8 @@ namespace YALS_WaspEdition.Model.Component.Manager
             }
         }
 
+        public event EventHandler StepFinished;
+
         public void AddNode(INode node)
         {
             this.Components.Add(node);
@@ -90,6 +92,8 @@ namespace YALS_WaspEdition.Model.Component.Manager
             {
                 component.Execute();
             }
+
+            this.FireStepFinished();
         }
 
         public Task StepAsync()
@@ -113,6 +117,11 @@ namespace YALS_WaspEdition.Model.Component.Manager
             });
 
             return task;
+        }
+
+        protected internal void FireStepFinished()
+        {
+            this.StepFinished?.Invoke(this, EventArgs.Empty);
         }
 
         private bool CheckIfPinIsInput(INode component, IPin pin)

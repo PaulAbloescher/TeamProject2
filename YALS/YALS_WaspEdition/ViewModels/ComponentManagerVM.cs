@@ -9,17 +9,24 @@ using YALS_WaspEdition.Model.Component.Manager;
 using System.Collections.ObjectModel;
 using YALS_WaspEdition.Commands;
 using System.Windows.Input;
+using YALS_WaspEdition.GlobalConfig;
 
 namespace YALS_WaspEdition.ViewModels
 {
     [Serializable()]
     public class ComponentManagerVM
     {
+        private IGetColorForPin colorGetter;
+
         public ComponentManagerVM()
         {
             this.Manager = Provider.Container.GetService<IComponentManager>();
             this.Connections = new ObservableCollection<ConnectionVM>();
             this.NodeVMs = new List<NodeVM>();
+            this.Settings = GlobalConfigSettings.GetDefaultSettings();
+            // TODO add more losely coupled config settings
+            this.colorGetter = new GetColorWithGlobalConfigSettings(this.Settings);
+            this.Manager.StepFinished += ManagerStepFinished;
             this.PlayCommand = new Command((obj) => {
                 App.Current.Dispatcher.Invoke(() => {
                     var task = this.Manager.PlayAsync();
@@ -37,6 +44,22 @@ namespace YALS_WaspEdition.ViewModels
             });
         }
 
+        private void ManagerStepFinished(object sender, EventArgs e)
+        {
+            foreach(var nodeVM in this.NodeVMs)
+            {
+                foreach(var inputPin in nodeVM.Inputs)
+                {
+                    inputPin.ApplyColorRules(this.colorGetter);
+                }
+
+                foreach(var outputPin in nodeVM.Outputs)
+                {
+                    outputPin.ApplyColorRules(this.colorGetter);
+                }
+            }
+        }
+
         public ICommand PlayCommand
         {
             get;
@@ -48,6 +71,11 @@ namespace YALS_WaspEdition.ViewModels
         }
 
         public ICommand StepCommand
+        {
+            get;
+        }
+
+        public GlobalConfigSettings Settings
         {
             get;
         }
@@ -73,6 +101,16 @@ namespace YALS_WaspEdition.ViewModels
         {
             this.Manager.AddNode(node.Node);
             this.NodeVMs.Add(node);
+
+            foreach (var inputPin in node.Inputs)
+            {
+                inputPin.ApplyColorRules(this.colorGetter);
+            }
+
+            foreach (var outputPin in node.Outputs)
+            {
+                outputPin.ApplyColorRules(this.colorGetter);
+            }
         }
 
         public void RemoveNode(NodeVM node)

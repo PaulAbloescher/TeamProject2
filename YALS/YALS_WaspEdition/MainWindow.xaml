@@ -122,7 +122,11 @@
                                     </Path.Data>
                                     <Path.Style>
                                         <Style>
-                                            <Setter Property="Path.Stroke" Value="Black"></Setter>
+                                            <Setter Property="Path.Stroke">
+                                                <Setter.Value>
+                                                    <SolidColorBrush Color="{Binding OutputPin.PinColor}"/>
+                                                </Setter.Value>
+                                            </Setter>
                                             <Style.Triggers>
                                                 <Trigger Property="Path.IsMouseOver" Value="True">
                                                     <Setter Property="Path.Stroke" Value="Red" />
