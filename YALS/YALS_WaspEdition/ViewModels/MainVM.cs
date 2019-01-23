@@ -85,7 +85,7 @@ namespace YALS_WaspEdition.ViewModels
             foreach (var node in state.NodeVMsWithoutCommands)
             {
                 node.SetSelectedCommandForPins(inputSelected, outputSelected);
-                this.Manager.AddNode(node);
+                this.Manager.AddNodeAsync(node);
             }
 
             foreach(var conn in state.ConnectedPins)

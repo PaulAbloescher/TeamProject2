@@ -111,8 +111,9 @@ namespace YALS_WaspEdition.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void AddNode(NodeVM node)
+        public async Task AddNodeAsync(NodeVM node)
         {
+            await this.Manager.StopAsync();
             this.Manager.AddNode(node.Node);
             this.NodeVMs.Add(node);
 

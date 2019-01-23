@@ -25,6 +25,7 @@
                         <Image Source="Resources/page.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <Separator />
                 <MenuItem Header="_Open" InputGestureText="Crtl+O" Click="OpenFile_Handler">
                     <MenuItem.Icon>
                         <Image Source="Resources/folder.png"></Image>

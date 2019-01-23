@@ -57,7 +57,7 @@ namespace YALS_WaspEdition
 
             if (component != null)
             {
-                mainVM.Manager.AddNode(component);
+                mainVM.Manager.AddNodeAsync(component);
                 Thumb thumb = new Thumb();
                 thumb.DragDelta += Thumb_DragDelta;
                 thumb.DataContext = component;
