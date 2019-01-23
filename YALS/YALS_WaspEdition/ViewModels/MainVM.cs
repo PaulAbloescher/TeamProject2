@@ -123,6 +123,24 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
+        public PinVM FirstSelectedPin
+        {
+            get
+            {
+                if (this.CurrentSelectedOutput != null)
+                {
+                    return this.CurrentSelectedOutput;
+                }
+                else if (this.CurrentSelectedInput != null)
+                {
+                    return this.CurrentSelectedInput;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
 
         public ComponentManagerVM Manager
         {

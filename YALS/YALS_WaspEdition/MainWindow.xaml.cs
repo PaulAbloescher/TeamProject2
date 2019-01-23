@@ -21,6 +21,7 @@ using YALS_WaspEdition.Model.Serialization;
 using YALS_WaspEdition.ViewModels;
 using YALS_WaspEdition.Views.UserControls;
 using YALS_WaspEdition.MyEventArgs;
+using YALS_WaspEdition.Converters;
 
 namespace YALS_WaspEdition
 {
@@ -338,6 +339,24 @@ namespace YALS_WaspEdition
         private void MainVM_OpenFileRequested(object sender, EventArgs e)
         {
             this.OpenFile();
+        }
+
+        private void mainCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            MainVM mainVM = (MainVM)this.DataContext;
+
+            if (mainVM != null && mainVM.FirstSelectedPin != null)
+            {
+                this.helperPath.Visibility = Visibility.Visible;
+                var bezierConverter = this.FindResource("BezierConverter") as BezierConverter;
+                var data = bezierConverter.Convert((int)mainVM.FirstSelectedPin.Left, (int)mainVM.FirstSelectedPin.Top, (int)e.GetPosition(mainCanvas).X - 1, (int)e.GetPosition(mainCanvas).Y - 1);
+
+                this.helperPath.Data = data;
+            }
+            else
+            {
+                this.helperPath.Visibility = Visibility.Hidden;
+            }
         }
     }
 }
