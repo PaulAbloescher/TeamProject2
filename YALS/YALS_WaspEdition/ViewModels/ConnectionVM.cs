@@ -41,7 +41,5 @@ namespace YALS_WaspEdition.ViewModels
         {
             get;
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

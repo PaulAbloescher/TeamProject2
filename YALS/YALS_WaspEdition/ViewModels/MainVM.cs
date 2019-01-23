@@ -69,7 +69,9 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
-        public void LoadState(string path, ICommand inputSelected, ICommand outputSelected)
+        public async 
+        Task
+LoadStateAsync(string path, ICommand inputSelected, ICommand outputSelected)
         {
             if (!File.Exists(path))
             {
@@ -81,11 +83,12 @@ namespace YALS_WaspEdition.ViewModels
             CurrentState state = serializer.Deserialize(path);
             List<NodeVM> nodes = new List<NodeVM>();
             this.Manager = new ComponentManagerVM();
+            this.Manager.Settings = state.Settings;
 
             foreach (var node in state.NodeVMsWithoutCommands)
             {
                 node.SetSelectedCommandForPins(inputSelected, outputSelected);
-                this.Manager.AddNodeAsync(node);
+                await this.Manager.AddNodeAsync(node);
             }
 
             foreach(var conn in state.ConnectedPins)
@@ -98,7 +101,7 @@ namespace YALS_WaspEdition.ViewModels
 
         public void Save(string path)
         {
-            CurrentState state = new CurrentState(new GlobalConfig.GlobalConfigSettings(), this.Manager.Connections.Select(connection => new Tuple<PinVM, PinVM>(connection.InputPin, connection.OutputPin)).ToList(), this.Manager.NodeVMs);
+            CurrentState state = new CurrentState(this.Manager.Settings, this.Manager.Connections.Select(connection => new Tuple<PinVM, PinVM>(connection.InputPin, connection.OutputPin)).ToList(), this.Manager.NodeVMs);
 
             ICurrentStateSerializer serializer = Provider.Container.GetService<ICurrentStateSerializer>();
             serializer.Serialize(path, state);

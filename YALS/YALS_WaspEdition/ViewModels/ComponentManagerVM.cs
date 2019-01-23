@@ -90,6 +90,7 @@ namespace YALS_WaspEdition.ViewModels
         public GlobalConfigSettings Settings
         {
             get;
+            set;
         }
 
 

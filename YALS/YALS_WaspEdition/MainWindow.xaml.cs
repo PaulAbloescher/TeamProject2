@@ -227,7 +227,7 @@ namespace YALS_WaspEdition
             this.SaveFile();
         }
 
-        private void OpenFile()
+        private async void OpenFile()
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Multiselect = false;
@@ -240,7 +240,7 @@ namespace YALS_WaspEdition
                     string fileName = dialog.FileName;
                     MainVM mainVM = (MainVM)this.DataContext;
 
-                    mainVM.LoadState(fileName, new Command(obj => {
+                    await mainVM.LoadStateAsync(fileName, new Command(obj => {
                         PinVM pin = obj as PinVM;
                         if (pin == null)
                             return;
