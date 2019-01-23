@@ -9,12 +9,14 @@ using YALS_WaspEdition.Model.Component.Manager;
 using System.Collections.ObjectModel;
 using YALS_WaspEdition.Commands;
 using System.Windows.Input;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using YALS_WaspEdition.GlobalConfig;
 
 namespace YALS_WaspEdition.ViewModels
 {
     [Serializable()]
-    public class ComponentManagerVM
+    public class ComponentManagerVM : INotifyPropertyChanged
     {
         private IGetColorForPin colorGetter;
 
@@ -28,18 +30,21 @@ namespace YALS_WaspEdition.ViewModels
             this.colorGetter = new GetColorWithGlobalConfigSettings(this.Settings);
             this.Manager.StepFinished += ManagerStepFinished;
             this.PlayCommand = new Command((obj) => {
-                App.Current.Dispatcher.Invoke(() => {
-                    var task = this.Manager.PlayAsync();
+                App.Current.Dispatcher.Invoke(async () => {
+                    await this.Manager.PlayAsync();
+                    this.FireOnPropertyChanged(nameof(this.IsRunning));
                 });
             });
             this.PauseCommand = new Command((obj) => {
-                App.Current.Dispatcher.Invoke(() => {
-                    var task = this.Manager.StopAsync();
+                App.Current.Dispatcher.Invoke(async () => {
+                    await this.Manager.StopAsync();
+                    this.FireOnPropertyChanged(nameof(this.IsRunning));
                 });
             });
             this.StepCommand = new Command((obj) => {
-                App.Current.Dispatcher.Invoke(() => {
-                    var task = this.Manager.StepAsync();
+                App.Current.Dispatcher.Invoke(async () => {
+                    await this.Manager.StepAsync();
+                    this.FireOnPropertyChanged(nameof(this.IsRunning));
                 });
             });
         }
@@ -75,6 +80,13 @@ namespace YALS_WaspEdition.ViewModels
             get;
         }
 
+        public bool IsRunning
+        {
+            get
+            {
+                return this.Manager.IsRunning;
+            }
+        }
         public GlobalConfigSettings Settings
         {
             get;
@@ -96,6 +108,8 @@ namespace YALS_WaspEdition.ViewModels
         {
             get;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public void AddNode(NodeVM node)
         {
@@ -148,6 +162,11 @@ namespace YALS_WaspEdition.ViewModels
             var connection = this.Connections.FirstOrDefault(c => c.OutputPin.Equals(outputPin) && c.InputPin.Equals(inputPin));
             this.Manager.Disconnect(outputPin.Pin, inputPin.Pin);
             this.Connections.Remove(connection);
+        }
+
+        protected virtual void FireOnPropertyChanged([CallerMemberName]string name = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

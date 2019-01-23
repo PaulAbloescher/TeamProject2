@@ -45,6 +45,8 @@ namespace Components.Components
         protected override void Setup()
         {
             this.Type = NodeType.Display;
+            this.Label = "HexDisplay";
+            this.Description = "Shows a hex value from 0 to 15 corresponding to the input bools.";
             Pin<bool> x1 = new Pin<bool>("x1");
             Pin<bool> x2 = new Pin<bool>("x2");
             Pin<bool> x3 = new Pin<bool>("x3");

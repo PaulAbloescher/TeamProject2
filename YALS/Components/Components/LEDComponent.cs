@@ -22,7 +22,13 @@ namespace Components.Components
         public override void Execute()
         {
             var input = this.Inputs.First();
-            var state = (bool)input.Value.Current;
+
+            bool state = false;
+
+            if (input.Value != null)
+            {
+                state = (bool)input.Value.Current;
+            }
 
             if (state)
             {
@@ -40,6 +46,7 @@ namespace Components.Components
         {
             this.Type = NodeType.Display;
             this.Label = "LED";
+            this.Description = "Emits green light if input is true. Otherwise emits red light.";
             var input = new Pin<bool>("Input");
             this.Inputs.Add(input);
             this.LoadImage();
