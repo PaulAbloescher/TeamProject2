@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
-using System.Windows.Media;
+﻿// <copyright file="BezierConverter.cs" company="KW Softworks">
+//     Copyright (c) Paul-Noel Ablöscher. All rights reserved.
+// </copyright>
+// <summary>Represents the bezier line converter.</summary>
+// <author>Killerwasps</author>
 
 namespace YALS_WaspEdition.Converters
 {
-    class BezierConverter : IMultiValueConverter
+    using System;
+    using System.Globalization;
+    using System.Linq;
+    using System.Windows.Data;
+    using System.Windows.Media;
+
+    public class BezierConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
