@@ -369,6 +369,7 @@ namespace YALS_WaspEdition
         private void SettingsSelected(object sender, RoutedEventArgs e)
         {
             ColorConfigurationWindow configWindow = new ColorConfigurationWindow();
+            configWindow.Owner = this;
             configWindow.Settings = ((MainVM)this.DataContext).Manager.Settings;
             configWindow.ShowDialog();
         }
