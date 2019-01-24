@@ -13,7 +13,7 @@ namespace Components.Components
     using System.Linq;
     using Shared;
 
-    [Serializable()]
+    [Serializable]
     public class BoolToIntComponent : Component
     {
         public override void Activate()
