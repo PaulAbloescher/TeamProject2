@@ -51,10 +51,10 @@ namespace YALS_WaspEdition.GlobalConfig
         }
 
         /// <summary>
-        /// Gets the bool values with the corresponding color values.
+        /// Gets the boolean values with the corresponding color values.
         /// </summary>
         /// <value>
-        /// The bool values with the corresponding color values.
+        /// The boolean values with the corresponding color values.
         /// </value>
         public Dictionary<bool, SerializableColor> BoolValues
         {
@@ -73,9 +73,9 @@ namespace YALS_WaspEdition.GlobalConfig
         }
 
         /// <summary>
-        /// Gets default settings where there are already the two bool settings and a default color.
+        /// Gets default settings where there are already the two boolean settings and a default color.
         /// </summary>
-        /// <returns>A <see cref="GlobalConfigSettings"/>instance with default values.</returns>
+        /// <returns>A <see cref="GlobalConfigSettings"/>Instance with default values.</returns>
         public static GlobalConfigSettings GetDefaultSettings()
         {
             GlobalConfigSettings settings = new GlobalConfigSettings();

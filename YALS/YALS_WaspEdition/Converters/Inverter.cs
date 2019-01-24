@@ -11,7 +11,7 @@ namespace YALS_WaspEdition.Converters
     using System.Windows.Data;
 
     /// <summary>
-    /// Inverts null-able bools.
+    /// Inverts null-able booleans.
     /// </summary>
     /// <seealso cref="System.Windows.Data.IValueConverter" />
     public class Inverter : IValueConverter

@@ -21,7 +21,7 @@ namespace YALS_WaspEdition.Converters
         /// <summary>
         /// Converts a line into a smooth bezier path.
         /// </summary>
-        /// <param name="values">Int array with the format: X1,Y1,X2,Y2.</param>
+        /// <param name="values">Integer array with the format: X1,Y1,X2,Y2.</param>
         /// <param name="targetType">The target type to convert to.</param>
         /// <param name="parameter">Converter parameters.</param>
         /// <param name="culture">Local culture.</param>

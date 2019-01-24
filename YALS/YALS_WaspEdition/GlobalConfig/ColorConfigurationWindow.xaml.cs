@@ -58,7 +58,7 @@ namespace YALS_WaspEdition.GlobalConfig
         }
 
         /// <summary>
-        /// Sets the bool settings.
+        /// Sets the boolean settings.
         /// </summary>
         /// <param name="sender">The sender of the event.</param>
         /// <param name="e">The <see cref="SelectionChangedEventArgs"/> instance containing the event data.</param>
