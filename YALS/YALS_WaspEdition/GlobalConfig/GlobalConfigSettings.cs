@@ -1,17 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
+﻿// ----------------------------------------------------------------------- 
+// <copyright file="GlobalConfigSettings.cs" company="FHWN.ac.at"> 
+// Copyright (c) FHWN. All rights reserved. 
+// </copyright> 
+// <summary>This is the GlobalConfigSettings class.</summary> 
+// <author>Killerwasps</author> 
+// -----------------------------------------------------------------------
 
 namespace YALS_WaspEdition.GlobalConfig
 {
-    [Serializable()]
+    using System;
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// Represents the <see cref="GlobalConfigSettings"/> class.
+    /// </summary>
+    [Serializable]
     public class GlobalConfigSettings
     {
-        // TODO make config generic
-        // TODO maybe add settings for null strings
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GlobalConfigSettings"/> class.
+        /// </summary>
         public GlobalConfigSettings()
         {
             this.IntValues = new Dictionary<int, SerializableColor>();
@@ -19,27 +27,55 @@ namespace YALS_WaspEdition.GlobalConfig
             this.StringValues = new Dictionary<string, SerializableColor>();
         }
 
+        /// <summary>
+        /// Gets or sets the default color for the settings.
+        /// </summary>
+        /// <value>
+        /// The default color for the settings.
+        /// </value>
         public SerializableColor DefaultColor
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Gets the integer values with the corresponding color values.
+        /// </summary>
+        /// <value>
+        /// The integer values with the corresponding color values.
+        /// </value>
         public Dictionary<int, SerializableColor> IntValues
         {
             get;
         }
 
+        /// <summary>
+        /// Gets the bool values with the corresponding color values.
+        /// </summary>
+        /// <value>
+        /// The bool values with the corresponding color values.
+        /// </value>
         public Dictionary<bool, SerializableColor> BoolValues
         {
             get;
         }
 
+        /// <summary>
+        /// Gets the string values with the corresponding color values.
+        /// </summary>
+        /// <value>
+        /// The string with the corresponding color values.
+        /// </value>
         public Dictionary<string, SerializableColor> StringValues
         {
             get;
         }
 
+        /// <summary>
+        /// Gets default settings where there are already the two bool settings and a default color.
+        /// </summary>
+        /// <returns>A <see cref="GlobalConfigSettings"/>instance with default values.</returns>
         public static GlobalConfigSettings GetDefaultSettings()
         {
             GlobalConfigSettings settings = new GlobalConfigSettings();
