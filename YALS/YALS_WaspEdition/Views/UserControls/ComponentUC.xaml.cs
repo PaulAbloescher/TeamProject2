@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
+﻿// ----------------------------------------------------------------------- 
+// <copyright file="ComponentUC.xaml.cs" company="FHWN.ac.at"> 
+// Copyright (c) FHWN. All rights reserved. 
+// </copyright> 
+// <summary>This is the ComponentUC class.</summary> 
+// <author>Killerwasps</author> 
+// -----------------------------------------------------------------------
 namespace YALS_WaspEdition.Views.UserControls
 {
+    using System.Windows.Controls;
+
     /// <summary>
-    /// Interaktionslogik für ComponentUC.xaml
+    /// Interaction logic for ComponentUC.xaml.
     /// </summary>
     public partial class ComponentUC : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ComponentUC"/> class.
+        /// </summary>
         public ComponentUC()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }
