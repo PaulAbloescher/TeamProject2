@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
+﻿// ----------------------------------------------------------------------- 
+// <copyright file="ColorSettingsListBox.xaml.cs" company="FHWN.ac.at"> 
+// Copyright (c) FHWN. All rights reserved. 
+// </copyright> 
+// <summary>This is the ColorSettingsListBox class.</summary> 
+// <author>Killerwasps</author> 
+// -----------------------------------------------------------------------
 namespace YALS_WaspEdition.GlobalConfig
 {
+    using System.Windows.Controls;
+
     /// <summary>
-    /// Interaction logic for ColorSettingsListBox.xaml
+    /// Interaction logic for ColorSettingsListBox.xaml.
     /// </summary>
     public partial class ColorSettingsListBox : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ColorSettingsListBox"/> class.
+        /// </summary>
         public ColorSettingsListBox()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
     }
 }
