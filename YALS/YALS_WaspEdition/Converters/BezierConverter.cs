@@ -13,24 +13,12 @@ namespace YALS_WaspEdition.Converters
     using System.Windows.Media;
 
     /// <summary>
-<<<<<<< HEAD
     /// Represents the bezier line converter.
-=======
     /// Implements a MultiValueConverter that takes four input coordinates and constructs a horizontal bezier path between them.
->>>>>>> 53a21f3ce77a7e981714787026f379fd3b89ecef
     /// </summary>
     public class BezierConverter : IMultiValueConverter
     {
         /// <summary>
-<<<<<<< HEAD
-        /// 
-        /// </summary>
-        /// <param name="values"></param>
-        /// <param name="targetType"></param>
-        /// <param name="parameter"></param>
-        /// <param name="culture"></param>
-        /// <returns></returns>
-=======
         /// Converts a line into a smooth bezier path.
         /// </summary>
         /// <param name="values">Int array with the format: X1,Y1,X2,Y2.</param>
@@ -38,7 +26,6 @@ namespace YALS_WaspEdition.Converters
         /// <param name="parameter">Converter parameters.</param>
         /// <param name="culture">Local culture.</param>
         /// <returns>New bezier geometry.</returns>
->>>>>>> 53a21f3ce77a7e981714787026f379fd3b89ecef
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var coords = values.Select(System.Convert.ToInt32).ToArray();
@@ -49,10 +36,7 @@ namespace YALS_WaspEdition.Converters
             // M X1,Y1 C X1+100,Y1 X2-100,Y2 X2,Y2
             return Geometry.Parse($"M {coords[0]},{coords[1]} C {coords[0] + ControlOffset},{coords[1]} {coords[2]- ControlOffset},{coords[3]} {coords[2]},{coords[3]}");
         }
-
-<<<<<<< HEAD
-
-=======
+   
         /// <summary>
         /// Converts a line into a smooth bezier path.
         /// </summary>
@@ -61,7 +45,6 @@ namespace YALS_WaspEdition.Converters
         /// <param name="x2">X Coordinate of the end point.</param>
         /// <param name="y2">Y Coordinate of the end point.</param>
         /// <returns>New bezier geometry.</returns>
->>>>>>> 53a21f3ce77a7e981714787026f379fd3b89ecef
         public Geometry Convert(int x1, int y1, int x2, int y2)
         {
             // The horizontal offset of the control points.
