@@ -80,8 +80,7 @@ namespace YALS_WaspEdition.ViewModels
             ICurrentStateSerializer serializer = Provider.Container.GetService<ICurrentStateSerializer>();
             CurrentState state = serializer.Deserialize(path);
             List<NodeVM> nodes = new List<NodeVM>();
-            this.Manager = new ComponentManagerVM();
-            this.Manager.Settings = state.Settings;
+            this.Manager = new ComponentManagerVM(state.Settings);
 
             foreach (var node in state.NodeVMsWithoutCommands)
             {

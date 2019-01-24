@@ -19,34 +19,20 @@ namespace YALS_WaspEdition.ViewModels
     public class ComponentManagerVM : INotifyPropertyChanged
     {
         private IGetColorForPin colorGetter;
+        private GlobalConfigSettings settings;
 
         public ComponentManagerVM()
         {
-            this.Manager = Provider.Container.GetService<IComponentManager>();
-            this.Connections = new ObservableCollection<ConnectionVM>();
-            this.NodeVMs = new List<NodeVM>();
+
             this.Settings = GlobalConfigSettings.GetDefaultSettings();
-            // TODO add more losely coupled config settings
-            this.colorGetter = new GetColorWithGlobalConfigSettings(this.Settings);
-            this.Manager.StepFinished += ManagerStepFinished;
-            this.PlayCommand = new Command((obj) => {
-                App.Current.Dispatcher.Invoke(async () => {
-                    await this.Manager.PlayAsync();
-                    this.FireOnPropertyChanged(nameof(this.IsRunning));
-                });
-            });
-            this.PauseCommand = new Command((obj) => {
-                App.Current.Dispatcher.Invoke(async () => {
-                    await this.Manager.StopAsync();
-                    this.FireOnPropertyChanged(nameof(this.IsRunning));
-                });
-            });
-            this.StepCommand = new Command((obj) => {
-                App.Current.Dispatcher.Invoke(async () => {
-                    await this.Manager.StepAsync();
-                    this.FireOnPropertyChanged(nameof(this.IsRunning));
-                });
-            });
+            // TODO add more losely coupled config settings           
+            this.Setup();
+        }
+
+        public ComponentManagerVM(GlobalConfigSettings settings)
+        {
+            this.Settings = settings ?? throw new ArgumentNullException(nameof(settings));
+            this.Setup();
         }
 
         private void ManagerStepFinished(object sender, EventArgs e)
@@ -68,16 +54,19 @@ namespace YALS_WaspEdition.ViewModels
         public ICommand PlayCommand
         {
             get;
+            private set;
         }
 
         public ICommand PauseCommand
         {
             get;
+            private set;
         }
 
         public ICommand StepCommand
         {
             get;
+            private set;
         }
 
         public bool IsRunning
@@ -89,8 +78,14 @@ namespace YALS_WaspEdition.ViewModels
         }
         public GlobalConfigSettings Settings
         {
-            get;
-            set;
+            get
+            {
+                return this.settings;
+            }
+            set
+            {
+                this.settings = value ?? throw new ArgumentNullException(nameof(value));
+            }
         }
 
 
@@ -103,11 +98,13 @@ namespace YALS_WaspEdition.ViewModels
         public ObservableCollection<ConnectionVM> Connections
         {
             get;
+            private set;
         }
 
         public ICollection<NodeVM> NodeVMs
         {
             get;
+            private set;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -171,6 +168,34 @@ namespace YALS_WaspEdition.ViewModels
         protected virtual void FireOnPropertyChanged([CallerMemberName]string name = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private void Setup()
+        {
+            this.Manager = Provider.Container.GetService<IComponentManager>();
+            this.Connections = new ObservableCollection<ConnectionVM>();
+            this.NodeVMs = new List<NodeVM>();
+
+            this.colorGetter = new GetColorWithGlobalConfigSettings(this.Settings);
+            this.Manager.StepFinished += ManagerStepFinished;
+            this.PlayCommand = new Command((obj) => {
+                App.Current.Dispatcher.Invoke(async () => {
+                    await this.Manager.PlayAsync();
+                    this.FireOnPropertyChanged(nameof(this.IsRunning));
+                });
+            });
+            this.PauseCommand = new Command((obj) => {
+                App.Current.Dispatcher.Invoke(async () => {
+                    await this.Manager.StopAsync();
+                    this.FireOnPropertyChanged(nameof(this.IsRunning));
+                });
+            });
+            this.StepCommand = new Command((obj) => {
+                App.Current.Dispatcher.Invoke(async () => {
+                    await this.Manager.StepAsync();
+                    this.FireOnPropertyChanged(nameof(this.IsRunning));
+                });
+            });
         }
     }
 }
