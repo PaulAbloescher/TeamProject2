@@ -1,23 +1,35 @@
-﻿using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// ---------------------------------------------------------------------
+// <copyright file="XORComponent.cs" company="FHWN.ac.at">
+// Copyright(c) FHWN. All rights reserved.
+// </copyright>
+// <summary>The component for simulating a logical XOR in a logic simulation.</summary>
+// <author>Killerwasps</author>
+// ---------------------------------------------------------------------
 
 namespace Components.Components
 {
-    [Serializable()]
+    using System;
+    using System.Linq;
+    using Shared;
+
+    /// <summary>
+    /// The component for simulating a logical XOR in a logic simulation.
+    /// </summary>
+    /// <seealso cref="Components.Components.Component" />
+    [Serializable]
     public class XORComponent : Component
     {
-        public XORComponent()
-        {
-        }
-
+        /// <summary>
+        /// Does nothing for the XOR component.
+        /// </summary>
         public override void Activate()
         {
+            // Nothing to do here.
         }
 
+        /// <summary>
+        /// Checks if the number of inputs that are true is even and sets the output to true if that is the case.
+        /// </summary>
         public override void Execute()
         {
             int trueInputs = this.Inputs.Where(i => (bool)i.Value.Current).Count();
@@ -30,7 +42,6 @@ namespace Components.Components
             {
                 this.Outputs.ElementAt(0).Value.Current = false;
             }
-
         }
 
         /// <summary>
@@ -49,7 +60,7 @@ namespace Components.Components
         }
 
         /// <summary>
-        /// Loads the image.
+        /// Loads the image for the component.
         /// </summary>
         private void LoadImage()
         {

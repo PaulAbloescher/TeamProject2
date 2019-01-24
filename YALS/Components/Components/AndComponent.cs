@@ -2,7 +2,7 @@
 // <copyright file="AndComponent.cs" company="FHWN.ac.at">
 // Copyright(c) FHWN. All rights reserved.
 // </copyright>
-// <summary>The component for simulating a logical and in a logic simulation.</summary>
+// <summary>The component for simulating a logical AND in a logic simulation.</summary>
 // <author>Killerwasps</author>
 // ---------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ namespace Components.Components
     using Shared;
 
     /// <summary>
-    /// The component for simulating a logical and in a logic simulation.
+    /// The component for simulating a logical AND in a logic simulation.
     /// </summary>
     [Serializable]
     public class AndComponent : Component
