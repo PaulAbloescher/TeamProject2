@@ -1,40 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
+﻿// ----------------------------------------------------------------------- 
+// <copyright file="ValueInputWindow.xaml.cs" company="FHWN.ac.at"> 
+// Copyright (c) FHWN. All rights reserved. 
+// </copyright> 
+// <summary>This is the ValueInputWindow class.</summary> 
+// <author>Killerwasps</author> 
+// -----------------------------------------------------------------------
 namespace YALS_WaspEdition.GlobalConfig
 {
+    using System.Windows;
+    using System.Windows.Forms;
+    using System.Windows.Media;
+
     /// <summary>
-    /// Interaction logic for ValueInputWindow.xaml
+    /// Interaction logic for ValueInputWindow.xaml.
     /// </summary>
     public partial class ValueInputWindow : Window
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValueInputWindow"/> class.
+        /// </summary>
         public ValueInputWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
+
+        /// <summary>
+        /// Gets the selected color.
+        /// </summary>
+        /// <value>
+        /// The selected color.
+        /// </value>
         public Color SelectedColor
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Executes when add value is clicked.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void AddValueClick(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Selects a new Color for the color text box with a <see cref="ColorDialog"/>.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
         private void ColorTextBoxMouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             ColorDialog dialog = new ColorDialog();

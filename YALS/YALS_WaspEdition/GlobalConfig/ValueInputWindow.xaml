@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YALS_WaspEdition.GlobalConfig"
         mc:Ignorable="d"
-        Title="ValueInputWindow" Height="450" Width="800">
+        Title="ValueInputWindow" Height="150" Width="400">
     <Grid>
-        <StackPanel>
-            <TextBlock>New Value:</TextBlock>
-            <TextBox x:Name="NewValueTextBox"></TextBox>
-            <Border BorderThickness="1" BorderBrush="Black">
+        <StackPanel Margin="1">
+            <TextBlock Margin="1">New Value:</TextBlock>
+            <TextBox Margin="1" x:Name="NewValueTextBox"></TextBox>
+            <Border BorderThickness="1" MinHeight="30" BorderBrush="Black">
                 <TextBlock MouseLeftButtonDown="ColorTextBoxMouseEnter" x:Name="ColorTextBox">Click here to add color</TextBlock>
             </Border>
             <Button Click="AddValueClick">Add Value</Button>
