@@ -1,17 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Media;
+﻿// <copyright file="ConnectionVM.cs" company="KW Softworks">
+//     Copyright (c) Paul-Noel Ablöscher. All rights reserved.
+// </copyright>
+// <summary>Represents the Connection View Model.</summary>
+// <author>Killerwasps</author>
 
 namespace YALS_WaspEdition.ViewModels
 {
-    [Serializable()]
+    using System;
+    using System.Windows.Input;
+
+    /// <summary>
+    /// Represents the Connection View Model.
+    /// </summary>
+    [Serializable]
     public class ConnectionVM
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectionVM"/> class.
+        /// </summary>
+        /// <param name="outputPin">The output pin.</param>
+        /// <param name="inputPin">The input pin.</param>
+        /// <param name="disconnectCommand">The disconnect command.</param>
         public ConnectionVM(PinVM outputPin, PinVM inputPin, ICommand disconnectCommand)
         {
             this.OutputPin = outputPin ?? throw new ArgumentNullException(nameof(outputPin));
@@ -19,16 +28,34 @@ namespace YALS_WaspEdition.ViewModels
             this.DisconnectCommand = disconnectCommand ?? throw new ArgumentNullException(nameof(disconnectCommand));
         }
 
+        /// <summary>
+        /// Gets the output pin.
+        /// </summary>
+        /// <value>
+        /// The output pin.
+        /// </value>
         public PinVM OutputPin
         {
             get;
         }
 
+        /// <summary>
+        /// Gets the input pin.
+        /// </summary>
+        /// <value>
+        /// The input pin.
+        /// </value>
         public PinVM InputPin
         {
             get;
         }
 
+        /// <summary>
+        /// Gets the connection as string.
+        /// </summary>
+        /// <value>
+        /// The connection as string.
+        /// </value>
         public string ConnectionAsString
         {
             get
@@ -37,6 +64,12 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the disconnect command.
+        /// </summary>
+        /// <value>
+        /// The disconnect command.
+        /// </value>
         public ICommand DisconnectCommand
         {
             get;
