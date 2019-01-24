@@ -15,7 +15,7 @@ namespace Shared
         /// <summary>
         /// Gets or sets the current pin value.
         /// </summary>
-        /// <value>Pin value as type T</value>
+        /// <value>Pin value as type T.</value>
         new T Current { get; set; }
     }
 }
