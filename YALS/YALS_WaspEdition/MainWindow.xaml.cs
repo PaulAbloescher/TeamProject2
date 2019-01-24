@@ -60,7 +60,7 @@ namespace YALS_WaspEdition
 
             if (component != null)
             {
-                mainVM.Manager.AddNodeAsync(component);
+                await mainVM.Manager.AddNodeAsync(component);
                 Thumb thumb = new Thumb();
                 thumb.DragDelta += Thumb_DragDelta;
                 thumb.DataContext = component;
@@ -284,7 +284,7 @@ namespace YALS_WaspEdition
 
                             thumb.Loaded += Thumb_Loaded;
                         }
-                        catch (ArgumentNullException ex)
+                        catch (ArgumentNullException)
                         {
                             System.Windows.MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                         }

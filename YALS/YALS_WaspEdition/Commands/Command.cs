@@ -16,7 +16,18 @@ namespace YALS_WaspEdition.Commands
             this.execute = execute ?? throw new ArgumentNullException(nameof(execute));
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add
+            {
+                CommandManager.RequerySuggested += value;
+            }
+
+            remove
+            {
+                CommandManager.RequerySuggested -= value;
+            }
+        }
 
         public bool CanExecute(object parameter)
         {
