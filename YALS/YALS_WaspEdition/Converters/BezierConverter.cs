@@ -12,8 +12,19 @@ namespace YALS_WaspEdition.Converters
     using System.Windows.Data;
     using System.Windows.Media;
 
+    /// <summary>
+    /// Represents the bezier line converter.
+    /// </summary>
     public class BezierConverter : IMultiValueConverter
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="values"></param>
+        /// <param name="targetType"></param>
+        /// <param name="parameter"></param>
+        /// <param name="culture"></param>
+        /// <returns></returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             var coords = values.Select(System.Convert.ToInt32).ToArray();
@@ -22,6 +33,7 @@ namespace YALS_WaspEdition.Converters
             // M X1,Y1 C X1+100,Y1 X2-100,Y2 X2,Y2
             return Geometry.Parse($"M {coords[0]},{coords[1]} C {coords[0] + controlOffset},{coords[1]} {coords[2]- controlOffset},{coords[3]} {coords[2]},{coords[3]}");
         }
+
 
         public Geometry Convert(int x1, int y1, int x2, int y2)
         {

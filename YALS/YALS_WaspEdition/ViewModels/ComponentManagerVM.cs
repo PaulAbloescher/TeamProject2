@@ -1,26 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using YALS_WaspEdition.DI;
-using Microsoft.Extensions.DependencyInjection;
-using YALS_WaspEdition.Model.Component.Manager;
-using System.Collections.ObjectModel;
-using YALS_WaspEdition.Commands;
-using System.Windows.Input;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using YALS_WaspEdition.GlobalConfig;
+﻿// <copyright file="ComponentManagerVM.cs" company="KW Softworks">
+//     Copyright (c) Paul-Noel Ablöscher. All rights reserved.
+// </copyright>
+// <summary>Represents the Component Manager View Model.</summary>
+// <author>Killerwasps</author>
 
 namespace YALS_WaspEdition.ViewModels
 {
-    [Serializable()]
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Linq;
+    using System.Runtime.CompilerServices;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
+
+    using Microsoft.Extensions.DependencyInjection;
+    using YALS_WaspEdition.Commands;
+    using YALS_WaspEdition.DI;
+    using YALS_WaspEdition.GlobalConfig;
+    using YALS_WaspEdition.Model.Component.Manager;
+
+    /// <summary>
+    /// Represents the Component Manager View Model.
+    /// </summary>
+    /// <seealso cref="System.ComponentModel.INotifyPropertyChanged" />
+    [Serializable]
     public class ComponentManagerVM : INotifyPropertyChanged
     {
+        /// <summary>
+        /// The color getter
+        /// </summary>
         private IGetColorForPin colorGetter;
+        /// <summary>
+        /// The settings
+        /// </summary>
         private GlobalConfigSettings settings;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ComponentManagerVM"/> class.
+        /// </summary>
         public ComponentManagerVM()
         {
 
@@ -29,12 +48,22 @@ namespace YALS_WaspEdition.ViewModels
             this.Setup();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ComponentManagerVM"/> class.
+        /// </summary>
+        /// <param name="settings">The settings.</param>
+        /// <exception cref="ArgumentNullException">settings</exception>
         public ComponentManagerVM(GlobalConfigSettings settings)
         {
             this.Settings = settings ?? throw new ArgumentNullException(nameof(settings));
             this.Setup();
         }
 
+        /// <summary>
+        /// Managers the step finished.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void ManagerStepFinished(object sender, EventArgs e)
         {
             foreach(var nodeVM in this.NodeVMs)
@@ -51,24 +80,48 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the play command.
+        /// </summary>
+        /// <value>
+        /// The play command.
+        /// </value>
         public ICommand PlayCommand
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Gets the pause command.
+        /// </summary>
+        /// <value>
+        /// The pause command.
+        /// </value>
         public ICommand PauseCommand
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Gets the step command.
+        /// </summary>
+        /// <value>
+        /// The step command.
+        /// </value>
         public ICommand StepCommand
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is running.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is running; otherwise, <c>false</c>.
+        /// </value>
         public bool IsRunning
         {
             get
@@ -76,6 +129,14 @@ namespace YALS_WaspEdition.ViewModels
                 return this.Manager.IsRunning;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the settings.
+        /// </summary>
+        /// <value>
+        /// The settings.
+        /// </value>
+        /// <exception cref="ArgumentNullException">value</exception>
         public GlobalConfigSettings Settings
         {
             get
@@ -88,27 +149,52 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
-
+        /// <summary>
+        /// Gets the manager.
+        /// </summary>
+        /// <value>
+        /// The manager.
+        /// </value>
         public IComponentManager Manager
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Gets the connections.
+        /// </summary>
+        /// <value>
+        /// The connections.
+        /// </value>
         public ObservableCollection<ConnectionVM> Connections
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Gets the node v ms.
+        /// </summary>
+        /// <value>
+        /// The node v ms.
+        /// </value>
         public ICollection<NodeVM> NodeVMs
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Adds the node asynchronous.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <returns></returns>
         public async Task AddNodeAsync(NodeVM node)
         {
             await this.Manager.StopAsync();
@@ -126,6 +212,10 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
+        /// <summary>
+        /// Removes the node.
+        /// </summary>
+        /// <param name="node">The node.</param>
         public void RemoveNode(NodeVM node)
         {
             var affectedConnections = this.Connections.Where(c => node.Inputs.Contains(c.InputPin) || node.Outputs.Contains(c.OutputPin)).ToList();
@@ -139,6 +229,9 @@ namespace YALS_WaspEdition.ViewModels
             this.NodeVMs.Remove(node);
         }
 
+        /// <summary>
+        /// Clears this instance.
+        /// </summary>
         public void Clear()
         {
             var nodes = this.NodeVMs.ToList();
@@ -149,6 +242,11 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
+        /// <summary>
+        /// Connects the specified output pin.
+        /// </summary>
+        /// <param name="outputPin">The output pin.</param>
+        /// <param name="inputPin">The input pin.</param>
         public void Connect(PinVM outputPin, PinVM inputPin)
         {
                 this.Manager.Connect(outputPin.Pin, inputPin.Pin);
@@ -158,6 +256,11 @@ namespace YALS_WaspEdition.ViewModels
                 })));
         }
 
+        /// <summary>
+        /// Disconnects the specified output pin.
+        /// </summary>
+        /// <param name="outputPin">The output pin.</param>
+        /// <param name="inputPin">The input pin.</param>
         public void Disconnect(PinVM outputPin, PinVM inputPin)
         {
             var connection = this.Connections.FirstOrDefault(c => c.OutputPin.Equals(outputPin) && c.InputPin.Equals(inputPin));
@@ -165,11 +268,18 @@ namespace YALS_WaspEdition.ViewModels
             this.Connections.Remove(connection);
         }
 
+        /// <summary>
+        /// Fires the on property changed.
+        /// </summary>
+        /// <param name="name">The name.</param>
         protected virtual void FireOnPropertyChanged([CallerMemberName]string name = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        /// <summary>
+        /// Setups this instance.
+        /// </summary>
         private void Setup()
         {
             this.Manager = Provider.Container.GetService<IComponentManager>();
