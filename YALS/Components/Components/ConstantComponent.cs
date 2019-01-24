@@ -1,19 +1,38 @@
-﻿using Shared;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// ---------------------------------------------------------------------
+// <copyright file="ConstantComponent.cs" company="FHWN.ac.at">
+// Copyright(c) FHWN. All rights reserved.
+// </copyright>
+// <summary>The component for simulating a source in a logic simulation.</summary>
+// <author>Killerwasps</author>
+// ---------------------------------------------------------------------
 
 namespace Components.Components
 {
-    [Serializable()]
+    using System;
+    using System.Drawing;
+    using System.Linq;
+    using Shared;
+
+    /// <summary>
+    /// The component for simulating a source in a logic simulation.
+    /// </summary>
+    /// <seealso cref="Components.Components.Component" />
+    [Serializable]
     public class ConstantComponent : Component
     {
+        /// <summary>
+        /// The image when the component emits true.
+        /// </summary>
         private Bitmap trueImage;
+
+        /// <summary>
+        /// The image when the component emits false.
+        /// </summary>
         private Bitmap falseImage;
 
+        /// <summary>
+        /// Changes the value that is emitted by the component.
+        /// </summary>
         public override void Activate()
         {
             var output = this.Outputs.ElementAt(0);
@@ -32,11 +51,17 @@ namespace Components.Components
             this.FirePictureChanged();
         }
 
+        /// <summary>
+        /// Does nothing for the Constant component.
+        /// </summary>
         public override void Execute()
         {
-            // Nothing happens.
+            // Nothing to do here.
         }
 
+        /// <summary>
+        /// Sets up this instance.
+        /// </summary>
         protected override void Setup()
         {
             this.Type = NodeType.Source;
@@ -47,6 +72,9 @@ namespace Components.Components
             this.Activate();
         }
 
+        /// <summary>
+        /// Loads the image of the component.
+        /// </summary>
         private void LoadImage()
         {
             this.trueImage = Properties.Resources.Constant_True;
