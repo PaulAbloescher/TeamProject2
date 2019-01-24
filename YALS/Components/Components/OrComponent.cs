@@ -1,24 +1,35 @@
-﻿using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// ---------------------------------------------------------------------
+// <copyright file="OrComponent.cs" company="FHWN.ac.at">
+// Copyright(c) FHWN. All rights reserved.
+// </copyright>
+// <summary>The component for simulating a logical OR in a logic simulation.</summary>
+// <author>Killerwasps</author>
+// ---------------------------------------------------------------------
 
 namespace Components.Components
 {
-    [Serializable()]
+    using System;
+    using System.Linq;
+    using Shared;
+
+    /// <summary>
+    /// The component for simulating a logical OR in a logic simulation.
+    /// </summary>
+    /// <seealso cref="Components.Components.Component" />
+    [Serializable]
     public class OrComponent : Component
     {
-        public OrComponent()
-        {
-        }
-
+        /// <summary>
+        /// Does nothing for the OR component.
+        /// </summary>
         public override void Activate()
         {
-           
+           // Nothing to do here.
         }
 
+        /// <summary>
+        /// Checks if one of the inputs is true and sets the output to true if that is the case.
+        /// </summary>
         public override void Execute()
         {
             var inputPin1 = this.Inputs.ElementAt(0);
@@ -40,6 +51,9 @@ namespace Components.Components
             output.Value.Current = false;
         }
 
+        /// <summary>
+        /// Sets up this instance.
+        /// </summary>
         protected override void Setup()
         {
             this.Label = "Or";
@@ -56,6 +70,9 @@ namespace Components.Components
             this.LoadImage();
         }
 
+        /// <summary>
+        /// Loads the image of the component.
+        /// </summary>
         private void LoadImage()
         {
             this.Picture = Properties.Resources.OrGate;
