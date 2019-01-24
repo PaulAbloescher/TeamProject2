@@ -1,24 +1,35 @@
-﻿using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// ---------------------------------------------------------------------
+// <copyright file="NotComponent.cs" company="FHWN.ac.at">
+// Copyright(c) FHWN. All rights reserved.
+// </copyright>
+// <summary>The component for simulating a logical NOT in a logic simulation.</summary>
+// <author>Killerwasps</author>
+// ---------------------------------------------------------------------
 
 namespace Components.Components
 {
-    [Serializable()]
+    using System;
+    using System.Linq;
+    using Shared;
+
+    /// <summary>
+    /// The component for simulating a logical NOT in a logic simulation.
+    /// </summary>
+    /// <seealso cref="Components.Components.Component" />
+    [Serializable]
     public class NotComponent : Component
     {
-        public NotComponent()
-        {
-        }
-
+        /// <summary>
+        /// Does nothing for the NOT component.
+        /// </summary>
         public override void Activate()
         {
-          
+            // Nothing to do here.
         }
 
+        /// <summary>
+        /// Inverts the signal the component got at it's input.
+        /// </summary>
         public override void Execute()
         {
             var inputPin = this.Inputs.First();
@@ -34,6 +45,9 @@ namespace Components.Components
             }
         }
 
+        /// <summary>
+        /// Sets up this instance.
+        /// </summary>
         protected override void Setup()
         {
             this.Label = "Not";
@@ -46,6 +60,9 @@ namespace Components.Components
             this.LoadImage();
         }
 
+        /// <summary>
+        /// Loads the image of the component.
+        /// </summary>
         private void LoadImage()
         {
             this.Picture = Properties.Resources.NotGate;
