@@ -1,24 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// ----------------------------------------------------------------------- 
+// <copyright file="BinaryCurrentStateSerialize.cs" company="FHWN.ac.at"> 
+// Copyright (c) FHWN. All rights reserved. 
+// </copyright> 
+// <summary>This is the BinaryCurrentStateSerialize class.</summary> 
+// <author>Killerwasps</author> 
+// -----------------------------------------------------------------------
 namespace YALS_WaspEdition.Model.Serialization
 {
+    using System;
+    using System.IO;
+    using System.Runtime.Serialization;
+    using System.Runtime.Serialization.Formatters.Binary;
+
+    /// <summary>
+    /// Represents the <see cref="BinaryCurrentStateSerializer"/> class.
+    /// </summary>
     public class BinaryCurrentStateSerializer : ICurrentStateSerializer
     {
+        /// <summary>
+        /// The formatter of the class.
+        /// </summary>
         private readonly BinaryFormatter binaryFormatter;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BinaryCurrentStateSerializer"/> class.
+        /// </summary>
+        /// <param name="binder">The binder for the formatter of the class.</param>
         public BinaryCurrentStateSerializer(SerializationBinder binder)
         {
             this.binaryFormatter = new BinaryFormatter();
             binaryFormatter.Binder = binder ?? throw new ArgumentNullException(nameof(binder));
         }
 
+        /// <summary>
+        /// Deserializes the file at the specified path into an <see cref="CurrentState"/> object.
+        /// </summary>
+        /// <param name="path">The path for the file.</param>
+        /// <returns>A <see cref="CurrentState"/> object</returns>
         public CurrentState Deserialize(string path)
         {
             CurrentState state;
