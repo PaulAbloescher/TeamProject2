@@ -1,43 +1,48 @@
-
-using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using YALS_WaspEdition.Commands;
-using YALS_WaspEdition.Model.Serialization;
-using YALS_WaspEdition.ViewModels;
-using YALS_WaspEdition.Views.UserControls;
-using YALS_WaspEdition.MyEventArgs;
-using YALS_WaspEdition.Converters;
-using YALS_WaspEdition.GlobalConfig;
-using System.IO;
+// ---------------------------------------------------------------------
+// <copyright file="MainWindow.xaml.cs" company="FHWN.ac.at">
+// Copyright(c) FHWN. All rights reserved.
+// </copyright>
+// <summary>The logic directly working with the main window.</summary>
+// <author>Killerwasps</author>
+// ---------------------------------------------------------------------
 
 namespace YALS_WaspEdition
 {
+    using System;
+    using System.IO;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Forms;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using Shared;
+    using YALS_WaspEdition.Commands;
+    using YALS_WaspEdition.Converters;
+    using YALS_WaspEdition.GlobalConfig;
+    using YALS_WaspEdition.MyEventArgs;
+    using YALS_WaspEdition.ViewModels;
+    using YALS_WaspEdition.Views.UserControls;
+
     /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
+    /// The logic directly working with the main window.
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.Setup();
         }
 
+        /// <summary>
+        /// Handles the DragOver event of the Canvas control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
         private void Canvas_DragOver(object sender, System.Windows.DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(NodeVM)))
@@ -52,6 +57,11 @@ namespace YALS_WaspEdition
             e.Handled = true;
         }
 
+        /// <summary>
+        /// Handles the Drop event of the Canvas control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.DragEventArgs"/> instance containing the event data.</param>
         private async void Canvas_Drop(object sender, System.Windows.DragEventArgs e)
         {
             // TODO Fix components overlapping drag.
@@ -62,7 +72,7 @@ namespace YALS_WaspEdition
             {
                 await mainVM.Manager.AddNodeAsync(component);
                 Thumb thumb = new Thumb();
-                thumb.DragDelta += Thumb_DragDelta;
+                thumb.DragDelta += this.Thumb_DragDelta;
                 thumb.DataContext = component;
                 var template = new ControlTemplate();
                 var fec = new FrameworkElementFactory(typeof(DesignerComponentUC));
@@ -81,32 +91,42 @@ namespace YALS_WaspEdition
                     canvas.Children.Add(thumb);
 
                     // Learn a NodeVM how to remove itself.
-                    component.RemoveCommand = new Command(async (obj) => {
+                    component.RemoveCommand = new Command(async (obj) =>
+                    {
                         await mainVM.Manager.Manager.StopAsync();
                         canvas.Children.Remove(thumb);
                         mainVM.Manager.Manager.Components.Remove(component.Node);
                         mainVM.Manager.RemoveNode(component);
                     });
 
-                    thumb.Loaded += Thumb_Loaded;
+                    thumb.Loaded += this.Thumb_Loaded;
                 }
-                catch(ArgumentNullException)
+                catch (ArgumentNullException)
                 {
                     System.Windows.MessageBox.Show("Do not drag components over other components!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }
 
+        /// <summary>
+        /// Handles the Loaded event of the Thumb control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Thumb_Loaded(object sender, RoutedEventArgs e)
         {
             Thumb thumb = (Thumb)sender;
             this.SetInputOutputPinPositions(thumb);
         }
 
+        /// <summary>
+        /// Handles the DragDelta event of the Thumb control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DragDeltaEventArgs"/> instance containing the event data.</param>
         private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Thumb thumb = e.Source as Thumb;
-            // TODO remove
             MainVM mainVM = (MainVM)this.DataContext;
             var nodeVM = (NodeVM)thumb.DataContext;
 
@@ -138,6 +158,11 @@ namespace YALS_WaspEdition
             this.SetInputOutputPinPositions(thumb);
         }
 
+        /// <summary>
+        /// Handles the MouseDown event of the TreeView control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="MouseButtonEventArgs"/> instance containing the event data.</param>
         private void TreeView_MouseDown(object sender, MouseButtonEventArgs e)
         {
             TreeViewItem treeViewItem = this.VisualUpwardSearch(e.OriginalSource as DependencyObject);
@@ -150,7 +175,9 @@ namespace YALS_WaspEdition
             MainVM mainVM = (MainVM)this.DataContext;
 
             if (ComponentTV.SelectedItem == null)
+            {
                 return;
+            }
 
             var selectedItemType = ComponentTV.SelectedItem.GetType();
 
@@ -158,30 +185,55 @@ namespace YALS_WaspEdition
             {
                 var nodeVM = ComponentTV.SelectedItem as NodeVM;
                 var component = Activator.CreateInstance(nodeVM.Node.GetType()) as IDisplayableNode;
-                var nodeVmNew = new NodeVM(component, new Command(obj => {
+                var nodeVmNew = new NodeVM(
+                    component,
+                    new Command(obj =>
+                {
                     PinVM pin = obj as PinVM;
+
                     if (pin == null)
+                    {
                         return;
+                    }
+
                     mainVM.CurrentSelectedOutput = pin;
-                }), new Command(obj => {
+                }),
+                    new Command(obj =>
+                {
                     PinVM pin = obj as PinVM;
+
                     if (pin == null)
+                    {
                         return;
+                    }
+
                     mainVM.CurrentSelectedInput = pin;
                 }));
+
                 System.Windows.DataObject data = new System.Windows.DataObject(typeof(NodeVM), nodeVmNew);
-                DragDrop.DoDragDrop(ComponentTV, data, System.Windows.DragDropEffects.Copy);
+                DragDrop.DoDragDrop(this.ComponentTV, data, System.Windows.DragDropEffects.Copy);
             }
         }
 
+        /// <summary>
+        /// Searches the visual tree for the parent of the element.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns>The parent of the element.</returns>
         private TreeViewItem VisualUpwardSearch(DependencyObject source)
         {
             while (source != null && !(source is TreeViewItem))
+            {
                 source = VisualTreeHelper.GetParent(source);
+            }
 
             return source as TreeViewItem;
         }
 
+        /// <summary>
+        /// Sets the positions of the input and output pins.
+        /// </summary>
+        /// <param name="thumb">The thumb control of the element.</param>
         private void SetInputOutputPinPositions(Thumb thumb)
         {
             var test = VisualTreeHelper.GetChildrenCount(thumb);
@@ -193,12 +245,12 @@ namespace YALS_WaspEdition
 
             for (int i = 0; i < icInputs.Items.Count; i++)
             {
-                UIElement uie = (UIElement) icInputs.ItemContainerGenerator.ContainerFromIndex(i);
+                UIElement uie = (UIElement)icInputs.ItemContainerGenerator.ContainerFromIndex(i);
                 UIElement container = VisualTreeHelper.GetParent(uie) as UIElement;
                 Point relativeLocation = uie.TranslatePoint(new Point(0, 0), container);
                 
-                var top = relativeLocation.Y + uie.RenderSize.Height / 2;
-                var left = relativeLocation.X + uie.RenderSize.Width / 2;
+                var top = relativeLocation.Y + (uie.RenderSize.Height / 2);
+                var left = relativeLocation.X + (uie.RenderSize.Width / 2);
                 var currentPin = icInputs.Items[i] as PinVM;
                 currentPin.Left = left + nodeVM.Left;
                 currentPin.Top = top + nodeVM.Top;
@@ -210,29 +262,47 @@ namespace YALS_WaspEdition
                 UIElement container = VisualTreeHelper.GetParent(uie) as UIElement;
                 Point relativeLocation = uie.TranslatePoint(new Point(0, 0), container);
 
-                var top = relativeLocation.Y + uie.RenderSize.Height / 2;
-                var left = relativeLocation.X + uie.RenderSize.Width / 2;
+                var top = relativeLocation.Y + (uie.RenderSize.Height / 2);
+                var left = relativeLocation.X + (uie.RenderSize.Width / 2);
                 var currentPin = icOutputs.Items[i] as PinVM;
                 currentPin.Left = compUc.ActualWidth - left + nodeVM.Left;
                 currentPin.Top = top + nodeVM.Top;
             }
         }
 
+        /// <summary>
+        /// Handles the Handler event of the OpenFile menu item.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void OpenFile_Handler(object sender, RoutedEventArgs e)
         {
             this.OpenFile();
         }
 
+        /// <summary>
+        /// Handles the Handler event of the SaveFile menu item.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void SaveFile_Handler(object sender, RoutedEventArgs e)
         {
             this.SaveFile();
         }
 
+        /// <summary>
+        /// Handles the Handler event of the SaveFileAs menu item.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void SaveFileAs_Handler(object sender, RoutedEventArgs e)
         {
             this.SaveFileAs();
         }
 
+        /// <summary>
+        /// Opens a file.
+        /// </summary>
         private async void OpenFile()
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -246,22 +316,35 @@ namespace YALS_WaspEdition
                     string fileName = dialog.FileName;
                     MainVM mainVM = (MainVM)this.DataContext;
 
-                    await mainVM.LoadStateAsync(fileName, new Command(obj => {
+                    await mainVM.LoadStateAsync(
+                        fileName,
+                        new Command(obj =>
+                        {
                         PinVM pin = obj as PinVM;
+
                         if (pin == null)
+                        {
                             return;
+                        }
+
                         mainVM.CurrentSelectedInput = pin;
-                    }), new Command(obj => {
+                    }),
+                        new Command(obj =>
+                    {
                         PinVM pin = obj as PinVM;
+
                         if (pin == null)
+                        {
                             return;
+                        }
+
                         mainVM.CurrentSelectedOutput = pin;
                     }));
 
                     foreach (NodeVM component in mainVM.Manager.NodeVMs)
                     {
                         Thumb thumb = new Thumb();
-                        thumb.DragDelta += Thumb_DragDelta;
+                        thumb.DragDelta += this.Thumb_DragDelta;
                         thumb.DataContext = component;
                         var template = new ControlTemplate();
                         var fec = new FrameworkElementFactory(typeof(DesignerComponentUC));
@@ -274,15 +357,15 @@ namespace YALS_WaspEdition
                             Canvas.SetLeft(thumb, component.Left);
                             Canvas.SetTop(thumb, component.Top);
                             canvas.Children.Add(thumb);
-                            component.RemoveCommand = new Command(async (obj) => {
+                            component.RemoveCommand = new Command(async (obj) =>
+                            {
                                 await mainVM.Manager.Manager.StopAsync();
                                 canvas.Children.Remove(thumb);
                                 mainVM.Manager.Manager.Components.Remove(component.Node);
                                 mainVM.Manager.RemoveNode(component);
                             });
-
-
-                            thumb.Loaded += Thumb_Loaded;
+                            
+                            thumb.Loaded += this.Thumb_Loaded;
                         }
                         catch (ArgumentNullException)
                         {
@@ -297,6 +380,9 @@ namespace YALS_WaspEdition
             }
         }
 
+        /// <summary>
+        /// Saves the current simulation.
+        /// </summary>
         private void SaveFile()
         {
             var vm = (MainVM)this.DataContext;
@@ -311,6 +397,9 @@ namespace YALS_WaspEdition
             }
         }
 
+        /// <summary>
+        /// Saves the current simulation under a given name.
+        /// </summary>
         private void SaveFileAs()
         {
             SaveFileDialog dialog = new SaveFileDialog();
@@ -318,8 +407,7 @@ namespace YALS_WaspEdition
             dialog.CheckFileExists = false;
             dialog.AddExtension = true;
             dialog.Filter = "Wasp Files | *.wsp";
-
-
+            
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string fileName = dialog.FileName;
@@ -328,20 +416,33 @@ namespace YALS_WaspEdition
             }
         }
 
+        /// <summary>
+        /// Sets up this instance.
+        /// </summary>
         private void Setup()
         {
             var mainVm = (MainVM)this.DataContext;
-            mainVm.NotificationRequested += MainVm_NotificationRequested;
+            mainVm.NotificationRequested += this.MainVm_NotificationRequested;
             mainVm.OnNewRequested += this.MainVM_NewRequested;
             mainVm.OnSaveFileRequested += this.MainVM_SaveFileRequested;
             mainVm.OnOpenFileRequested += this.MainVM_OpenFileRequested;
         }
 
+        /// <summary>
+        /// Handles the NotificationRequested event of the MainVM control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="NotificationEventArgs"/> instance containing the event data.</param>
         private void MainVm_NotificationRequested(object sender, NotificationEventArgs e)
         {
             System.Windows.MessageBox.Show(e.Message, e.Caption, e.MessageBoxBtn, e.Icon);
         }
 
+        /// <summary>
+        /// Handles the NewRequested event of the MainVM control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void MainVM_NewRequested(object sender, EventArgs e)
         {
             var mainVm = (MainVM)this.DataContext;
@@ -354,17 +455,31 @@ namespace YALS_WaspEdition
             }
         }
 
+        /// <summary>
+        /// Handles the SaveFileRequested event of the MainVM.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void MainVM_SaveFileRequested(object sender, EventArgs e)
         {
             this.SaveFile();
         }
 
+        /// <summary>
+        /// Handles the OpenFileRequested event of the MainVM.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void MainVM_OpenFileRequested(object sender, EventArgs e)
         {
             this.OpenFile();
         }
 
-
+        /// <summary>
+        /// Handles the MouseMove event of the MainCanvas control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.Windows.Input.MouseEventArgs"/> instance containing the event data.</param>
         private void MainCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             MainVM mainVM = (MainVM)this.DataContext;
@@ -383,6 +498,11 @@ namespace YALS_WaspEdition
             }
         }
 
+        /// <summary>
+        /// Called when the settings menu item is selected.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void SettingsSelected(object sender, RoutedEventArgs e)
         {
             ColorConfigurationWindow configWindow = new ColorConfigurationWindow();
