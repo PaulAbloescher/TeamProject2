@@ -230,12 +230,7 @@ namespace YALS_WaspEdition
 
         private void SaveFileAs_Handler(object sender, RoutedEventArgs e)
         {
-            var vm = (MainVM)this.DataContext;
-            
-            if (vm.LastSavedPath != null && File.Exists(vm.LastSavedPath))
-            {
-                vm.Save(vm.LastSavedPath);
-            }
+            this.SaveFileAs();
         }
 
         private async void OpenFile()
@@ -303,6 +298,20 @@ namespace YALS_WaspEdition
         }
 
         private void SaveFile()
+        {
+            var vm = (MainVM)this.DataContext;
+
+            if (vm.LastSavedPath != null && File.Exists(vm.LastSavedPath))
+            {
+                vm.Save(vm.LastSavedPath);
+            }
+            else
+            {
+                this.SaveFileAs();
+            }
+        }
+
+        private void SaveFileAs()
         {
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.AddExtension = true;
