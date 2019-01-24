@@ -138,7 +138,9 @@
     <Compile Include="ViewModels\ConnectionVM.cs" />
     <Compile Include="ViewModels\MainVM.cs" />
     <Compile Include="ViewModels\NodeVM.cs" />
-    <Compile Include="ViewModels\PinVM.cs" />
+    <Compile Include="ViewModels\PinVM.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Views\UserControls\ComponentUC.xaml.cs">
       <DependentUpon>ComponentUC.xaml</DependentUpon>
     </Compile>

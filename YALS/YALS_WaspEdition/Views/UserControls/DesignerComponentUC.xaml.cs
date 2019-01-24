@@ -1,33 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using YALS_WaspEdition.MyEventArgs;
-
+﻿// ----------------------------------------------------------------------- 
+// <copyright file="DesignerComponentUC.xaml.cs" company="FHWN.ac.at"> 
+// Copyright (c) FHWN. All rights reserved. 
+// </copyright> 
+// <summary>This is the DesignerComponentUC class.</summary> 
+// <author>Killerwasps</author> 
+// -----------------------------------------------------------------------
 namespace YALS_WaspEdition.Views.UserControls
 {
+    using System;
+    using System.Windows.Controls;
+    using YALS_WaspEdition.MyEventArgs;
+
     /// <summary>
-    /// Interaktionslogik für DesignerComponentUC.xaml
+    /// Interaction logic for DesignerComponentUC.xaml.
     /// </summary>
     public partial class DesignerComponentUC : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DesignerComponentUC"/> class.
+        /// </summary>
         public DesignerComponentUC()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
+        /// <summary>
+        /// Occurs when a pin gets selected.
+        /// </summary>
         public event EventHandler<PinSelectedEventArgs> PinSelected;
 
+        /// <summary>
+        /// Fires when a pin gets selected.
+        /// </summary>
+        /// <param name="args">The <see cref="PinSelectedEventArgs"/> instance containing the event data.</param>
         protected virtual void FirePinSelected(PinSelectedEventArgs args)
         {
             this.PinSelected?.Invoke(this, args);
