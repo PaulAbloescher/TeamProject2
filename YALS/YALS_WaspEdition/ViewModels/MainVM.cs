@@ -143,6 +143,12 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
+        public string LastSavePath
+        {
+            get;
+            private set;
+        }
+
         public ComponentManagerVM Manager
         {
             get;
