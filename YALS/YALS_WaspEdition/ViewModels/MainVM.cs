@@ -173,6 +173,12 @@ namespace YALS_WaspEdition.ViewModels
             private set;
         }
 
+        public ICommand ReloadPluginsCommand
+        {
+            get;
+            private set;
+        }
+
         protected virtual void FireOnNewRequested()
         {
             this.OnNewRequested?.Invoke(this, EventArgs.Empty);
@@ -201,6 +207,9 @@ namespace YALS_WaspEdition.ViewModels
         private void Setup()
         {
             this.LoadComponents();
+            this.ReloadPluginsCommand = new Command(obj => {
+                this.LoadComponents();
+            });
         }
 
         private void LoadComponents()

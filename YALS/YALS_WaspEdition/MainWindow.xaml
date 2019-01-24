@@ -44,7 +44,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Plugins">
-                <MenuItem Header="_Reload" InputGestureText="Crtl+R">
+                <MenuItem Header="_Reload" InputGestureText="Crtl+R" Command="{Binding ReloadPluginsCommand}">
                     <MenuItem.Icon>
                         <Image Source="Resources/arrow_refresh.png"></Image>
                     </MenuItem.Icon>
