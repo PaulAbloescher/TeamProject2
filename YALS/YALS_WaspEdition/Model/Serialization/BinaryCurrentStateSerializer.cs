@@ -1,8 +1,8 @@
 ﻿// ----------------------------------------------------------------------- 
-// <copyright file="BinaryCurrentStateSerialize.cs" company="FHWN.ac.at"> 
+// <copyright file="BinaryCurrentStateSerializer.cs" company="FHWN.ac.at"> 
 // Copyright (c) FHWN. All rights reserved. 
 // </copyright> 
-// <summary>This is the BinaryCurrentStateSerialize class.</summary> 
+// <summary>This is the BinaryCurrentStateSerializer class.</summary> 
 // <author>Killerwasps</author> 
 // -----------------------------------------------------------------------
 namespace YALS_WaspEdition.Model.Serialization
@@ -29,14 +29,14 @@ namespace YALS_WaspEdition.Model.Serialization
         public BinaryCurrentStateSerializer(SerializationBinder binder)
         {
             this.binaryFormatter = new BinaryFormatter();
-            binaryFormatter.Binder = binder ?? throw new ArgumentNullException(nameof(binder));
+            this.binaryFormatter.Binder = binder ?? throw new ArgumentNullException(nameof(binder));
         }
 
         /// <summary>
         /// Deserializes the file at the specified path into an <see cref="CurrentState"/> object.
         /// </summary>
         /// <param name="path">The path for the file.</param>
-        /// <returns>A <see cref="CurrentState"/> object</returns>
+        /// <returns>A <see cref="CurrentState"/> object.</returns>
         public CurrentState Deserialize(string path)
         {
             CurrentState state;
@@ -47,11 +47,11 @@ namespace YALS_WaspEdition.Model.Serialization
                 {
                     state = (CurrentState)this.binaryFormatter.Deserialize(stream);
                 }
-                catch(SerializationException e)
+                catch (SerializationException e)
                 {
                     throw new InvalidOperationException("The file does not have the right format or the components that are saved in the file are not loaded in the current application.", e);
                 }
-                catch(InvalidCastException e)
+                catch (InvalidCastException e)
                 {
                     throw new InvalidOperationException("The file does not have the right format.", e);
                 }
@@ -60,6 +60,11 @@ namespace YALS_WaspEdition.Model.Serialization
             return state;
         }
 
+        /// <summary>
+        /// Serializes a <see cref="CurrentState"/> object to the specified output path.
+        /// </summary>
+        /// <param name="outputPath">The output path for the serialized object.</param>
+        /// <param name="state">The state that should get serialized.</param>
         public void Serialize(string outputPath, CurrentState state)
         {
             if (outputPath == null)
@@ -74,7 +79,7 @@ namespace YALS_WaspEdition.Model.Serialization
 
             using (Stream stream = new FileStream(outputPath, FileMode.Create))
             {
-                binaryFormatter.Serialize(stream, state);
+                this.binaryFormatter.Serialize(stream, state);
             }
         }
     }

@@ -134,7 +134,6 @@
     <Compile Include="Model\Serialization\BinaryCurrentStateSerializer.cs" />
     <Compile Include="Model\Serialization\CurrentState.cs" />
     <Compile Include="Model\Serialization\ICurrentStateSerializer.cs" />
-    <Compile Include="Model\Serialization\MyBinder.cs" />
     <Compile Include="ViewModels\ComponentManagerVM.cs" />
     <Compile Include="ViewModels\ConnectionVM.cs" />
     <Compile Include="ViewModels\MainVM.cs" />

@@ -13,14 +13,24 @@ namespace Components.Components
     using System.Linq;
     using Shared;
 
-    [Serializable()]
+    /// <summary>
+    /// The component for simulating a boolean to integer converter in a logic simulation.
+    /// </summary>
+    /// <seealso cref="Components.Components.Component" />
+    [Serializable]
     public class BoolToIntComponent : Component
     {
+        /// <summary>
+        /// Does nothing for this component.
+        /// </summary>
         public override void Activate()
         {
             // Nothing to do here.
         }
 
+        /// <summary>
+        /// Checks the input pins and sets the output to the corresponding value.
+        /// </summary>
         public override void Execute()
         { 
             var bitArray = new BitArray(this.GetInputAsBoolArray());
@@ -28,6 +38,9 @@ namespace Components.Components
             this.Outputs.ElementAt(0).Value.Current = intValue;
         }
 
+        /// <summary>
+        /// Sets up this instance.
+        /// </summary>
         protected override void Setup()
         {
             this.Type = NodeType.Converter;
@@ -56,6 +69,10 @@ namespace Components.Components
             this.Picture = Properties.Resources.boolToIntConverter;
         }
 
+        /// <summary>
+        /// Puts the input values in an array.
+        /// </summary>
+        /// <returns>The array containing the input values.</returns>
         private bool[] GetInputAsBoolArray()
         {
             var boolArray = new bool[8];
@@ -70,6 +87,11 @@ namespace Components.Components
             return boolArray;
         }
 
+        /// <summary>
+        /// Gets an integer array filled with the values of a bitmap source.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns>An integer array filled with the values of a bitmap source.</returns>
         private int BitArrayToInt(BitArray source)
         {
             var intArr = new int[1];
