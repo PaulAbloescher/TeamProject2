@@ -1,24 +1,34 @@
-﻿using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// ---------------------------------------------------------------------
+// <copyright file="AndComponent.cs" company="FHWN.ac.at">
+// Copyright(c) FHWN. All rights reserved.
+// </copyright>
+// <summary>The component for simulating a logical and in a logic simulation.</summary>
+// <author>Killerwasps</author>
+// ---------------------------------------------------------------------
 
 namespace Components.Components
 {
-    [Serializable()]
+    using System;
+    using System.Linq;
+    using Shared;
+
+    /// <summary>
+    /// The component for simulating a logical and in a logic simulation.
+    /// </summary>
+    [Serializable]
     public class AndComponent : Component
     {
-        public AndComponent()
-        {
-        }
-
+        /// <summary>
+        /// Does nothing for the and component.
+        /// </summary>
         public override void Activate()
         {
-           
+           // Nothing to do here
         }
 
+        /// <summary>
+        /// Checks if both inputs are true and sets the output to true if that is the case.
+        /// </summary>
         public override void Execute()
         {
             var inputPin1 = this.Inputs.ElementAt(0);
@@ -39,6 +49,9 @@ namespace Components.Components
             }
         }
 
+        /// <summary>
+        /// Sets up this instance.
+        /// </summary>
         protected override void Setup()
         {
             this.Label = "And";
@@ -53,6 +66,9 @@ namespace Components.Components
             this.LoadImage();
         }
 
+        /// <summary>
+        /// Loads the image for the component.
+        /// </summary>
         private void LoadImage()
         {
             this.Picture = Properties.Resources.AndGate;

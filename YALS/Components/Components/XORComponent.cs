@@ -33,6 +33,9 @@ namespace Components.Components
 
         }
 
+        /// <summary>
+        /// Sets up this instance.
+        /// </summary>
         protected override void Setup()
         {
             this.Label = "Xor";
@@ -45,6 +48,9 @@ namespace Components.Components
             this.LoadImage();
         }
 
+        /// <summary>
+        /// Loads the image.
+        /// </summary>
         private void LoadImage()
         {
             this.Picture = Properties.Resources.XorGate;

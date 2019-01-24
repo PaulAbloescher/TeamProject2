@@ -1,13 +1,18 @@
-﻿using Shared;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// ---------------------------------------------------------------------
+// <copyright file="BoolToIntComponent.cs" company="FHWN.ac.at">
+// Copyright(c) FHWN. All rights reserved.
+// </copyright>
+// <summary>The component for simulating a bool to int converter in a logic simulation.</summary>
+// <author>Killerwasps</author>
+// ---------------------------------------------------------------------
 
 namespace Components.Components
 {
+    using System;
+    using System.Collections;
+    using System.Linq;
+    using Shared;
+
     [Serializable()]
     public class BoolToIntComponent : Component
     {
