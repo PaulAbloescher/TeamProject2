@@ -224,6 +224,10 @@ namespace YALS_WaspEdition
 
         private void SaveFile_Handler(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void SaveFileAs_Handler(object sender, RoutedEventArgs e)
+        {
             this.SaveFile();
         }
 

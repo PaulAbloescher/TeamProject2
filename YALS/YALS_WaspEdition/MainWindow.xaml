@@ -36,6 +36,7 @@
                         <Image Source="Resources/disk.png"></Image>
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Header="_Save As" Click="SaveFileAs_Handler" />
                 <Separator/>
                 <MenuItem Header="Quit">
                     <MenuItem.Icon>
