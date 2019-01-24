@@ -1,21 +1,43 @@
-﻿using Shared;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// ---------------------------------------------------------------------
+// <copyright file="SwitchComponent.cs" company="FHWN.ac.at">
+// Copyright(c) FHWN. All rights reserved.
+// </copyright>
+// <summary>The component for simulating a switch in a logic simulation.</summary>
+// <author>Killerwasps</author>
+// ---------------------------------------------------------------------
 
 namespace Components.Components
 {
-    [Serializable()]
+    using System;
+    using System.Drawing;
+    using System.Linq;
+    using Shared;
+
+    /// <summary>
+    /// The component for simulating a switch in a logic simulation.
+    /// </summary>
+    /// <seealso cref="Components.Components.Component" />
+    [Serializable]
     public class SwitchComponent : Component
     {
+        /// <summary>
+        /// The image for when the switch is turned on.
+        /// </summary>
         private Bitmap switchOn;
+
+        /// <summary>
+        /// The switch offThe image for when the switch is turned off.
+        /// </summary>
         private Bitmap switchOff;
 
+        /// <summary>
+        /// Is the switch turned on.
+        /// </summary>
         private bool on;
 
+        /// <summary>
+        /// Changes the state of the switch.
+        /// </summary>
         public override void Activate()
         {
             this.on = !this.on;
@@ -25,6 +47,9 @@ namespace Components.Components
             this.FirePictureChanged();
         }
 
+        /// <summary>
+        /// Determines if the switch further transmits the signal it received.
+        /// </summary>
         public override void Execute()
         {
             var input = this.Inputs.First();
@@ -40,6 +65,9 @@ namespace Components.Components
             }
         }
 
+        /// <summary>
+        /// Sets up this instance.
+        /// </summary>
         protected override void Setup()
         {
             this.Type = NodeType.Switch;
@@ -53,6 +81,9 @@ namespace Components.Components
             this.Picture = this.switchOff;
         }
 
+        /// <summary>
+        /// Loads the image of the component.
+        /// </summary>
         private void LoadImage()
         {
             this.switchOn = Properties.Resources.switch_on;
