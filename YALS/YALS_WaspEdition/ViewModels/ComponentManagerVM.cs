@@ -29,11 +29,12 @@ namespace YALS_WaspEdition.ViewModels
     public class ComponentManagerVM : INotifyPropertyChanged
     {
         /// <summary>
-        /// The color getter
+        /// The color getter.
         /// </summary>
         private IGetColorForPin colorGetter;
+
         /// <summary>
-        /// The settings
+        /// The settings.
         /// </summary>
         private GlobalConfigSettings settings;
 
@@ -42,8 +43,8 @@ namespace YALS_WaspEdition.ViewModels
         /// </summary>
         public ComponentManagerVM()
         {
-
             this.Settings = GlobalConfigSettings.GetDefaultSettings();
+
             // TODO add more losely coupled config settings           
             this.Setup();
         }
@@ -52,7 +53,6 @@ namespace YALS_WaspEdition.ViewModels
         /// Initializes a new instance of the <see cref="ComponentManagerVM"/> class.
         /// </summary>
         /// <param name="settings">The settings.</param>
-        /// <exception cref="ArgumentNullException">settings</exception>
         public ComponentManagerVM(GlobalConfigSettings settings)
         {
             this.Settings = settings ?? throw new ArgumentNullException(nameof(settings));
@@ -60,25 +60,9 @@ namespace YALS_WaspEdition.ViewModels
         }
 
         /// <summary>
-        /// Managers the step finished.
+        /// Occurs when a property value changes.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void ManagerStepFinished(object sender, EventArgs e)
-        {
-            foreach(var nodeVM in this.NodeVMs)
-            {
-                foreach(var inputPin in nodeVM.Inputs)
-                {
-                    inputPin.ApplyColorRules(this.colorGetter);
-                }
-
-                foreach(var outputPin in nodeVM.Outputs)
-                {
-                    outputPin.ApplyColorRules(this.colorGetter);
-                }
-            }
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Gets the play command.
@@ -136,13 +120,13 @@ namespace YALS_WaspEdition.ViewModels
         /// <value>
         /// The settings.
         /// </value>
-        /// <exception cref="ArgumentNullException">value</exception>
         public GlobalConfigSettings Settings
         {
             get
             {
                 return this.settings;
             }
+
             set
             {
                 this.settings = value ?? throw new ArgumentNullException(nameof(value));
@@ -174,10 +158,10 @@ namespace YALS_WaspEdition.ViewModels
         }
 
         /// <summary>
-        /// Gets the node v ms.
+        /// Gets the node view models.
         /// </summary>
         /// <value>
-        /// The node v ms.
+        /// The node view models.
         /// </value>
         public ICollection<NodeVM> NodeVMs
         {
@@ -186,15 +170,10 @@ namespace YALS_WaspEdition.ViewModels
         }
 
         /// <summary>
-        /// Occurs when a property value changes.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
         /// Adds the node asynchronous.
         /// </summary>
-        /// <param name="node">The node.</param>
-        /// <returns></returns>
+        /// <param name="node">Represents the node.</param>
+        /// <returns>The corresponding task.</returns>
         public async Task AddNodeAsync(NodeVM node)
         {
             await this.Manager.StopAsync();
@@ -215,7 +194,7 @@ namespace YALS_WaspEdition.ViewModels
         /// <summary>
         /// Removes the node.
         /// </summary>
-        /// <param name="node">The node.</param>
+        /// <param name="node">Represents the node.</param>
         public void RemoveNode(NodeVM node)
         {
             var affectedConnections = this.Connections.Where(c => node.Inputs.Contains(c.InputPin) || node.Outputs.Contains(c.OutputPin)).ToList();
@@ -250,10 +229,7 @@ namespace YALS_WaspEdition.ViewModels
         public void Connect(PinVM outputPin, PinVM inputPin)
         {
                 this.Manager.Connect(outputPin.Pin, inputPin.Pin);
-                this.Connections.Add(new ConnectionVM(outputPin, inputPin, new Command((obj) =>
-                {
-                    this.Disconnect(outputPin, inputPin);
-                })));
+                this.Connections.Add(new ConnectionVM(outputPin, inputPin, new Command((obj) => { this.Disconnect(outputPin, inputPin); })));
         }
 
         /// <summary>
@@ -271,10 +247,31 @@ namespace YALS_WaspEdition.ViewModels
         /// <summary>
         /// Fires the on property changed.
         /// </summary>
-        /// <param name="name">The name.</param>
+        /// <param name="name">Represents the name.</param>
         protected virtual void FireOnPropertyChanged([CallerMemberName]string name = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        /// <summary>
+        /// Managers the step finished.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void ManagerStepFinished(object sender, EventArgs e)
+        {
+            foreach (var nodeVM in this.NodeVMs)
+            {
+                foreach (var inputPin in nodeVM.Inputs)
+                {
+                    inputPin.ApplyColorRules(this.colorGetter);
+                }
+
+                foreach (var outputPin in nodeVM.Outputs)
+                {
+                    outputPin.ApplyColorRules(this.colorGetter);
+                }
+            }
         }
 
         /// <summary>
@@ -287,21 +284,27 @@ namespace YALS_WaspEdition.ViewModels
             this.NodeVMs = new List<NodeVM>();
 
             this.colorGetter = new GetColorWithGlobalConfigSettings(this.Settings);
-            this.Manager.StepFinished += ManagerStepFinished;
-            this.PlayCommand = new Command((obj) => {
-                App.Current.Dispatcher.Invoke(async () => {
+            this.Manager.StepFinished += this.ManagerStepFinished;
+            this.PlayCommand = new Command((obj) => 
+            {
+                App.Current.Dispatcher.Invoke(async () => 
+                {
                     await this.Manager.PlayAsync();
                     this.FireOnPropertyChanged(nameof(this.IsRunning));
                 });
             });
-            this.PauseCommand = new Command((obj) => {
-                App.Current.Dispatcher.Invoke(async () => {
+            this.PauseCommand = new Command((obj) => 
+            {
+                App.Current.Dispatcher.Invoke(async () => 
+                {
                     await this.Manager.StopAsync();
                     this.FireOnPropertyChanged(nameof(this.IsRunning));
                 });
             });
-            this.StepCommand = new Command((obj) => {
-                App.Current.Dispatcher.Invoke(async () => {
+            this.StepCommand = new Command((obj) => 
+            {
+                App.Current.Dispatcher.Invoke(async () => 
+                {
                     await this.Manager.StepAsync();
                     this.FireOnPropertyChanged(nameof(this.IsRunning));
                 });
