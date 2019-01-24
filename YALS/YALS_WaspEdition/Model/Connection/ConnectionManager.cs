@@ -1,26 +1,50 @@
-﻿using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// ---------------------------------------------------------------------
+// <copyright file="ConnectionManager.cs" company="FHWN.ac.at">
+// Copyright(c) FHWN. All rights reserved.
+// </copyright>
+// <summary>Manages the connections in the simulation.</summary>
+// <author>Killerwasps</author>
+// ---------------------------------------------------------------------
 
 namespace YALS_WaspEdition.Model.Component.Connection
 {
-    [Serializable()]
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Shared;
+
+    /// <summary>
+    /// Manages the connections in the simulation.
+    /// </summary>
+    /// <seealso cref="YALS_WaspEdition.Model.Component.Connection.IConnectionManager" />
+    [Serializable]
     public class ConnectionManager : IConnectionManager
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConnectionManager"/> class.
+        /// </summary>
         public ConnectionManager()
         {
             this.Connections = new List<IConnection>();
         }
 
+        /// <summary>
+        /// Gets the connections in the simulation.
+        /// </summary>
+        /// <value>
+        /// The connections in the simulation.
+        /// </value>
         public ICollection<IConnection> Connections
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Connects the specified input and output pins.
+        /// </summary>
+        /// <param name="output">The output pin.</param>
+        /// <param name="input">The input pin.</param>
         public void Connect(IPin output, IPin input)
         {
             if (this.CheckPinCompatibility(output, input))
@@ -50,6 +74,11 @@ namespace YALS_WaspEdition.Model.Component.Connection
             }
         }
 
+        /// <summary>
+        /// Disconnects the specified input and output pins.
+        /// </summary>
+        /// <param name="output">The output pin.</param>
+        /// <param name="input">The input pin.</param>
         public void Disconnect(IPin output, IPin input)
         {
             var existingConnection = this.Connections.FirstOrDefault(c => c.Output.Equals(output));
@@ -65,11 +94,11 @@ namespace YALS_WaspEdition.Model.Component.Connection
             }
         }
 
-        public void RemoveNodeFromAllConnections(INode node)
-        {
-            // TODO Implement remove node from all connections.
-        }
-
+        /// <summary>
+        /// Checks if pin is in connection.
+        /// </summary>
+        /// <param name="pin">The pin that is checked.</param>
+        /// <returns>The connection which the pin is in.</returns>
         private IConnection CheckIfPinIsInConnection(IPin pin)
         {
             var connection = this.Connections.FirstOrDefault(c => c.InputPins.Contains(pin));
@@ -77,12 +106,19 @@ namespace YALS_WaspEdition.Model.Component.Connection
             if (connection != null)
             {
                 return connection;
-            } else
+            }
+            else
             {
                 throw new InvalidOperationException("The pin is not connected.");
             }
         }
 
+        /// <summary>
+        /// Checks the compatibility of two pins.
+        /// </summary>
+        /// <param name="firstPin">The first pin.</param>
+        /// <param name="secondPin">The second pin.</param>
+        /// <returns>If the pins are compatible.</returns>
         private bool CheckPinCompatibility(IPin firstPin, IPin secondPin)
         {
             var firstPinType = firstPin.GetType();
