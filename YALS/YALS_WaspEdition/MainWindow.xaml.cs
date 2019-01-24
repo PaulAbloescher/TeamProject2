@@ -23,6 +23,7 @@ using YALS_WaspEdition.Views.UserControls;
 using YALS_WaspEdition.MyEventArgs;
 using YALS_WaspEdition.Converters;
 using YALS_WaspEdition.GlobalConfig;
+using System.IO;
 
 namespace YALS_WaspEdition
 {
@@ -224,11 +225,17 @@ namespace YALS_WaspEdition
 
         private void SaveFile_Handler(object sender, RoutedEventArgs e)
         {
+            this.SaveFile();
         }
 
         private void SaveFileAs_Handler(object sender, RoutedEventArgs e)
         {
-            this.SaveFile();
+            var vm = (MainVM)this.DataContext;
+            
+            if (vm.LastSavedPath != null && File.Exists(vm.LastSavedPath))
+            {
+                vm.Save(vm.LastSavedPath);
+            }
         }
 
         private async void OpenFile()
@@ -348,7 +355,8 @@ namespace YALS_WaspEdition
             this.OpenFile();
         }
 
-        private void mainCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+
+        private void MainCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             MainVM mainVM = (MainVM)this.DataContext;
 

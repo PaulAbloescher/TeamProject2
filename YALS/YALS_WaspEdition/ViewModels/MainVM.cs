@@ -94,6 +94,7 @@ namespace YALS_WaspEdition.ViewModels
                 this.Manager.Connect(conn.Item2, conn.Item1);
             }
 
+            this.LastSavedPath = path;
             this.FirePropertyChanged(nameof(this.Manager));
         }
 
@@ -103,6 +104,7 @@ namespace YALS_WaspEdition.ViewModels
 
             ICurrentStateSerializer serializer = Provider.Container.GetService<ICurrentStateSerializer>();
             serializer.Serialize(path, state);
+            this.LastSavedPath = path;
 
         }
 
@@ -143,7 +145,7 @@ namespace YALS_WaspEdition.ViewModels
             }
         }
 
-        public string LastSavePath
+        public string LastSavedPath
         {
             get;
             private set;
